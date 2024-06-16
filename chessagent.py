@@ -20,6 +20,14 @@ class ChessBoard:
             self.board[0][i] = piece('black')  # Place black pieces on the first row
             self.board[7][i] = piece('white')  # Place white pieces on the last row
 
+    def retrievePieces(self, color):
+        pieces = []
+        for i in self.board:
+            if i.color == color:
+                pieces.append(i)
+        return pieces
+
+
     def display(self):
         # Display the board
         for row in self.board:
@@ -30,12 +38,14 @@ class ChessBoard:
 class Player:
     def __init__(self, color):
         self.color = color
-        self.pieces = []
+        self.pieces = chessboard.retrievePieces(self.color)
 
 class Piece:
+    #initialize piece and set color to passed in color (either black or white)
     def __init__(self, color):
         self.color = color
 
+    #returns all of the legal moves that piece can make
     def legal_moves(self, x, y, board):
         raise NotImplementedError("This method should be overridden in derived classes")
 
@@ -68,6 +78,8 @@ class Rook(Piece):
 
     def legal_moves(self, x, y, board):
         moves = []
+
+        #down
         for i in range(x + 1, 8):
             if board[i][y] is None:
                 moves.append((i, y))
@@ -76,6 +88,8 @@ class Rook(Piece):
                 break
             else:
                 break
+
+        #up
         for i in range(x - 1, -1, -1):
             if board[i][y] is None:
                 moves.append((i, y))
@@ -84,6 +98,8 @@ class Rook(Piece):
                 break
             else:
                 break
+
+        #right
         for j in range(y + 1, 8):
             if board[x][j] is None:
                 moves.append((x, j))
@@ -92,6 +108,8 @@ class Rook(Piece):
                 break
             else:
                 break
+        
+        #down
         for j in range(y - 1, -1, -1):
             if board[x][j] is None:
                 moves.append((x, j))
@@ -118,10 +136,192 @@ class Knight(Piece):
                     moves.append((x+add_x,y+add_y))
         
         return moves
+    
+    def __str__(self):
+        return 'N' if self.color == 'white' else 'n'
+    
+class Bishop(Piece):
+    def __init__(self, color):
+        super().__init__(color)
 
+    def legal_moves(self, x, y, board):
+        moves = []
+        #up left
+        i,j = x,y
+        while i > -1 and j > -1:
+            i -= 1
+            j -= 1
+            if board[i][j] == None:
+                moves.append(i,j)
+            elif board[i][j].color != self.color:
+                moves.append(i,j)
+                break
+            else:
+                break
 
+        #down left
+        i,j = x,y
+        while i < 8 and j > -1:
+            i += 1
+            j -= 1
+            if board[i][j] == None:
+                moves.append(i,j)
+            elif board[i][j].color != self.color:
+                moves.append(i,j)
+                break
+            else:
+                break
 
+        #up right
+        i,j = x,y
+        while i > -1 and j < 8:
+            i -= 1
+            j += 1
+            if board[i][j] == None:
+                moves.append(i,j)
+            elif board[i][j].color != self.color:
+                moves.append(i,j)
+                break
+            else:
+                break
 
+        #down right
+        i,j = x,y
+        while i < 8 and j < 8:
+            i += 1
+            j += 1
+            if board[i][j] == None:
+                moves.append(i,j)
+            elif board[i][j].color != self.color:
+                moves.append(i,j)
+                break
+            else:
+                break
+
+        return moves
+    
+    def __str__(self):
+        return 'B' if self.color == 'white' else 'b'
+    
+class Queen(Piece):
+    def __init__(self, color):
+        super().__init__(color)
+    
+    def legal_moves(self, x, y, board):
+        moves = []
+
+        #down
+        for i in range(x + 1, 8):
+            if board[i][y] is None:
+                moves.append((i, y))
+            elif board[i][y].color != self.color:
+                moves.append((i, y))
+                break
+            else:
+                break
+
+        #up
+        for i in range(x - 1, -1, -1):
+            if board[i][y] is None:
+                moves.append((i, y))
+            elif board[i][y].color != self.color:
+                moves.append((i, y))
+                break
+            else:
+                break
+
+        #right
+        for j in range(y + 1, 8):
+            if board[x][j] is None:
+                moves.append((x, j))
+            elif board[x][j].color != self.color:
+                moves.append((x, j))
+                break
+            else:
+                break
+        
+        #down
+        for j in range(y - 1, -1, -1):
+            if board[x][j] is None:
+                moves.append((x, j))
+            elif board[x][j].color != self.color:
+                moves.append((x, j))
+                break
+            else:
+                break
+
+        #up left
+        i,j = x,y
+        while i > -1 and j > -1:
+            i -= 1
+            j -= 1
+            if board[i][j] == None:
+                moves.append(i,j)
+            elif board[i][j].color != self.color:
+                moves.append(i,j)
+                break
+            else:
+                break
+
+        #down left
+        i,j = x,y
+        while i < 8 and j > -1:
+            i += 1
+            j -= 1
+            if board[i][j] == None:
+                moves.append(i,j)
+            elif board[i][j].color != self.color:
+                moves.append(i,j)
+                break
+            else:
+                break
+
+        #up right
+        i,j = x,y
+        while i > -1 and j < 8:
+            i -= 1
+            j += 1
+            if board[i][j] == None:
+                moves.append(i,j)
+            elif board[i][j].color != self.color:
+                moves.append(i,j)
+                break
+            else:
+                break
+
+        #down right
+        i,j = x,y
+        while i < 8 and j < 8:
+            i += 1
+            j += 1
+            if board[i][j] == None:
+                moves.append(i,j)
+            elif board[i][j].color != self.color:
+                moves.append(i,j)
+                break
+            else:
+                break
+
+        return moves
+    
+    def __str__(self):
+        return 'Q' if self.color == 'white' else 'q'
+
+class King(Piece):
+    def __init__(self, color):
+        super().__init__(color)
+
+    def legal_moves(self, x, y, board):
+        king_moves = ((0,1),(1,0),(0,-1),(-1,0),(1,1),(-1,-1),(1,-1),(-1,1))
+        moves = []
+        for add_x, add_y in king_moves:
+            if 1 <= x + add_x and x + add_x <= 8 and 1 <= y + add_y and y + add_y <= 8: 
+                if (board[x+add_x][y+add_y].color != self.color) or not board[x+add_x][y+add_y]:
+                    moves.append((x+add_x,y+add_y))
+
+    def __str__(self):
+        return 'K' if self.color == 'white' else 'k'
+        
 
 # Define the other pieces: Knight, Bishop, Queen, King similarly
 # For brevity, they are not included here
