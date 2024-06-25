@@ -7,8 +7,8 @@ class ChessBoard:
     def setup_board(self):
         # Initialize pieces on the board
         for i in range(8):
-            self.board[1][i] = Pawn('black')  # Place black pawns on the second row
-            self.board[6][i] = Pawn('white')  # Place white pawns on the seventh row
+            self.board[1][i] = Pawn('black',1,i)  # Place black pawns on the second row
+            self.board[6][i] = Pawn('white',6,i)  # Place white pawns on the seventh row
 
         # List defining the placement of major pieces
         placement = [
@@ -17,15 +17,17 @@ class ChessBoard:
 
         # Place major pieces on the first and last rows
         for i, piece in enumerate(placement):
-            self.board[0][i] = piece('black')  # Place black pieces on the first row
-            self.board[7][i] = piece('white')  # Place white pieces on the last row
+            self.board[0][i] = piece('black',0,i)  # Place black pieces on the first row
+            self.board[7][i] = piece('white',7,1)  # Place white pieces on the last row
 
     def retrievePieces(self, color):
         pieces = []
-        for i in self.board:
-            if i.color == color:
-                pieces.append(i)
+        for row in self.board:
+            for piece in row:
+                if piece and piece.color == color:
+                    pieces.append(piece)
         return pieces
+
 
 
     def display(self):
@@ -38,21 +40,36 @@ class ChessBoard:
 class Player:
     def __init__(self, color):
         self.color = color
+        self.pieces = []
+
+    def populate_pieces(self, chessboard):
         self.pieces = chessboard.retrievePieces(self.color)
+
+
+
+
 
 class Piece:
     #initialize piece and set color to passed in color (either black or white)
-    def __init__(self, color):
+    def __init__(self, color, x, y):
         self.color = color
+        self.x = x
+        self.y = y
 
     #returns all of the legal moves that piece can make
-    def legal_moves(self, x, y, board):
+    def legal_moves(self, board):
         raise NotImplementedError("This method should be overridden in derived classes")
+    
+    def getX(self):
+        return self.x
+        
+    def getY(self):
+        return self.y
 
 
 class Pawn(Piece):
-    def __init__(self, color):
-        super().__init__(color)
+    def __init__(self, color, x, y):
+        super().__init__(color, x, y)
 
     def legal_moves(self, x, y, board):
         moves = []
@@ -73,8 +90,8 @@ class Pawn(Piece):
 
 
 class Rook(Piece):
-    def __init__(self, color):
-        super().__init__(color)
+    def __init__(self, color, x, y):
+        super().__init__(color, x, y)
 
     def legal_moves(self, x, y, board):
         moves = []
@@ -124,8 +141,8 @@ class Rook(Piece):
         return 'R' if self.color == 'white' else 'r'
 
 class Knight(Piece):
-    def __init__(self, color):
-        super().__init__(color)
+    def __init__(self, color, x, y):
+        super().__init__(color, x, y)
 
     def legal_moves(self, x, y, board):
         knight_moves = ((-1,-2),(-2,-1),(1,2),(2,1),(-1,2),(-2,1),(1,-2),(2,-1))
@@ -141,8 +158,8 @@ class Knight(Piece):
         return 'N' if self.color == 'white' else 'n'
     
 class Bishop(Piece):
-    def __init__(self, color):
-        super().__init__(color)
+    def __init__(self, color, x, y):
+        super().__init__(color, x, y)
 
     def legal_moves(self, x, y, board):
         moves = []
@@ -204,8 +221,8 @@ class Bishop(Piece):
         return 'B' if self.color == 'white' else 'b'
     
 class Queen(Piece):
-    def __init__(self, color):
-        super().__init__(color)
+    def __init__(self, color, x, y):
+        super().__init__(color, x, y)
     
     def legal_moves(self, x, y, board):
         moves = []
@@ -308,8 +325,8 @@ class Queen(Piece):
         return 'Q' if self.color == 'white' else 'q'
 
 class King(Piece):
-    def __init__(self, color):
-        super().__init__(color)
+    def __init__(self, color, x, y):
+        super().__init__(color, x, y)
 
     def legal_moves(self, x, y, board):
         king_moves = ((0,1),(1,0),(0,-1),(-1,0),(1,1),(-1,-1),(1,-1),(-1,1))
@@ -323,9 +340,8 @@ class King(Piece):
         return 'K' if self.color == 'white' else 'k'
         
 
-# Define the other pieces: Knight, Bishop, Queen, King similarly
-# For brevity, they are not included here
-
 # Example usage
 chess_board = ChessBoard()
 chess_board.display()
+
+
