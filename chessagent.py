@@ -45,10 +45,23 @@ class Player:
     def populate_pieces(self, chessboard):
         self.pieces = chessboard.retrievePieces(self.color)
 
+    def selectPiece(self):
+        for i in self.pieces:
+            print(i.__str__())
+        selectedPiece = int(input("Which piece would you like to move (enter index starting at 0 of piece)"))
+        return self.pieces[selectedPiece]
+    
+    def chooseMove(self, chessboard):
+        currPiece = self.selectPiece()
+        currMoves = currPiece.legal_moves(currPiece.getX(),currPiece.getY(),chessboard)
+
+        for i in currMoves:
+            print(i)
+        selectedMove = input("Which move would you like to make (enter index starting at 0 of move)")
+        return selectedMove
 
 
-
-
+        
 class Piece:
     #initialize piece and set color to passed in color (either black or white)
     def __init__(self, color, x, y):
@@ -71,17 +84,17 @@ class Pawn(Piece):
     def __init__(self, color, x, y):
         super().__init__(color, x, y)
 
-    def legal_moves(self, x, y, board):
+    def legal_moves(self, x, y, chessboard):
         moves = []
         if self.color == 'white':
-            if board[x-1][y] is None:
+            if chessboard.board[x-1][y] is None:
                 moves.append((x-1, y))
-            if x == 6 and board[x-2][y] is None:
+            if x == 6 and chessboard.board[x-2][y] is None:
                 moves.append((x-2, y))
         else:
-            if board[x+1][y] is None:
+            if chessboard.board[x+1][y] is None:
                 moves.append((x+1, y))
-            if x == 1 and board[x+2][y] is None:
+            if x == 1 and chessboard.board[x+2][y] is None:
                 moves.append((x+2, y))
         return moves
     
@@ -93,14 +106,14 @@ class Rook(Piece):
     def __init__(self, color, x, y):
         super().__init__(color, x, y)
 
-    def legal_moves(self, x, y, board):
+    def legal_moves(self, x, y, chessboard):
         moves = []
 
         #down
         for i in range(x + 1, 8):
-            if board[i][y] is None:
+            if chessboard.board[i][y] is None:
                 moves.append((i, y))
-            elif board[i][y].color != self.color:
+            elif chessboard.board[i][y].color != self.color:
                 moves.append((i, y))
                 break
             else:
@@ -108,9 +121,9 @@ class Rook(Piece):
 
         #up
         for i in range(x - 1, -1, -1):
-            if board[i][y] is None:
+            if chessboard.board[i][y] is None:
                 moves.append((i, y))
-            elif board[i][y].color != self.color:
+            elif chessboard.board[i][y].color != self.color:
                 moves.append((i, y))
                 break
             else:
@@ -118,9 +131,9 @@ class Rook(Piece):
 
         #right
         for j in range(y + 1, 8):
-            if board[x][j] is None:
+            if chessboard.board[x][j] is None:
                 moves.append((x, j))
-            elif board[x][j].color != self.color:
+            elif chessboard.board[x][j].color != self.color:
                 moves.append((x, j))
                 break
             else:
@@ -128,9 +141,9 @@ class Rook(Piece):
         
         #down
         for j in range(y - 1, -1, -1):
-            if board[x][j] is None:
+            if chessboard.board[x][j] is None:
                 moves.append((x, j))
-            elif board[x][j].color != self.color:
+            elif chessboard.board[x][j].color != self.color:
                 moves.append((x, j))
                 break
             else:
@@ -144,12 +157,12 @@ class Knight(Piece):
     def __init__(self, color, x, y):
         super().__init__(color, x, y)
 
-    def legal_moves(self, x, y, board):
+    def legal_moves(self, x, y, chessboard):
         knight_moves = ((-1,-2),(-2,-1),(1,2),(2,1),(-1,2),(-2,1),(1,-2),(2,-1))
         moves = []
         for add_x, add_y in knight_moves:
             if 1 <= x + add_x and x + add_x <= 8 and 1 <= y + add_y and y + add_y <= 8: 
-                if (board[x+add_x][y+add_y].color != self.color) or not board[x+add_x][y+add_y]:
+                if (chessboard.board[x+add_x][y+add_y].color != self.color) or not chessboard.board[x+add_x][y+add_y]:
                     moves.append((x+add_x,y+add_y))
         
         return moves
@@ -161,17 +174,17 @@ class Bishop(Piece):
     def __init__(self, color, x, y):
         super().__init__(color, x, y)
 
-    def legal_moves(self, x, y, board):
+    def legal_moves(self, x, y, chessboard):
         moves = []
         #up left
         i,j = x,y
         while i > -1 and j > -1:
             i -= 1
             j -= 1
-            if board[i][j] == None:
-                moves.append(i,j)
-            elif board[i][j].color != self.color:
-                moves.append(i,j)
+            if chessboard.board[i][j] == None:
+                moves.append((i,j))
+            elif chessboard.board[i][j].color != self.color:
+                moves.append((i,j))
                 break
             else:
                 break
@@ -181,10 +194,10 @@ class Bishop(Piece):
         while i < 8 and j > -1:
             i += 1
             j -= 1
-            if board[i][j] == None:
-                moves.append(i,j)
-            elif board[i][j].color != self.color:
-                moves.append(i,j)
+            if chessboard.board[i][j] == None:
+                moves.append((i,j))
+            elif chessboard.board[i][j].color != self.color:
+                moves.append((i,j))
                 break
             else:
                 break
@@ -194,10 +207,10 @@ class Bishop(Piece):
         while i > -1 and j < 8:
             i -= 1
             j += 1
-            if board[i][j] == None:
-                moves.append(i,j)
-            elif board[i][j].color != self.color:
-                moves.append(i,j)
+            if chessboard.board[i][j] == None:
+                moves.append((i,j))
+            elif chessboard.board[i][j].color != self.color:
+                moves.append((i,j))
                 break
             else:
                 break
@@ -207,10 +220,10 @@ class Bishop(Piece):
         while i < 8 and j < 8:
             i += 1
             j += 1
-            if board[i][j] == None:
-                moves.append(i,j)
-            elif board[i][j].color != self.color:
-                moves.append(i,j)
+            if chessboard.board[i][j] == None:
+                moves.append((i,j))
+            elif chessboard.board[i][j].color != self.color:
+                moves.append((i,j))
                 break
             else:
                 break
@@ -224,14 +237,14 @@ class Queen(Piece):
     def __init__(self, color, x, y):
         super().__init__(color, x, y)
     
-    def legal_moves(self, x, y, board):
+    def legal_moves(self, x, y, chessboard):
         moves = []
 
         #down
         for i in range(x + 1, 8):
-            if board[i][y] is None:
+            if chessboard.board[i][y] is None:
                 moves.append((i, y))
-            elif board[i][y].color != self.color:
+            elif chessboard.board[i][y].color != self.color:
                 moves.append((i, y))
                 break
             else:
@@ -239,9 +252,9 @@ class Queen(Piece):
 
         #up
         for i in range(x - 1, -1, -1):
-            if board[i][y] is None:
+            if chessboard.board[i][y] is None:
                 moves.append((i, y))
-            elif board[i][y].color != self.color:
+            elif chessboard.board[i][y].color != self.color:
                 moves.append((i, y))
                 break
             else:
@@ -249,9 +262,9 @@ class Queen(Piece):
 
         #right
         for j in range(y + 1, 8):
-            if board[x][j] is None:
+            if chessboard.board[x][j] is None:
                 moves.append((x, j))
-            elif board[x][j].color != self.color:
+            elif chessboard.board[x][j].color != self.color:
                 moves.append((x, j))
                 break
             else:
@@ -259,9 +272,9 @@ class Queen(Piece):
         
         #down
         for j in range(y - 1, -1, -1):
-            if board[x][j] is None:
+            if chessboard.board[x][j] is None:
                 moves.append((x, j))
-            elif board[x][j].color != self.color:
+            elif chessboard.board[x][j].color != self.color:
                 moves.append((x, j))
                 break
             else:
@@ -272,9 +285,9 @@ class Queen(Piece):
         while i > -1 and j > -1:
             i -= 1
             j -= 1
-            if board[i][j] == None:
+            if chessboard.board[i][j] == None:
                 moves.append(i,j)
-            elif board[i][j].color != self.color:
+            elif chessboard.board[i][j].color != self.color:
                 moves.append(i,j)
                 break
             else:
@@ -285,9 +298,9 @@ class Queen(Piece):
         while i < 8 and j > -1:
             i += 1
             j -= 1
-            if board[i][j] == None:
+            if chessboard.board[i][j] == None:
                 moves.append(i,j)
-            elif board[i][j].color != self.color:
+            elif chessboard.board[i][j].color != self.color:
                 moves.append(i,j)
                 break
             else:
@@ -298,9 +311,9 @@ class Queen(Piece):
         while i > -1 and j < 8:
             i -= 1
             j += 1
-            if board[i][j] == None:
+            if chessboard.board[i][j] == None:
                 moves.append(i,j)
-            elif board[i][j].color != self.color:
+            elif chessboard.board[i][j].color != self.color:
                 moves.append(i,j)
                 break
             else:
@@ -311,9 +324,9 @@ class Queen(Piece):
         while i < 8 and j < 8:
             i += 1
             j += 1
-            if board[i][j] == None:
+            if chessboard.board[i][j] == None:
                 moves.append(i,j)
-            elif board[i][j].color != self.color:
+            elif chessboard.board[i][j].color != self.color:
                 moves.append(i,j)
                 break
             else:
@@ -328,12 +341,12 @@ class King(Piece):
     def __init__(self, color, x, y):
         super().__init__(color, x, y)
 
-    def legal_moves(self, x, y, board):
+    def legal_moves(self, x, y, chessboard):
         king_moves = ((0,1),(1,0),(0,-1),(-1,0),(1,1),(-1,-1),(1,-1),(-1,1))
         moves = []
         for add_x, add_y in king_moves:
             if 1 <= x + add_x and x + add_x <= 8 and 1 <= y + add_y and y + add_y <= 8: 
-                if (board[x+add_x][y+add_y].color != self.color) or not board[x+add_x][y+add_y]:
+                if (chessboard.board[x+add_x][y+add_y].color != self.color) or not chessboard.board[x+add_x][y+add_y]:
                     moves.append((x+add_x,y+add_y))
 
     def __str__(self):
@@ -344,4 +357,7 @@ class King(Piece):
 chess_board = ChessBoard()
 chess_board.display()
 
+play1 = Player('black')
 
+play1.populate_pieces(chess_board)
+play1.chooseMove(chess_board)
