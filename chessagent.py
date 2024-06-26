@@ -161,8 +161,8 @@ class Knight(Piece):
         knight_moves = ((-1,-2),(-2,-1),(1,2),(2,1),(-1,2),(-2,1),(1,-2),(2,-1))
         moves = []
         for add_x, add_y in knight_moves:
-            if 1 <= x + add_x and x + add_x <= 8 and 1 <= y + add_y and y + add_y <= 8: 
-                if (chessboard.board[x+add_x][y+add_y].color != self.color) or not chessboard.board[x+add_x][y+add_y]:
+            if -1 < x + add_x and x + add_x < 8 and -1 < y + add_y and y + add_y < 8: 
+                if not chessboard.board[x+add_x][y+add_y] or (chessboard.board[x+add_x][y+add_y] and chessboard.board[x+add_x][y+add_y].color != self.color):
                     moves.append((x+add_x,y+add_y))
         
         return moves
@@ -178,7 +178,7 @@ class Bishop(Piece):
         moves = []
         #up left
         i,j = x,y
-        while i > -1 and j > -1:
+        while i > 0 and j > 0:
             i -= 1
             j -= 1
             if chessboard.board[i][j] == None:
@@ -191,7 +191,7 @@ class Bishop(Piece):
 
         #down left
         i,j = x,y
-        while i < 8 and j > -1:
+        while i < 7 and j > 0:
             i += 1
             j -= 1
             if chessboard.board[i][j] == None:
@@ -204,7 +204,7 @@ class Bishop(Piece):
 
         #up right
         i,j = x,y
-        while i > -1 and j < 8:
+        while i > 0 and j < 7:
             i -= 1
             j += 1
             if chessboard.board[i][j] == None:
@@ -217,7 +217,7 @@ class Bishop(Piece):
 
         #down right
         i,j = x,y
-        while i < 8 and j < 8:
+        while i < 7 and j < 7:
             i += 1
             j += 1
             if chessboard.board[i][j] == None:
@@ -282,52 +282,52 @@ class Queen(Piece):
 
         #up left
         i,j = x,y
-        while i > -1 and j > -1:
+        while i > 0 and j > 0:
             i -= 1
             j -= 1
             if chessboard.board[i][j] == None:
-                moves.append(i,j)
+                moves.append((i,j))
             elif chessboard.board[i][j].color != self.color:
-                moves.append(i,j)
+                moves.append((i,j))
                 break
             else:
                 break
 
         #down left
         i,j = x,y
-        while i < 8 and j > -1:
+        while i < 7 and j > 0:
             i += 1
             j -= 1
             if chessboard.board[i][j] == None:
-                moves.append(i,j)
+                moves.append((i,j))
             elif chessboard.board[i][j].color != self.color:
-                moves.append(i,j)
+                moves.append((i,j))
                 break
             else:
                 break
 
         #up right
         i,j = x,y
-        while i > -1 and j < 8:
+        while i > 0 and j < 7:
             i -= 1
             j += 1
             if chessboard.board[i][j] == None:
-                moves.append(i,j)
+                moves.append((i,j))
             elif chessboard.board[i][j].color != self.color:
-                moves.append(i,j)
+                moves.append((i,j))
                 break
             else:
                 break
 
         #down right
         i,j = x,y
-        while i < 8 and j < 8:
+        while i < 7 and j < 7:
             i += 1
             j += 1
             if chessboard.board[i][j] == None:
-                moves.append(i,j)
+                moves.append((i,j))
             elif chessboard.board[i][j].color != self.color:
-                moves.append(i,j)
+                moves.append((i,j))
                 break
             else:
                 break
@@ -345,9 +345,11 @@ class King(Piece):
         king_moves = ((0,1),(1,0),(0,-1),(-1,0),(1,1),(-1,-1),(1,-1),(-1,1))
         moves = []
         for add_x, add_y in king_moves:
-            if 1 <= x + add_x and x + add_x <= 8 and 1 <= y + add_y and y + add_y <= 8: 
-                if (chessboard.board[x+add_x][y+add_y].color != self.color) or not chessboard.board[x+add_x][y+add_y]:
+            if -1 < x + add_x and x + add_x < 8 and -1 < y + add_y and y + add_y < 8: 
+                if not chessboard.board[x+add_x][y+add_y] or (chessboard.board[x+add_x][y+add_y] and chessboard.board[x+add_x][y+add_y].color != self.color):
                     moves.append((x+add_x,y+add_y))
+        
+        return moves
 
     def __str__(self):
         return 'K' if self.color == 'white' else 'k'
@@ -358,6 +360,10 @@ chess_board = ChessBoard()
 chess_board.display()
 
 play1 = Player('black')
+play2 = Player('white')
 
 play1.populate_pieces(chess_board)
-play1.chooseMove(chess_board)
+play2.populate_pieces(chess_board)
+
+#white knights are both moving to same spot
+play2.chooseMove(chess_board)
