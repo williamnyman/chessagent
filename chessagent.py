@@ -18,7 +18,7 @@ class ChessBoard:
         # Place major pieces on the first and last rows
         for i, piece in enumerate(placement):
             self.board[0][i] = piece('black',0,i)  # Place black pieces on the first row
-            self.board[7][i] = piece('white',7,1)  # Place white pieces on the last row
+            self.board[7][i] = piece('white',7,i)  # Place white pieces on the last row
 
     def retrievePieces(self, color):
         pieces = []
@@ -28,7 +28,13 @@ class ChessBoard:
                     pieces.append(piece)
         return pieces
 
+    # occurs back and forth between players (includes applyMove most likely)
+    def playerTurn(self)
 
+    # needs to actually execute the move
+    def applyMove(self):
+        print("good job!")
+        
 
     def display(self):
         # Display the board
@@ -45,21 +51,21 @@ class Player:
     def populate_pieces(self, chessboard):
         self.pieces = chessboard.retrievePieces(self.color)
 
-    def selectPiece(self):
+    def selectPiece(self, chessboard):
         for i in self.pieces:
             print(i.__str__())
+
         selectedPiece = int(input("Which piece would you like to move (enter index starting at 0 of piece)"))
         return self.pieces[selectedPiece]
     
     def chooseMove(self, chessboard):
-        currPiece = self.selectPiece()
+        currPiece = self.selectPiece(chessboard)
         currMoves = currPiece.legal_moves(currPiece.getX(),currPiece.getY(),chessboard)
 
         for i in currMoves:
             print(i)
         selectedMove = input("Which move would you like to make (enter index starting at 0 of move)")
         return selectedMove
-
 
         
 class Piece:
@@ -100,7 +106,6 @@ class Pawn(Piece):
     
     def __str__(self):
         return 'P' if self.color == 'white' else 'p'
-
 
 class Rook(Piece):
     def __init__(self, color, x, y):
