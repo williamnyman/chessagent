@@ -1,0 +1,6 @@
+FUNCTIONS
+- makeMove (include taking and removing mechanic)
+
+THINGS
+- castling
+- pawn takes when other color at diagonal
