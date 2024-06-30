@@ -28,13 +28,19 @@ class ChessBoard:
                     pieces.append(piece)
         return pieces
 
-    # occurs back and forth between players (includes applyMove most likely)
-    def playerTurn(self)
+    def applyMove(self, move, moving_player, moving_piece):
+        #update moved pieces x and y coords
+        x,y = move
+        moving_piece.updateX(x)
+        moving_piece.updateY(y)
 
-    # needs to actually execute the move
-    def applyMove(self):
-        print("good job!")
-        
+        #if piece captured then add to captured pieces of moving player
+        if self.board[x][y] != None:
+            moving_player.addToCaptured(self.board[x][y])
+            
+        #make moved-to location new piece and moved-from location None
+        self.board[x][y] = moving_piece
+        self.board[moving_piece.getX()][moving_piece.getY()] = None
 
     def display(self):
         # Display the board
@@ -47,6 +53,7 @@ class Player:
     def __init__(self, color):
         self.color = color
         self.pieces = []
+        self.captured_pieces = []
 
     def populate_pieces(self, chessboard):
         self.pieces = chessboard.retrievePieces(self.color)
@@ -66,6 +73,9 @@ class Player:
             print(i)
         selectedMove = input("Which move would you like to make (enter index starting at 0 of move)")
         return selectedMove
+    
+    def addToCaptured(self, p):
+        self.captured_pieces.append(p)
 
         
 class Piece:
@@ -84,6 +94,12 @@ class Piece:
         
     def getY(self):
         return self.y
+    
+    def updateX(self, new):
+        self.x = new
+
+    def updateY(self, new):
+        self.y = new
 
 
 class Pawn(Piece):
@@ -359,6 +375,7 @@ class King(Piece):
     def __str__(self):
         return 'K' if self.color == 'white' else 'k'
         
+
 
 # Example usage
 chess_board = ChessBoard()
