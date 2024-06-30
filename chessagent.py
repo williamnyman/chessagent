@@ -389,3 +389,5 @@ play2.populate_pieces(chess_board)
 
 #white knights are both moving to same spot
 play2.chooseMove(chess_board)
+
+#test
