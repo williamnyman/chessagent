@@ -4,7 +4,9 @@ class ChessGame:
         self.playerblack = Player('black')
         self.playerwhite = Player('white')
 
-    
+    def turn
+
+
     def checkVictory(self):
         print("hi")
 
