@@ -10,9 +10,7 @@ class ChessGame:
         while not self.checkVictory():
             self.gameTurn()
         
-        
     def gameTurn(self):
-        print("NEW TURN")
         self.gameboard.display()
 
         if self.ticker % 2 == 0:
@@ -33,13 +31,11 @@ class ChessGame:
             print("Chosen move is ")
             print(chosen_move)
 
-        self.gameboard.display()
         self.ticker += 1
 
     def checkVictory(self):
         return False
     
-
 
 class ChessBoard:
     def __init__(self):
@@ -147,7 +143,6 @@ class Piece:
         self.y = new_y
 
 
-
 class Pawn(Piece):
     def legal_moves(self, chessboard):
         moves = []
@@ -169,7 +164,6 @@ class Pawn(Piece):
 class Rook(Piece):
     def legal_moves(self, chessboard):
         moves = []
-
         #down
         for i in range(self.x + 1, 8):
             if chessboard.board[i][self.y] is None:
@@ -179,7 +173,6 @@ class Rook(Piece):
                 break
             else:
                 break
-
         #up
         for i in range(self.x - 1, -1, -1):
             if chessboard.board[i][self.y] is None:
@@ -189,7 +182,6 @@ class Rook(Piece):
                 break
             else:
                 break
-
         #right
         for j in range(self.y + 1, 8):
             if chessboard.board[self.x][j] is None:
@@ -199,7 +191,6 @@ class Rook(Piece):
                 break
             else:
                 break
-        
         #down
         for j in range(self.y - 1, -1, -1):
             if chessboard.board[self.x][j] is None:
@@ -243,7 +234,6 @@ class Bishop(Piece):
                 break
             else:
                 break
-
         #down left
         i,j = self.x,self.y
         while i < 7 and j > 0:
@@ -256,7 +246,6 @@ class Bishop(Piece):
                 break
             else:
                 break
-
         #up right
         i,j = self.x,self.y
         while i > 0 and j < 7:
@@ -269,7 +258,6 @@ class Bishop(Piece):
                 break
             else:
                 break
-
         #down right
         i,j = self.x,self.y
         while i < 7 and j < 7:
@@ -287,10 +275,10 @@ class Bishop(Piece):
     def __str__(self):
         return 'B' if self.color == 'white' else 'b'
     
+
 class Queen(Piece):
     def legal_moves(self, chessboard):
         moves = []
-
         #down
         for i in range(self.x + 1, 8):
             if chessboard.board[i][self.y] is None:
@@ -300,7 +288,6 @@ class Queen(Piece):
                 break
             else:
                 break
-
         #up
         for i in range(self.x - 1, -1, -1):
             if chessboard.board[i][self.y] is None:
@@ -310,7 +297,6 @@ class Queen(Piece):
                 break
             else:
                 break
-
         #right
         for j in range(self.y + 1, 8):
             if chessboard.board[self.x][j] is None:
@@ -320,7 +306,6 @@ class Queen(Piece):
                 break
             else:
                 break
-        
         #down
         for j in range(self.y - 1, -1, -1):
             if chessboard.board[self.x][j] is None:
@@ -330,7 +315,6 @@ class Queen(Piece):
                 break
             else:
                 break
-
         #up left
         i,j = self.x,self.y
         while i > 0 and j > 0:
@@ -343,7 +327,6 @@ class Queen(Piece):
                 break
             else:
                 break
-
         #down left
         i,j = self.x,self.y
         while i < 7 and j > 0:
@@ -356,7 +339,6 @@ class Queen(Piece):
                 break
             else:
                 break
-
         #up right
         i,j = self.x,self.y
         while i > 0 and j < 7:
@@ -369,7 +351,6 @@ class Queen(Piece):
                 break
             else:
                 break
-
         #down right
         i,j = self.x,self.y
         while i < 7 and j < 7:
