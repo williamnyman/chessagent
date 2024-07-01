@@ -3,13 +3,41 @@ class ChessGame:
         self.gameboard = ChessBoard()
         self.playerblack = Player('black')
         self.playerwhite = Player('white')
+        self.ticker = 2
+        self.victor = None
 
-    def turn
+    def startGame(self):
+        while not self.checkVictory():
+            self.gameTurn()
+        
+        
+    def gameTurn(self):
+        print("NEW TURN")
+        self.gameboard.display()
 
+        if self.ticker % 2 == 0:
+            self.playerwhite.populate_pieces(self.gameboard)
+            selected_piece, chosen_move = self.playerwhite.chooseMove(self.gameboard)
+            self.gameboard.applyMove(chosen_move, self.playerwhite, selected_piece)
+            print("Chosen piece is ")
+            print(selected_piece)
+            print("Chosen move is ")
+            print(chosen_move)
+
+        else:
+            self.playerblack.populate_pieces(self.gameboard)
+            selected_piece, chosen_move = self.playerblack.chooseMove(self.gameboard)
+            self.gameboard.applyMove(chosen_move, self.playerwhite, selected_piece)
+            print("Chosen piece is ")
+            print(selected_piece)
+            print("Chosen move is ")
+            print(chosen_move)
+
+        self.gameboard.display()
+        self.ticker += 1
 
     def checkVictory(self):
-        print("hi")
-
+        return False
     
 
 
@@ -44,18 +72,18 @@ class ChessBoard:
         return pieces
 
     def applyMove(self, move, moving_player, moving_piece):
-        #update moved pieces x and y coords
-        x,y = move
-        moving_piece.updateX(x)
-        moving_piece.updateY(y)
-
+        #update moved pieces self.x and y coords
+        x, y = move
+    
         #if piece captured then add to captured pieces of moving player
-        if self.board[x][y] != None:
+        if self.board[x][y]:
             moving_player.addToCaptured(self.board[x][y])
             
         #make moved-to location new piece and moved-from location None
         self.board[x][y] = moving_piece
         self.board[moving_piece.getX()][moving_piece.getY()] = None
+
+        moving_piece.updatePosition(x, y)
 
     def display(self):
         # Display the board
@@ -70,10 +98,14 @@ class Player:
         self.pieces = []
         self.captured_pieces = []
 
+    def takeTurn(self, chessboard):
+        self.selectPiece()
+        self.chooseMove(chessboard)
+
     def populate_pieces(self, chessboard):
         self.pieces = chessboard.retrievePieces(self.color)
 
-    def selectPiece(self, chessboard):
+    def selectPiece(self):
         for i in self.pieces:
             print(i.__str__())
 
@@ -81,13 +113,13 @@ class Player:
         return self.pieces[selectedPiece]
     
     def chooseMove(self, chessboard):
-        currPiece = self.selectPiece(chessboard)
-        currMoves = currPiece.legal_moves(currPiece.getX(),currPiece.getY(),chessboard)
+        currPiece = self.selectPiece()
+        currMoves = currPiece.legal_moves(chessboard)
 
         for i in currMoves:
             print(i)
-        selectedMove = input("Which move would you like to make (enter index starting at 0 of move)")
-        return selectedMove
+        selectedMove = currMoves[int(input("Which move would you like to make (enter index starting at 0 of move)"))]
+        return currPiece, selectedMove
     
     def addToCaptured(self, p):
         self.captured_pieces.append(p)
@@ -110,77 +142,70 @@ class Piece:
     def getY(self):
         return self.y
     
-    def updateX(self, new):
-        self.x = new
+    def updatePosition(self, new_x, new_y):
+        self.x = new_x
+        self.y = new_y
 
-    def updateY(self, new):
-        self.y = new
 
 
 class Pawn(Piece):
-    def __init__(self, color, x, y):
-        super().__init__(color, x, y)
-
-    def legal_moves(self, x, y, chessboard):
+    def legal_moves(self, chessboard):
         moves = []
         if self.color == 'white':
-            if chessboard.board[x-1][y] is None:
-                moves.append((x-1, y))
-            if x == 6 and chessboard.board[x-2][y] is None:
-                moves.append((x-2, y))
+            if chessboard.board[self.x-1][self.y] is None:
+                moves.append((self.x-1, self.y))
+            if self.x == 6 and chessboard.board[self.x-2][self.y] is None:
+                moves.append((self.x-2, self.y))
         else:
-            if chessboard.board[x+1][y] is None:
-                moves.append((x+1, y))
-            if x == 1 and chessboard.board[x+2][y] is None:
-                moves.append((x+2, y))
+            if chessboard.board[self.x+1][self.y] is None:
+                moves.append((self.x+1, self.y))
+            if self.x == 1 and chessboard.board[self.x+2][self.y] is None:
+                moves.append((self.x+2, self.y))
         return moves
     
     def __str__(self):
         return 'P' if self.color == 'white' else 'p'
 
 class Rook(Piece):
-    def __init__(self, color, x, y):
-        super().__init__(color, x, y)
-
-    def legal_moves(self, x, y, chessboard):
+    def legal_moves(self, chessboard):
         moves = []
 
         #down
-        for i in range(x + 1, 8):
-            if chessboard.board[i][y] is None:
-                moves.append((i, y))
-            elif chessboard.board[i][y].color != self.color:
-                moves.append((i, y))
+        for i in range(self.x + 1, 8):
+            if chessboard.board[i][self.y] is None:
+                moves.append((i, self.y))
+            elif chessboard.board[i][self.y].color != self.color:
+                moves.append((i, self.y))
                 break
             else:
                 break
 
         #up
-        for i in range(x - 1, -1, -1):
-            if chessboard.board[i][y] is None:
-                moves.append((i, y))
-            elif chessboard.board[i][y].color != self.color:
-                moves.append((i, y))
+        for i in range(self.x - 1, -1, -1):
+            if chessboard.board[i][self.y] is None:
+                moves.append((i, self.y))
+            elif chessboard.board[i][self.y].color != self.color:
+                moves.append((i, self.y))
                 break
             else:
                 break
 
         #right
-        for j in range(y + 1, 8):
-            if chessboard.board[x][j] is None:
-                moves.append((x, j))
-            elif chessboard.board[x][j].color != self.color:
-                moves.append((x, j))
+        for j in range(self.y + 1, 8):
+            if chessboard.board[self.x][j] is None:
+                moves.append((self.x, j))
+            elif chessboard.board[self.x][j].color != self.color:
+                moves.append((self.x, j))
                 break
             else:
                 break
         
         #down
-        for j in range(y - 1, -1, -1):
-            if chessboard.board[x][j] is None:
-                moves.append((x, j))
-            elif chessboard.board[x][j].color != self.color:
-                moves.append((x, j))
+        for j in range(self.y - 1, -1, -1):
+            if chessboard.board[self.x][j] is None:
+                moves.append((self.x, j))
+            elif chessboard.board[self.x][j].color != self.color:
+                moves.append((self.x, j))
                 break
             else:
                 break
@@ -190,30 +215,24 @@ class Rook(Piece):
         return 'R' if self.color == 'white' else 'r'
 
 class Knight(Piece):
-    def __init__(self, color, x, y):
-        super().__init__(color, x, y)
-
-    def legal_moves(self, x, y, chessboard):
+    def legal_moves(self, chessboard):
         knight_moves = ((-1,-2),(-2,-1),(1,2),(2,1),(-1,2),(-2,1),(1,-2),(2,-1))
         moves = []
         for add_x, add_y in knight_moves:
-            if -1 < x + add_x and x + add_x < 8 and -1 < y + add_y and y + add_y < 8: 
-                if not chessboard.board[x+add_x][y+add_y] or (chessboard.board[x+add_x][y+add_y] and chessboard.board[x+add_x][y+add_y].color != self.color):
-                    moves.append((x+add_x,y+add_y))
-        
+            if -1 < self.x + add_x and self.x + add_x < 8 and -1 < self.y + add_y and self.y + add_y < 8: 
+                if not chessboard.board[self.x+add_x][self.y+add_y] or (chessboard.board[self.x+add_x][self.y+add_y] and chessboard.board[self.x+add_x][self.y+add_y].color != self.color):
+                    moves.append((self.x+add_x,self.y+add_y))
         return moves
     
     def __str__(self):
         return 'N' if self.color == 'white' else 'n'
     
+    
 class Bishop(Piece):
-    def __init__(self, color, x, y):
-        super().__init__(color, x, y)
-
-    def legal_moves(self, x, y, chessboard):
+    def legal_moves(self, chessboard):
         moves = []
         #up left
-        i,j = x,y
+        i,j = self.x,self.y
         while i > 0 and j > 0:
             i -= 1
             j -= 1
@@ -226,7 +245,7 @@ class Bishop(Piece):
                 break
 
         #down left
-        i,j = x,y
+        i,j = self.x,self.y
         while i < 7 and j > 0:
             i += 1
             j -= 1
@@ -239,7 +258,7 @@ class Bishop(Piece):
                 break
 
         #up right
-        i,j = x,y
+        i,j = self.x,self.y
         while i > 0 and j < 7:
             i -= 1
             j += 1
@@ -252,7 +271,7 @@ class Bishop(Piece):
                 break
 
         #down right
-        i,j = x,y
+        i,j = self.x,self.y
         while i < 7 and j < 7:
             i += 1
             j += 1
@@ -263,61 +282,57 @@ class Bishop(Piece):
                 break
             else:
                 break
-
         return moves
     
     def __str__(self):
         return 'B' if self.color == 'white' else 'b'
     
 class Queen(Piece):
-    def __init__(self, color, x, y):
-        super().__init__(color, x, y)
-    
-    def legal_moves(self, x, y, chessboard):
+    def legal_moves(self, chessboard):
         moves = []
 
         #down
-        for i in range(x + 1, 8):
-            if chessboard.board[i][y] is None:
-                moves.append((i, y))
-            elif chessboard.board[i][y].color != self.color:
-                moves.append((i, y))
+        for i in range(self.x + 1, 8):
+            if chessboard.board[i][self.y] is None:
+                moves.append((i, self.y))
+            elif chessboard.board[i][self.y].color != self.color:
+                moves.append((i, self.y))
                 break
             else:
                 break
 
         #up
-        for i in range(x - 1, -1, -1):
-            if chessboard.board[i][y] is None:
-                moves.append((i, y))
-            elif chessboard.board[i][y].color != self.color:
-                moves.append((i, y))
+        for i in range(self.x - 1, -1, -1):
+            if chessboard.board[i][self.y] is None:
+                moves.append((i, self.y))
+            elif chessboard.board[i][self.y].color != self.color:
+                moves.append((i, self.y))
                 break
             else:
                 break
 
         #right
-        for j in range(y + 1, 8):
-            if chessboard.board[x][j] is None:
-                moves.append((x, j))
-            elif chessboard.board[x][j].color != self.color:
-                moves.append((x, j))
+        for j in range(self.y + 1, 8):
+            if chessboard.board[self.x][j] is None:
+                moves.append((self.x, j))
+            elif chessboard.board[self.x][j].color != self.color:
+                moves.append((self.x, j))
                 break
             else:
                 break
         
         #down
-        for j in range(y - 1, -1, -1):
-            if chessboard.board[x][j] is None:
-                moves.append((x, j))
-            elif chessboard.board[x][j].color != self.color:
-                moves.append((x, j))
+        for j in range(self.y - 1, -1, -1):
+            if chessboard.board[self.x][j] is None:
+                moves.append((self.x, j))
+            elif chessboard.board[self.x][j].color != self.color:
+                moves.append((self.x, j))
                 break
             else:
                 break
 
         #up left
-        i,j = x,y
+        i,j = self.x,self.y
         while i > 0 and j > 0:
             i -= 1
             j -= 1
@@ -330,7 +345,7 @@ class Queen(Piece):
                 break
 
         #down left
-        i,j = x,y
+        i,j = self.x,self.y
         while i < 7 and j > 0:
             i += 1
             j -= 1
@@ -343,7 +358,7 @@ class Queen(Piece):
                 break
 
         #up right
-        i,j = x,y
+        i,j = self.x,self.y
         while i > 0 and j < 7:
             i -= 1
             j += 1
@@ -356,7 +371,7 @@ class Queen(Piece):
                 break
 
         #down right
-        i,j = x,y
+        i,j = self.x,self.y
         while i < 7 and j < 7:
             i += 1
             j += 1
@@ -367,44 +382,25 @@ class Queen(Piece):
                 break
             else:
                 break
-
         return moves
     
     def __str__(self):
         return 'Q' if self.color == 'white' else 'q'
 
 class King(Piece):
-    def __init__(self, color, x, y):
-        super().__init__(color, x, y)
-
-    def legal_moves(self, x, y, chessboard):
+    def legal_moves(self, chessboard):
         king_moves = ((0,1),(1,0),(0,-1),(-1,0),(1,1),(-1,-1),(1,-1),(-1,1))
         moves = []
         for add_x, add_y in king_moves:
-            if -1 < x + add_x and x + add_x < 8 and -1 < y + add_y and y + add_y < 8: 
-                if not chessboard.board[x+add_x][y+add_y] or (chessboard.board[x+add_x][y+add_y] and chessboard.board[x+add_x][y+add_y].color != self.color):
-                    moves.append((x+add_x,y+add_y))
-        
+            if -1 < self.x + add_x and self.x + add_x < 8 and -1 < self.y + add_y and self.y + add_y < 8: 
+                if not chessboard.board[self.x+add_x][self.y+add_y] or (chessboard.board[self.x+add_x][self.y+add_y] and chessboard.board[self.x+add_x][self.y+add_y].color != self.color):
+                    moves.append((self.x+add_x,self.y+add_y))
         return moves
 
     def __str__(self):
         return 'K' if self.color == 'white' else 'k'
-        
 
-
-# Example usage
 game1 = ChessGame()
+game1.startGame()
 
-chess_board = ChessBoard()
-chess_board.display()
 
-play1 = Player('black')
-play2 = Player('white')
-
-play1.populate_pieces(chess_board)
-play2.populate_pieces(chess_board)
-
-#white knights are both moving to same spot
-play2.chooseMove(chess_board)
-
-#test
