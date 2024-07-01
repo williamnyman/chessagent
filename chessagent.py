@@ -1,5 +1,3 @@
-import chesspieces
-
 class ChessBoard:
     def __init__(self):
         # Initialize an 8x8 chess board with None values
