@@ -1,5 +1,5 @@
 FUNCTIONS
-- makeMove (include taking and removing mechanic)
+X makeMove (include taking and removing mechanic)
 
 THINGS
 - castling

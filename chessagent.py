@@ -1,3 +1,16 @@
+class ChessGame:
+    def __init__(self):
+        self.gameboard = ChessBoard()
+        self.playerblack = Player('black')
+        self.playerwhite = Player('white')
+
+    
+    def checkVictory(self):
+        print("hi")
+
+    
+
+
 class ChessBoard:
     def __init__(self):
         # Initialize an 8x8 chess board with None values
@@ -378,6 +391,8 @@ class King(Piece):
 
 
 # Example usage
+game1 = ChessGame()
+
 chess_board = ChessBoard()
 chess_board.display()
 
