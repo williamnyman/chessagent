@@ -162,6 +162,10 @@ class Pawn(Piece):
         return 'P' if self.color == 'white' else 'p'
 
 class Rook(Piece):
+    def __init__(self, color, x, y):
+        super().__init__(color, x, y)
+        self.has_moved = False
+
     def legal_moves(self, chessboard):
         moves = []
         #down
@@ -369,6 +373,10 @@ class Queen(Piece):
         return 'Q' if self.color == 'white' else 'q'
 
 class King(Piece):
+    def __init__(self, color, x, y):
+            super().__init__(color, x, y)
+            self.has_moved = False
+
     def legal_moves(self, chessboard):
         king_moves = ((0,1),(1,0),(0,-1),(-1,0),(1,1),(-1,-1),(1,-1),(-1,1))
         moves = []
@@ -376,6 +384,13 @@ class King(Piece):
             if -1 < self.x + add_x and self.x + add_x < 8 and -1 < self.y + add_y and self.y + add_y < 8: 
                 if not chessboard.board[self.x+add_x][self.y+add_y] or (chessboard.board[self.x+add_x][self.y+add_y] and chessboard.board[self.x+add_x][self.y+add_y].color != self.color):
                     moves.append((self.x+add_x,self.y+add_y))
+
+        if chessboard.board[self.x + 1][self.y] == None and chessboard.board[self.x + 2][self.y] == None:
+            if chessboard.board[self.x + 3][self.y] == Rook and chessboard.board[self.x + 3][self.y].has_moved == False:
+                print("Need to add castling")
+
+
+
         return moves
 
     def __str__(self):
