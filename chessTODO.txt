@@ -1,8 +1,8 @@
 - castling
-- pawn takes when other color at diagonal
 - check
 - checkmate/victory function
 
 
 DONE
 - makeMove (include taking and removing mechanic)
+- pawn takes when other color at diagonal
