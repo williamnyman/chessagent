@@ -9,6 +9,7 @@ class ChessGame:
     def startGame(self):
         while not self.checkVictory():
             self.gameTurn()
+        print(f"{self.checkVictory().color} player wins!14")
         
     def gameTurn(self):
         self.gameboard.display()
@@ -34,9 +35,8 @@ class ChessGame:
         self.ticker += 1
 
     def checkVictory(self):
-        return False
+        return self.gameboard.boardVictory(self.playerwhite, self.playerblack)
     
-
 class ChessBoard:
     def __init__(self):
         # Initialize an 8x8 chess board with None values
@@ -69,7 +69,7 @@ class ChessBoard:
 
     def applyMove(self, move, moving_player, moving_piece):
         if "castle" in move:
-            self.applyCastle(move, moving_player, moving_piece)
+            self.applyCastle(move, moving_piece)
             return 0
 
         #update moved pieces self.x and y coords
@@ -88,7 +88,7 @@ class ChessBoard:
         if moving_piece.__str__() == 'k' or moving_piece.__str__() == 'K' or moving_piece.__str__() == 'R' or moving_piece.__str__() == 'r':
             moving_piece.update_has_moved(True)
 
-    def applyCastle(self, move, moving_player, moving_piece):
+    def applyCastle(self, move, moving_piece):
         if move == "castleR":
             self.board[moving_piece.getX()][6] = self.board[moving_piece.getX()][4]
             self.board[moving_piece.getX()][6].updatePosition(moving_piece.getX(),6)
@@ -106,6 +106,17 @@ class ChessBoard:
             self.board[moving_piece.getX()][3].updatePosition(moving_piece.getX(), 3)
             self.board[moving_piece.getX()][0] = None
 
+    def boardVictory(self, playerw, playerb):
+        print(f"White has captured: {playerw.captured_pieces}")
+        print(f"White has captured: {playerb.captured_pieces}")
+        for i in playerw.captured_pieces:
+            if i.__str__() == 'k':
+                return playerw
+        for j in playerb.captured_pieces:
+            if j.__str__() == 'K':
+                return playerb
+        return None
+    
 
     def display(self):
         # Display the board
