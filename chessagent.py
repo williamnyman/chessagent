@@ -68,6 +68,10 @@ class ChessBoard:
         return pieces
 
     def applyMove(self, move, moving_player, moving_piece):
+        if "castle" in move:
+            self.applyCastle(move, moving_player, moving_piece)
+            return 0
+
         #update moved pieces self.x and y coords
         x, y = move
     
@@ -80,6 +84,28 @@ class ChessBoard:
         self.board[moving_piece.getX()][moving_piece.getY()] = None
 
         moving_piece.updatePosition(x, y)
+
+        if moving_piece.__str__() == 'k' or moving_piece.__str__() == 'K' or moving_piece.__str__() == 'R' or moving_piece.__str__() == 'r':
+            moving_piece.update_has_moved(True)
+
+    def applyCastle(self, move, moving_player, moving_piece):
+        if move == "castleR":
+            self.board[moving_piece.getX()][6] = self.board[moving_piece.getX()][4]
+            self.board[moving_piece.getX()][6].updatePosition(moving_piece.getX(),6)
+            self.board[moving_piece.getX()][4] = None
+
+            self.board[moving_piece.getX()][5] = self.board[moving_piece.getX()][7]
+            self.board[moving_piece.getX()][5].updatePosition(moving_piece.getX(), 5)
+            self.board[moving_piece.getX()][7] = None
+        else:
+            self.board[moving_piece.getX()][2] = self.board[moving_piece.getX()][4]
+            self.board[moving_piece.getX()][2].updatePosition(moving_piece.getX(), 2)
+            self.board[moving_piece.getX()][4] = None
+
+            self.board[moving_piece.getX()][3] = self.board[moving_piece.getX()][0]
+            self.board[moving_piece.getX()][3].updatePosition(moving_piece.getX(), 3)
+            self.board[moving_piece.getX()][0] = None
+
 
     def display(self):
         # Display the board
@@ -389,6 +415,9 @@ class King(Piece):
             super().__init__(color, x, y)
             self.has_moved = False
 
+    def update_has_moved(self, bool):
+        self.has_moved = bool
+
     def legal_moves(self, chessboard):
         king_moves = ((0,1),(1,0),(0,-1),(-1,0),(1,1),(-1,-1),(1,-1),(-1,1))
         moves = []
@@ -399,11 +428,12 @@ class King(Piece):
 
         if chessboard.board[self.x][5] == None and chessboard.board[self.x][6] == None:
             if (chessboard.board[self.x][7].__str__() == 'R' or chessboard.board[self.x][7].__str__() == 'r') and chessboard.board[self.x][7].has_moved == False:
-                moves.append((self.x, 6))
-
+                #moves.append((self.x, 6))
+                moves.append("castleR")
         if chessboard.board[self.x][3] == None and chessboard.board[self.x][2] == None and chessboard.board[self.x][1] == None:
             if (chessboard.board[self.x][0].__str__() == 'R' or chessboard.board[self.x][0].__str__() == 'r') and chessboard.board[self.x][0].has_moved == False:
-                moves.append((self.x, 2))
+                #moves.append((self.x, 2))
+                moves.append("castleL")
 
 
 
