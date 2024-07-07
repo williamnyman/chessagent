@@ -56,6 +56,17 @@ def place_pieces(pieces):
                 y = row * cell_size + cell_size // 2
                 canvas.create_image(x, y, image=pieces[piece])
 
+# Handle mouse clicks
+def on_click(event):
+    col = event.x // cell_size
+    row = event.y // cell_size
+    print(f"Clicked on: {row}, {col}")
+
+# Bind the click event
+canvas.bind("<Button-1>", on_click)
+
+
+
 # Draw the chessboard and pieces
 draw_chessboard()
 pieces = load_pieces()
