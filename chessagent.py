@@ -108,7 +108,7 @@ class ChessBoard:
 
     def boardVictory(self, playerw, playerb):
         print(f"White has captured: {playerw.captured_pieces}")
-        print(f"White has captured: {playerb.captured_pieces}")
+        print(f"Black has captured: {playerb.captured_pieces}")
         for i in playerw.captured_pieces:
             if i.__str__() == 'k':
                 return playerw
