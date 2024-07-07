@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import PhotoImage
 
 root = tk.Tk()
 root.title("Chess Game")
@@ -25,21 +26,26 @@ def draw_chessboard():
 # Load and display pieces
 def load_pieces():
     pieces = {}
-    for piece in ["wpawn", "bpawn", "wrook", "brook", "wknight", "bknight", "wbishop", "bbishop", "wqueen", "bqueen", "wking", "bking"]:
-        pieces[piece] = PhotoImage(file=f"chessimages/{piece}.png")
+    piece_names = ["wpawn", "bpawn", "wrook", "brook", "wknight", "bknight", "wbishop", "bbishop", "wqueen", "bqueen", "wking", "bking"]
+    for piece in piece_names:
+        try:
+            pieces[piece] = PhotoImage(file=f"chessimages/{piece}.png")
+            print(f"Loaded image: chessimages/{piece}.png")
+        except Exception as e:
+            print(f"Failed to load image: chessimages/{piece}.png - {e}")
     return pieces
 
 def place_pieces(pieces):
     # Example piece placement
     initial_board = [
-        ["br", "bn", "bb", "bq", "bk", "bb", "bn", "br"],
-        ["bp", "bp", "bp", "bp", "bp", "bp", "bp", "bp"],
+        ["brook", "bknight", "bbishop", "bqueen", "bking", "bbishop", "bknight", "brook"],
+        ["bpawn", "bpawn", "bpawn", "bpawn", "bpawn", "bpawn", "bpawn", "bpawn"],
         [None] * 8,
         [None] * 8,
         [None] * 8,
         [None] * 8,
-        ["wp", "wp", "wp", "wp", "wp", "wp", "wp", "wp"],
-        ["wr", "wn", "wb", "wq", "wk", "wb", "wn", "wr"]
+        ["wpawn", "wpawn", "wpawn", "wpawn", "wpawn", "wpawn", "wpawn", "wpawn"],
+        ["wrook", "wknight", "wbishop", "wqueen", "wking", "wbishop", "wknight", "wrook"]
     ]
 
     for row in range(rows):
@@ -49,8 +55,6 @@ def place_pieces(pieces):
                 x = col * cell_size + cell_size // 2
                 y = row * cell_size + cell_size // 2
                 canvas.create_image(x, y, image=pieces[piece])
-
-
 
 # Draw the chessboard and pieces
 draw_chessboard()
