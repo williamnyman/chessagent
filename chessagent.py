@@ -9,7 +9,7 @@ class ChessGame:
     def startGame(self):
         while not self.checkVictory():
             self.gameTurn()
-        print(f"{self.checkVictory().color} player wins!14")
+        print(f"{self.checkVictory().color} player wins!")
         
     def gameTurn(self):
         self.gameboard.display()
@@ -26,7 +26,7 @@ class ChessGame:
         else:
             self.playerblack.populate_pieces(self.gameboard)
             selected_piece, chosen_move = self.playerblack.chooseMove(self.gameboard)
-            self.gameboard.applyMove(chosen_move, self.playerwhite, selected_piece)
+            self.gameboard.applyMove(chosen_move, self.playerblack, selected_piece)
             print("Chosen piece is ")
             print(selected_piece)
             print("Chosen move is ")
@@ -107,8 +107,6 @@ class ChessBoard:
             self.board[moving_piece.getX()][0] = None
 
     def boardVictory(self, playerw, playerb):
-        print(f"White has captured: {playerw.captured_pieces}")
-        print(f"Black has captured: {playerb.captured_pieces}")
         for i in playerw.captured_pieces:
             if i.__str__() == 'k':
                 return playerw
