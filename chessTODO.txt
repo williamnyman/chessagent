@@ -1,8 +1,9 @@
 - check
-- checkmate/victory function
+- make stuff more organized by using import
 
 
 DONE
 - makeMove (include taking and removing mechanic)
 - pawn takes when other color at diagonal
 - castling
+- checkmate/victory function

@@ -3,7 +3,7 @@ class ChessGame:
         self.gameboard = ChessBoard()
         self.playerblack = Player('black')
         self.playerwhite = Player('white')
-        self.ticker = 2
+        self.ticker = 0
         self.victor = None
 
     def startGame(self):
@@ -18,19 +18,11 @@ class ChessGame:
             self.playerwhite.populate_pieces(self.gameboard)
             selected_piece, chosen_move = self.playerwhite.chooseMove(self.gameboard)
             self.gameboard.applyMove(chosen_move, self.playerwhite, selected_piece)
-            print("Chosen piece is ")
-            print(selected_piece)
-            print("Chosen move is ")
-            print(chosen_move)
 
         else:
             self.playerblack.populate_pieces(self.gameboard)
             selected_piece, chosen_move = self.playerblack.chooseMove(self.gameboard)
             self.gameboard.applyMove(chosen_move, self.playerblack, selected_piece)
-            print("Chosen piece is ")
-            print(selected_piece)
-            print("Chosen move is ")
-            print(chosen_move)
 
         self.ticker += 1
 
