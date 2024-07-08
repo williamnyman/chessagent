@@ -4,12 +4,12 @@ from tkinter import PhotoImage
 root = tk.Tk()
 root.title("Chess Game")
 
-w, h = 800, 800
+w, h = 1600, 1000
 rows, cols = 8, 8
 cell_size = 100
 
-canvas = tk.Canvas(root, width=w, height=h)
-canvas.pack()
+canvas = tk.Canvas(root, width=w, height=h,)
+canvas.pack(side="left")
 
 # Draw the Chessboard
 def draw_chessboard():
