@@ -56,6 +56,19 @@ def place_pieces(pieces):
                 y = row * cell_size + cell_size // 2
                 canvas.create_image(x, y, image=pieces[piece])
 
+def change_rectangle_color(coordinate, color):
+    x,y = coordinate
+    x1 = x * cell_size
+    y1 = y * cell_size
+    x2 = x1 + cell_size
+    y2 = y1 + cell_size
+    canvas.create_rectangle(x1, y1, x2, y2, fill=color)
+
+#def remove_image(coordnate):
+
+#def place_image(coordinate, piece):
+
+
 # Handle mouse clicks
 def on_click(event):
     col = event.x // cell_size
@@ -66,11 +79,11 @@ def on_click(event):
 canvas.bind("<Button-1>", on_click)
 
 
-
 # Draw the chessboard and pieces
 draw_chessboard()
 pieces = load_pieces()
 place_pieces(pieces)
+
 
 # Run the application
 root.mainloop()
