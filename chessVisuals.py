@@ -11,6 +11,17 @@ cell_size = 100
 canvas = tk.Canvas(root, width=w, height=h,)
 canvas.pack(side="left")
 
+initial_board = [
+        ["brook", "bknight", "bbishop", "bqueen", "bking", "bbishop", "bknight", "brook"],
+        ["bpawn", "bpawn", "bpawn", "bpawn", "bpawn", "bpawn", "bpawn", "bpawn"],
+        [None] * 8,
+        [None] * 8,
+        [None] * 8,
+        [None] * 8,
+        ["wpawn", "wpawn", "wpawn", "wpawn", "wpawn", "wpawn", "wpawn", "wpawn"],
+        ["wrook", "wknight", "wbishop", "wqueen", "wking", "wbishop", "wknight", "wrook"]
+    ]
+
 # Draw the Chessboard
 def draw_chessboard():
     colors = ["white", "gray"]
@@ -35,9 +46,9 @@ def load_pieces():
             print(f"Failed to load image: chessimages/{piece}.png - {e}")
     return pieces
 
-def place_pieces(pieces):
+def place_pieces(pieces, board):
     # Example piece placement
-    initial_board = [
+    '''initial_board = [
         ["brook", "bknight", "bbishop", "bqueen", "bking", "bbishop", "bknight", "brook"],
         ["bpawn", "bpawn", "bpawn", "bpawn", "bpawn", "bpawn", "bpawn", "bpawn"],
         [None] * 8,
@@ -46,11 +57,13 @@ def place_pieces(pieces):
         [None] * 8,
         ["wpawn", "wpawn", "wpawn", "wpawn", "wpawn", "wpawn", "wpawn", "wpawn"],
         ["wrook", "wknight", "wbishop", "wqueen", "wking", "wbishop", "wknight", "wrook"]
-    ]
+    ]'''
+
+
 
     for row in range(rows):
         for col in range(cols):
-            piece = initial_board[row][col]
+            piece = board[row][col]
             if piece:
                 x = col * cell_size + cell_size // 2
                 y = row * cell_size + cell_size // 2
@@ -64,9 +77,18 @@ def change_rectangle_color(coordinate, color):
     y2 = y1 + cell_size
     canvas.create_rectangle(x1, y1, x2, y2, fill=color)
 
-#def remove_image(coordnate):
+def remove_image(coordinate):
+    x,y = coordinate
+    colors = ["white", "gray"]
+    color = colors[(x+y) % 2]
+    change_rectangle_color(coordinate, color)
 
-#def place_image(coordinate, piece):
+def place_image(coordinate, piece):
+    x,y = coordinate
+    imagex = x * cell_size + cell_size // 2
+    imagey = y * cell_size + cell_size // 2
+    canvas.create_image(imagex, imagey, image=pieces[piece])
+
 
 
 # Handle mouse clicks
@@ -82,7 +104,12 @@ canvas.bind("<Button-1>", on_click)
 # Draw the chessboard and pieces
 draw_chessboard()
 pieces = load_pieces()
-place_pieces(pieces)
+place_pieces(pieces, initial_board)
+
+remove_image((1,1))
+remove_image((1,2))
+place_image((3,3),"wpawn")
+
 
 
 # Run the application
