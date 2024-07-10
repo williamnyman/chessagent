@@ -1,3 +1,7 @@
+from chessChessboard import ChessBoard
+from chessPlayer import Player
+from chessPieces import Pawn, Rook, Knight, Bishop, Queen, King
+
 class ChessGame:
     def __init__(self):
         self.gameboard = ChessBoard()

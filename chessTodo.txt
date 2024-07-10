@@ -1,5 +1,5 @@
 - check
-- make stuff more organized by using import
+
 
 
 DONE
@@ -7,3 +7,4 @@ DONE
 - pawn takes when other color at diagonal
 - castling
 - checkmate/victory function
+- make stuff more organized by using import

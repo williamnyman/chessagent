@@ -1,3 +1,9 @@
+from chessGame import ChessGame
+from chessChessboard import ChessBoard
+from chessPlayer import Player
+from chessPieces import Pawn, Rook, Knight, Bishop, Queen, King
+
+'''
 class ChessGame:
     def __init__(self):
         self.gameboard = ChessBoard()
@@ -28,7 +34,8 @@ class ChessGame:
 
     def checkVictory(self):
         return self.gameboard.boardVictory(self.playerwhite, self.playerblack)
-    
+'''
+'''  
 class ChessBoard:
     def __init__(self):
         # Initialize an 8x8 chess board with None values
@@ -113,8 +120,8 @@ class ChessBoard:
         for row in self.board:
             print(" ".join([str(piece) if piece else '.' for piece in row]))
         print()
-
-
+'''
+'''
 class Player:
     def __init__(self, color):
         self.color = color
@@ -146,8 +153,8 @@ class Player:
     
     def addToCaptured(self, p):
         self.captured_pieces.append(p)
-
-        
+'''
+'''       
 class Piece:
     #initialize piece and set color to passed in color (either black or white)
     def __init__(self, color, x, y):
@@ -168,7 +175,6 @@ class Piece:
     def updatePosition(self, new_x, new_y):
         self.x = new_x
         self.y = new_y
-
 
 class Pawn(Piece):
     def legal_moves(self, chessboard):
@@ -261,7 +267,6 @@ class Knight(Piece):
     def __str__(self):
         return 'N' if self.color == 'white' else 'n'
     
-    
 class Bishop(Piece):
     def legal_moves(self, chessboard):
         moves = []
@@ -318,7 +323,6 @@ class Bishop(Piece):
     def __str__(self):
         return 'B' if self.color == 'white' else 'b'
     
-
 class Queen(Piece):
     def legal_moves(self, chessboard):
         moves = []
@@ -442,8 +446,8 @@ class King(Piece):
 
     def __str__(self):
         return 'K' if self.color == 'white' else 'k'
-
-'''game1 = ChessGame()
-game1.startGame()
 '''
 
+
+game1 = ChessGame()
+game1.startGame()
