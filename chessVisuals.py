@@ -69,7 +69,7 @@ def remove_image(coordinate):
     color = colors[(x+y) % 2]
     change_rectangle_color(coordinate, color)
 
-def place_image(coordinate, piece):
+def place_image(coordinate, piece, pieces):
     x,y = coordinate
     imagex = x * cell_size + cell_size // 2
     imagey = y * cell_size + cell_size // 2
@@ -82,12 +82,13 @@ def on_click(event):
     col = event.x // cell_size
     row = event.y // cell_size
     print(f"Clicked on: {row}, {col}")
+    return row, col
 
 # Bind the click event
 canvas.bind("<Button-1>", on_click)
 
 
-# Draw the chessboard and pieces
+'''# Draw the chessboard and pieces
 draw_chessboard()
 pieces = load_pieces()
 place_pieces(pieces, initial_board)
@@ -99,4 +100,4 @@ place_image((3,3),"wpawn")
 
 
 # Run the application
-root.mainloop()
+root.mainloop()'''

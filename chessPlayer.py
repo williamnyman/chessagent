@@ -14,14 +14,22 @@ class Player:
     def populate_pieces(self, chessboard):
         self.pieces = chessboard.retrievePieces(self.color)
 
-    def selectPiece(self):
-        for i in self.pieces:
+    def selectPiece(self, chessboard):
+        selected_square = chessVisuals.on_click()
+        x, y = selected_square
+        while chessboard[x][y] == None or chessboard[x][y].getColor() != self.getColor():
+            self.selectPiece(chessboard)
+        
+        print(f"selected square is {x} {y}")
+        return chessboard[x][y]
+
+        '''for i in self.pieces:
             print(i.__str__())
         selectedPiece = int(input("Which piece would you like to move (enter index starting at 0 of piece)"))
-        return self.pieces[selectedPiece]
+        return self.pieces[selectedPiece]'''
     
     def chooseMove(self, chessboard):
-        currPiece = self.selectPiece()
+        currPiece = self.selectPiece(chessboard)
         currMoves = currPiece.legal_moves(chessboard)
 
         for i in currMoves:

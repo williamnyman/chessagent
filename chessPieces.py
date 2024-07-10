@@ -17,6 +17,9 @@ class Piece:
     def getY(self):
         return self.y
     
+    def getColor(self):
+        return self.color
+    
     def updatePosition(self, new_x, new_y):
         self.x = new_x
         self.y = new_y
