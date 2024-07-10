@@ -76,28 +76,28 @@ def place_image(coordinate, piece, pieces):
     canvas.create_image(imagex, imagey, image=pieces[piece])
 
 
-
 # Handle mouse clicks
 def on_click(event):
     col = event.x // cell_size
     row = event.y // cell_size
+    clicked_position = row, col
     print(f"Clicked on: {row}, {col}")
-    return row, col
+    return clicked_position
 
 # Bind the click event
 canvas.bind("<Button-1>", on_click)
 
 
-'''# Draw the chessboard and pieces
+# Draw the chessboard and pieces
 draw_chessboard()
 pieces = load_pieces()
 place_pieces(pieces, initial_board)
 
 remove_image((1,1))
 remove_image((1,2))
-place_image((3,3),"wpawn")
+place_image((3,3),"wpawn", pieces)
 
 
 
 # Run the application
-root.mainloop()'''
+root.mainloop()

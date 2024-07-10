@@ -15,13 +15,23 @@ class Player:
         self.pieces = chessboard.retrievePieces(self.color)
 
     def selectPiece(self, chessboard):
-        selected_square = chessVisuals.on_click()
+        while True:
+            dummy = chessVisuals.on_click()
+            if dummy:
+                x, y = dummy
+                if chessboard.board[x][y] and chessboard.board[x][y].getColor() == self.color:
+                    print(f"selected square is {x} {y}")
+                    return chessboard.board[x][y]
+                else:
+                    print("Invalid input")
+                    
+        '''selected_square = chessVisuals.on_click()
         x, y = selected_square
         while chessboard[x][y] == None or chessboard[x][y].getColor() != self.getColor():
-            self.selectPiece(chessboard)
+            self.selectPiece(chessboard)'''
         
-        print(f"selected square is {x} {y}")
-        return chessboard[x][y]
+        '''print(f"selected square is {x} {y}")
+        return chessboard[x][y]'''
 
         '''for i in self.pieces:
             print(i.__str__())

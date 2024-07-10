@@ -12,11 +12,6 @@ class ChessGame:
         self.victor = None
 
     def startGame(self):
-        chessVisuals.draw_chessboard()
-        pieces = chessVisuals.load_pieces()
-        chessVisuals.place_pieces(pieces, chessVisuals.initial_board)
-        chessVisuals.root.mainloop()
-
         while not self.checkVictory():
             self.gameTurn()
         print(f"{self.checkVictory().color} player wins!")
