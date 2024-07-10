@@ -47,20 +47,6 @@ def load_pieces():
     return pieces
 
 def place_pieces(pieces, board):
-    # Example piece placement
-    '''initial_board = [
-        ["brook", "bknight", "bbishop", "bqueen", "bking", "bbishop", "bknight", "brook"],
-        ["bpawn", "bpawn", "bpawn", "bpawn", "bpawn", "bpawn", "bpawn", "bpawn"],
-        [None] * 8,
-        [None] * 8,
-        [None] * 8,
-        [None] * 8,
-        ["wpawn", "wpawn", "wpawn", "wpawn", "wpawn", "wpawn", "wpawn", "wpawn"],
-        ["wrook", "wknight", "wbishop", "wqueen", "wking", "wbishop", "wknight", "wrook"]
-    ]'''
-
-
-
     for row in range(rows):
         for col in range(cols):
             piece = board[row][col]

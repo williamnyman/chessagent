@@ -443,7 +443,7 @@ class King(Piece):
     def __str__(self):
         return 'K' if self.color == 'white' else 'k'
 
-game1 = ChessGame()
+'''game1 = ChessGame()
 game1.startGame()
-
+'''
 
