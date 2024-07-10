@@ -75,13 +75,11 @@ def place_image(coordinate, piece, pieces):
     imagey = y * cell_size + cell_size // 2
     canvas.create_image(imagex, imagey, image=pieces[piece])
 
-
 # Handle mouse clicks
 def on_click(event):
     col = event.x // cell_size
     row = event.y // cell_size
     clicked_position = row, col
-    print(f"Clicked on: {row}, {col}")
     return clicked_position
 
 # Bind the click event

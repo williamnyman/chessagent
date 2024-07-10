@@ -15,28 +15,11 @@ class Player:
         self.pieces = chessboard.retrievePieces(self.color)
 
     def selectPiece(self, chessboard):
-        while True:
-            dummy = chessVisuals.on_click()
-            if dummy:
-                x, y = dummy
-                if chessboard.board[x][y] and chessboard.board[x][y].getColor() == self.color:
-                    print(f"selected square is {x} {y}")
-                    return chessboard.board[x][y]
-                else:
-                    print("Invalid input")
-                    
-        '''selected_square = chessVisuals.on_click()
-        x, y = selected_square
-        while chessboard[x][y] == None or chessboard[x][y].getColor() != self.getColor():
-            self.selectPiece(chessboard)'''
-        
-        '''print(f"selected square is {x} {y}")
-        return chessboard[x][y]'''
 
-        '''for i in self.pieces:
+        for i in self.pieces:
             print(i.__str__())
         selectedPiece = int(input("Which piece would you like to move (enter index starting at 0 of piece)"))
-        return self.pieces[selectedPiece]'''
+        return self.pieces[selectedPiece]
     
     def chooseMove(self, chessboard):
         currPiece = self.selectPiece(chessboard)
