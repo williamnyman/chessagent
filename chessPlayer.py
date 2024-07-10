@@ -1,3 +1,4 @@
+import chessVisuals
 from chessPieces import Pawn, Rook, Knight, Bishop, Queen, King
 
 class Player:

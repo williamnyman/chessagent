@@ -1,3 +1,5 @@
+import chessVisuals
+
 class Piece:
     #initialize piece and set color to passed in color (either black or white)
     def __init__(self, color, x, y):
