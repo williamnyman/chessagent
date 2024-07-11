@@ -1,4 +1,4 @@
-import chessVisuals
+#import chessVisuals
 from chessGame import ChessGame
 from chessChessboard import ChessBoard
 from chessPlayer import Player

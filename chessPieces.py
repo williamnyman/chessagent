@@ -1,4 +1,4 @@
-import chessVisuals
+#import chessVisuals
 
 class Piece:
     #initialize piece and set color to passed in color (either black or white)

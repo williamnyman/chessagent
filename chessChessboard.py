@@ -1,4 +1,4 @@
-import chessVisuals
+#import chessVisuals
 from chessPieces import Pawn, Rook, Knight, Bishop, Queen, King
 from chessPlayer import Player
 
