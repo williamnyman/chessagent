@@ -1,5 +1,6 @@
 import pygame
 import sys
+
 pygame.init()
 
 # make game window and title
@@ -29,7 +30,7 @@ pieceImages = {
     'wqueen': pygame.image.load('chessImages/wqueen.png'),
     'bqueen': pygame.image.load('chessImages/bqueen.png'),
     'wking': pygame.image.load('chessImages/wking.png'),
-    'bking': pygame.image.load('chessImages/bking.png'),
+    'bking': pygame.image.load('chessImages/bking.png')
 }
 
 # Define a function to draw pieces
