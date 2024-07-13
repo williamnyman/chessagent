@@ -1,4 +1,5 @@
 #import chessVisuals
+import pygame
 
 class Piece:
     #initialize piece and set color to passed in color (either black or white)

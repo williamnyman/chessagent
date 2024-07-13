@@ -1,4 +1,5 @@
 #import chessVisuals
+import pygame
 from chessGame import ChessGame
 from chessChessboard import ChessBoard
 from chessPlayer import Player
