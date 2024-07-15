@@ -16,24 +16,26 @@ class Player:
         self.pieces = chessboard.retrievePieces(self.color)
 
     def selectPiece(self, chessboard):
-        print("MADE IT TO start of select piece")
-        for event in pygame.event.get():
-            print("FIRST LINE IN FOR LOOP")
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                print("PAST IF mouse down STATEMENT")
-                pos = pygame.mouse.get_pos()
-                col = pos[0] // 100
-                row = pos[1] // 100
-                print(f"Clicked on column {col}, row {row}")
-                print("JUST GOT MOUSE POS")
-                pygame.time.wait(1500)
-                
-                if chessboard.board[row][col] in self.pieces:
-                    print(f"selected {chessboard.board[row][col]}")
-                    return chessboard.board[row][col]
-                else:
-                    print("looping again")
-                    return self.selectPiece(chessboard)
+        while True:
+            pygame.time.wait(100)
+            print("MADE IT TO start of select piece")
+            for event in pygame.event.get():
+                print(f"FIRST LINE IN FOR LOOP event : {event}")
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    print("PAST IF mouse down STATEMENT")
+                    pos = pygame.mouse.get_pos()
+                    col = pos[0] // 100
+                    row = pos[1] // 100
+                    print(f"Clicked on column {col}, row {row}")
+                    print("JUST GOT MOUSE POS")
+                    pygame.time.wait(1500)
+                    
+                    if chessboard.board[row][col] in self.pieces:
+                        print(f"selected {chessboard.board[row][col]}")
+                        return chessboard.board[row][col]
+                    else:
+                        print("looping again")
+                        return self.selectPiece(chessboard)
     
     def chooseMove(self, chessboard):
         print("MADE IT TO start of chooseMove func")
