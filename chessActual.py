@@ -16,8 +16,8 @@ lightblue = (173, 250, 255)
 # Define the size of the squares
 square_size = 100
 
-# Run the game loop
-running = True
+
+
 # Load images
 pieceImages = {
     'P': pygame.image.load('chessImages/wpawn.png'),
@@ -43,40 +43,42 @@ def draw_pieces(gameWindow, board):
                 pieceCode = board[row][col].__str__()
                 gameWindow.blit(pieceImages[pieceCode], pygame.Rect(col*square_size, row*square_size, square_size, square_size))
 
-
+running = True
 game1 = ChessGame()
 board1 = game1.gameboard.board
-game1.startGame()
+while not game1.checkVictory():
+        '''for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                col = pos[0] // square_size
+                row = pos[1] // square_size
+                print(f"Clicked on column {col}, row {row}")'''
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            pos = pygame.mouse.get_pos()
-            col = pos[0] // square_size
-            row = pos[1] // square_size
-            print(f"Clicked on column {col}, row {row}")
+        # Fill the background
+        gameWindow.fill(white)
 
-    # Fill the background
-    gameWindow.fill(white)
+        # Draw the chessboard
+        for row in range(8):
+            for col in range(8):
+                rect = pygame.Rect(col*square_size, row*square_size, square_size, square_size)
+                if (row + col) % 2 == 0:
+                    pygame.draw.rect(gameWindow, white, rect)
+                else:
+                    pygame.draw.rect(gameWindow, lightgray, rect)
 
-    # Draw the chessboard
-    for row in range(8):
-        for col in range(8):
-            rect = pygame.Rect(col*square_size, row*square_size, square_size, square_size)
-            if (row + col) % 2 == 0:
-                pygame.draw.rect(gameWindow, white, rect)
-            else:
-                pygame.draw.rect(gameWindow, lightgray, rect)
+        # Draw the pieces
+        draw_pieces(gameWindow, board1)
 
+        # Update the display
+        pygame.display.flip()
 
-    # Draw the pieces
-    draw_pieces(gameWindow, board1)
-    
+        game1.gameTurn()
+        
 
-    # Update the display
-    pygame.display.flip()
+        '''# Update the display
+        pygame.display.flip()'''
 
 
 # exit the game once !running, that condition will change when game is over

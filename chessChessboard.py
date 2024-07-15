@@ -1,5 +1,7 @@
 #import chessVisuals
 import pygame
+import pynput
+
 from chessPieces import Pawn, Rook, Knight, Bishop, Queen, King
 from chessPlayer import Player
 
