@@ -1,5 +1,4 @@
 #import chessVisuals
-from pynput.mouse import Controller
 import pygame
 from chessPieces import Pawn, Rook, Knight, Bishop, Queen, King
 
@@ -19,7 +18,9 @@ class Player:
     def selectPiece(self, chessboard):
         print("MADE IT TO start of select piece")
         for event in pygame.event.get():
+            print("FIRST LINE IN FOR LOOP")
             if event.type == pygame.MOUSEBUTTONDOWN:
+                print("PAST IF mouse down STATEMENT")
                 pos = pygame.mouse.get_pos()
                 col = pos[0] // 100
                 row = pos[1] // 100

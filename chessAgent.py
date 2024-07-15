@@ -1,6 +1,5 @@
 #import chessVisuals
 import pygame
-import pynput
 
 from chessGame import ChessGame
 from chessChessboard import ChessBoard

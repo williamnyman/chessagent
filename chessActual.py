@@ -43,19 +43,14 @@ def draw_pieces(gameWindow, board):
                 pieceCode = board[row][col].__str__()
                 gameWindow.blit(pieceImages[pieceCode], pygame.Rect(col*square_size, row*square_size, square_size, square_size))
 
-running = True
+#running = True
 game1 = ChessGame()
+print("GAME 1 is chessgame")
 board1 = game1.gameboard.board
+print("Board 1 = game1.gameboard.board")
 while not game1.checkVictory():
-        '''for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                pos = pygame.mouse.get_pos()
-                col = pos[0] // square_size
-                row = pos[1] // square_size
-                print(f"Clicked on column {col}, row {row}")'''
-
+        print("Start of while loop")
+        
         # Fill the background
         gameWindow.fill(white)
 
@@ -75,10 +70,6 @@ while not game1.checkVictory():
         pygame.display.flip()
 
         game1.gameTurn()
-        
-
-        '''# Update the display
-        pygame.display.flip()'''
 
 
 # exit the game once !running, that condition will change when game is over
