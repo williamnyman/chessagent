@@ -1,5 +1,6 @@
 import pygame
 import sys
+from chessGame import ChessGame
 
 pygame.init()
 
@@ -19,18 +20,18 @@ square_size = 100
 running = True
 # Load images
 pieceImages = {
-    'wpawn': pygame.image.load('chessImages/wpawn.png'),
-    'bpawn': pygame.image.load('chessImages/bpawn.png'),
-    'wrook': pygame.image.load('chessImages/wrook.png'),
-    'brook': pygame.image.load('chessImages/brook.png'),
-    'wknight': pygame.image.load('chessImages/wknight.png'),
-    'bknight': pygame.image.load('chessImages/bknight.png'),
-    'wbishop': pygame.image.load('chessImages/wbishop.png'),
-    'bbishop': pygame.image.load('chessImages/bbishop.png'),
-    'wqueen': pygame.image.load('chessImages/wqueen.png'),
-    'bqueen': pygame.image.load('chessImages/bqueen.png'),
-    'wking': pygame.image.load('chessImages/wking.png'),
-    'bking': pygame.image.load('chessImages/bking.png')
+    'P': pygame.image.load('chessImages/wpawn.png'),
+    'p': pygame.image.load('chessImages/bpawn.png'),
+    'R': pygame.image.load('chessImages/wrook.png'),
+    'r': pygame.image.load('chessImages/brook.png'),
+    'N': pygame.image.load('chessImages/wknight.png'),
+    'n': pygame.image.load('chessImages/bknight.png'),
+    'B': pygame.image.load('chessImages/wbishop.png'),
+    'b': pygame.image.load('chessImages/bbishop.png'),
+    'Q': pygame.image.load('chessImages/wqueen.png'),
+    'q': pygame.image.load('chessImages/bqueen.png'),
+    'K': pygame.image.load('chessImages/wking.png'),
+    'k': pygame.image.load('chessImages/bking.png')
 }
 
 # Define a function to draw pieces
@@ -38,20 +39,14 @@ def draw_pieces(gameWindow, board):
     for row in range(8):
         for col in range(8):
             piece = board[row][col]
-            if piece != "--":
-                gameWindow.blit(pieceImages[piece], pygame.Rect(col*square_size, row*square_size, square_size, square_size))
+            if piece:
+                pieceCode = board[row][col].__str__()
+                gameWindow.blit(pieceImages[pieceCode], pygame.Rect(col*square_size, row*square_size, square_size, square_size))
 
-# Sample board configuration
-board = [
-    ["brook", "bknight", "bbishop", "bqueen", "bking", "bbishop", "bknight", "brook"],
-    ["bpawn", "bpawn", "bpawn", "bpawn", "bpawn", "bpawn", "bpawn", "bpawn"],
-    ["--", "--", "--", "--", "--", "--", "--", "--"],
-    ["--", "--", "--", "--", "--", "--", "--", "--"],
-    ["--", "--", "--", "--", "--", "--", "--", "--"],
-    ["--", "--", "--", "--", "--", "--", "--", "--"],
-    ["wpawn", "wpawn", "wpawn", "wpawn", "wpawn", "wpawn", "wpawn", "wpawn"],
-    ["wrook", "wknight", "wbishop", "wqueen", "wking", "wbishop", "wknight", "wrook"],
-]
+
+game1 = ChessGame()
+board1 = game1.gameboard.board
+game1.startGame()
 
 while running:
     for event in pygame.event.get():
@@ -75,8 +70,10 @@ while running:
             else:
                 pygame.draw.rect(gameWindow, lightgray, rect)
 
+
     # Draw the pieces
-    draw_pieces(gameWindow, board)
+    draw_pieces(gameWindow, board1)
+    
 
     # Update the display
     pygame.display.flip()
