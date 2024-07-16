@@ -41,12 +41,7 @@ def draw_pieces(gameWindow, board):
             piece = board[row][col]
             if piece:
                 pieceCode = board[row][col].__str__()
-                gameWindow.blit(pieceImages[pieceCode], pygame.Rect(col*square_size, row*square_size, square_size, square_size))
-
-'''def change_sqaure_color(gameWindow, coord, color):
-    x, y = coord
-    rect = pygame.Rect(y*square_size, x*square_size, square_size, square_size)
-    pygame.draw.rect(gameWindow, color, rect)'''
+                gameWindow.blit(pieceImages[pieceCode], pygame.Rect((col*square_size) + 5, (row*square_size) + 5, square_size, square_size))
 
 #running = True
 game1 = ChessGame()
@@ -67,6 +62,8 @@ while not game1.checkVictory():
                     pygame.draw.rect(gameWindow, white, rect)
                 else:
                     pygame.draw.rect(gameWindow, lightgray, rect)
+                pygame.draw.rect(gameWindow, black, rect, 1)
+                
 
         # Draw the pieces
         draw_pieces(gameWindow, board1)

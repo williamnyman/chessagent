@@ -1,4 +1,6 @@
-- check
+- pawn skip to second space out even when piece is directly in front
+- click on piece moving to go back to select piece
+
 
 
 

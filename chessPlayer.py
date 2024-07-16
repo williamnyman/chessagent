@@ -28,7 +28,7 @@ class Player:
                     row = pos[1] // 100
                     print(f"Clicked on column {col}, row {row}")
                     print("JUST GOT MOUSE POS")
-                    pygame.time.wait(1500)
+                    #pygame.time.wait(1500)
                     
                     if chessboard.board[row][col] in self.pieces:
                         print(f"selected {chessboard.board[row][col]}")
@@ -53,13 +53,40 @@ class Player:
             self.change_sqaure_color(gameWindow, i, (173, 250, 255))
         pygame.display.flip()
 
+        
+            
+        while True:
+            pygame.time.wait(100)
+            print("MADE IT TO start of selecting move")
+            for event in pygame.event.get():
+                print(f"FIRST LINE IN FOR LOOP event : {event}")
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    print("PAST IF mouse down STATEMENT")
+                    pos = pygame.mouse.get_pos()
+                    col = pos[0] // 100
+                    row = pos[1] // 100
+                    print(f"Clicked on column {col}, row {row}")
+                    print("JUST GOT MOUSE POS")
+                    #pygame.time.wait(1500)
+                    
+                    if (row, col) in currMoves:
+                        print(f"selected {(row, col)}")
+                        pygame.event.clear()
+                        return currPiece, (row, col)
+                    elif (row, col) == (currPiece.getX(), currPiece.getY()):
+                        self.chooseMove(chessboard, gameWindow)
+
+
+                    '''else:
+                        print("looping again")
+                        pygame.event.clear()
+                        return self.selectPiece(chessboard)'''
 
 
 
-
-        for i in currMoves:
+        '''for i in currMoves:
             print(i)
-        selectedMove = currMoves[int(input("Which move would you like to make (enter index starting at 0 of move)"))]
+        selectedMove = currMoves[int(input("Which move would you like to make (enter index starting at 0 of move)"))]'''
         
         return currPiece, selectedMove
     
