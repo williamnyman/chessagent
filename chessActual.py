@@ -12,10 +12,10 @@ pygame.display.set_caption("Will Nyman's Chess Game")
 white = (255, 255, 255)
 lightgray = (211, 211, 211)
 lightblue = (173, 250, 255)
+black = (0,0,0)
 
 # Define the size of the squares
 square_size = 100
-
 
 
 # Load images
@@ -43,6 +43,11 @@ def draw_pieces(gameWindow, board):
                 pieceCode = board[row][col].__str__()
                 gameWindow.blit(pieceImages[pieceCode], pygame.Rect(col*square_size, row*square_size, square_size, square_size))
 
+'''def change_sqaure_color(gameWindow, coord, color):
+    x, y = coord
+    rect = pygame.Rect(y*square_size, x*square_size, square_size, square_size)
+    pygame.draw.rect(gameWindow, color, rect)'''
+
 #running = True
 game1 = ChessGame()
 print("GAME 1 is chessgame")
@@ -69,7 +74,7 @@ while not game1.checkVictory():
         # Update the display
         pygame.display.flip()
 
-        game1.gameTurn()
+        game1.gameTurn(gameWindow)
 
 
 # exit the game once !running, that condition will change when game is over

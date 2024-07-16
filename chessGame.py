@@ -17,19 +17,19 @@ class ChessGame:
             self.gameTurn()
         print(f"{self.checkVictory().color} player wins!")
         
-    def gameTurn(self):
+    def gameTurn(self, gameWindow):
 
         if self.ticker % 2 == 0:
             self.playerwhite.populate_pieces(self.gameboard)
             print("MADE IT PAST populate_pieces")
-            selected_piece, chosen_move = self.playerwhite.chooseMove(self.gameboard)
+            selected_piece, chosen_move = self.playerwhite.chooseMove(self.gameboard, gameWindow)
             print("MADE IT PAST selecting piece and chosen move")
             self.gameboard.applyMove(chosen_move, self.playerwhite, selected_piece)
             print("MADE IT PAST applyMove")
 
         else:
             self.playerblack.populate_pieces(self.gameboard)
-            selected_piece, chosen_move = self.playerblack.chooseMove(self.gameboard)
+            selected_piece, chosen_move = self.playerblack.chooseMove(self.gameboard, gameWindow)
             self.gameboard.applyMove(chosen_move, self.playerblack, selected_piece)
 
         self.ticker += 1
