@@ -1,6 +1,5 @@
 - pawn skip to second space out even when piece is directly in front
 - click on piece moving to go back to select piece
-- make it so at every color change the whole thing updates with colors/lines/images
 - pawn takes in passing
 - pawn promoted at back rank
 - fix castling (I think its that castleR and castleL are strings which need to be passed as coords)
@@ -8,10 +7,3 @@
 
 - move grid, pics, clicks down so that it is not packed in to top left corner and make that work
 - add visuals: title, current instruction, quit button, pieces taken list?, etc.
-
-DONE
-- makeMove (include taking and removing mechanic)
-- pawn takes when other color at diagonal
-- castling
-- checkmate/victory function
-- make stuff more organized by using import
