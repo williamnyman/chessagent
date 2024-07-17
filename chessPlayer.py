@@ -40,7 +40,18 @@ class Player:
                         return self.selectPiece(chessboard)
                     
     def change_sqaure_color(self, gameWindow, coord, color):
-        x, y = coord
+        if coord == "castleR":
+            if self.color == "white":
+                x, y = (7, 6)
+            else:
+                x, y = (0, 6)
+        elif coord == "castleL":
+            if self.color == "white":
+                x, y = (7, 2)
+            else:
+                x, y = (0, 2)
+        else:
+            x, y = coord
         rect = pygame.Rect(y*100, x*100, 100, 100)
         pygame.draw.rect(gameWindow, color, rect)
     
@@ -49,21 +60,19 @@ class Player:
         currPiece = self.selectPiece(chessboard)
         currMoves = currPiece.legal_moves(chessboard)
 
+        print(currMoves)
+        
+
         for i in currMoves:
+            print(f"Changing color of {i}")
             self.change_sqaure_color(gameWindow, i, (173, 250, 255))
+
         for row in range(8):
             for col in range(8):
                 rect = pygame.Rect(col*100, row*100, 100, 100)
                 pygame.draw.rect(gameWindow, (0,0,0), rect, 1)
-  
-
-
-
-        
         pygame.display.flip()
 
-        
-            
         while True:
             pygame.time.wait(100)
             print("MADE IT TO start of selecting move")
@@ -78,10 +87,16 @@ class Player:
                     print("JUST GOT MOUSE POS")
                     #pygame.time.wait(1500)
                     
-                    if (row, col) in currMoves:
-                        print(f"selected {(row, col)}")
-                        pygame.event.clear()
-                        return currPiece, (row, col)
+                    if (row, col) in currMoves or "castleR" in currMoves or "castleL" in currMoves:
+                        if (row, col) == (currPiece.getX(), 6) and "castleR" in currMoves:
+                            print(f"selected {'castleR'}")
+                            return currPiece, "castleR"
+                        elif (row, col) == (currPiece.getX(), 2) and "castleL" in currMoves:
+                            print(f"selected {'castleL'}")
+                            return currPiece, "castleL"
+                        else:
+                            pygame.event.clear()
+                            return currPiece, (row, col)
                     elif (row, col) == (currPiece.getX(), currPiece.getY()):
                         self.chooseMove(chessboard, gameWindow)
 
