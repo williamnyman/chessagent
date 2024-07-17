@@ -97,22 +97,17 @@ class Player:
                         else:
                             pygame.event.clear()
                             return currPiece, (row, col)
+                        
+                    #clicked on current piece should take back to piece selection
                     elif (row, col) == (currPiece.getX(), currPiece.getY()):
-                        self.chooseMove(chessboard, gameWindow)
+                        return self.chooseMove(chessboard, gameWindow)
 
-
+                    #clicked on nothing important should stay at move selection
+                    print("looping again")
                     '''else:
                         print("looping again")
                         pygame.event.clear()
                         return self.selectPiece(chessboard)'''
-
-
-
-        '''for i in currMoves:
-            print(i)
-        selectedMove = currMoves[int(input("Which move would you like to make (enter index starting at 0 of move)"))]'''
-        
-        return currPiece, selectedMove
     
     def addToCaptured(self, p):
         self.captured_pieces.append(p)
