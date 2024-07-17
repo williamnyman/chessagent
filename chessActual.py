@@ -54,7 +54,7 @@ while not game1.checkVictory():
         # Fill the background
         gameWindow.fill(white)
 
-        # Draw the chessboard
+        # Draw the chessboard + pieces
         for row in range(8):
             for col in range(8):
                 rect = pygame.Rect(col*square_size, row*square_size, square_size, square_size)
@@ -63,9 +63,6 @@ while not game1.checkVictory():
                 else:
                     pygame.draw.rect(gameWindow, lightgray, rect)
                 pygame.draw.rect(gameWindow, black, rect, 1)
-                
-
-        # Draw the pieces
         draw_pieces(gameWindow, board1)
 
         # Update the display

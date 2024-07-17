@@ -51,6 +51,15 @@ class Player:
 
         for i in currMoves:
             self.change_sqaure_color(gameWindow, i, (173, 250, 255))
+        for row in range(8):
+            for col in range(8):
+                rect = pygame.Rect(col*100, row*100, 100, 100)
+                pygame.draw.rect(gameWindow, (0,0,0), rect, 1)
+  
+
+
+
+        
         pygame.display.flip()
 
         
