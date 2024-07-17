@@ -56,7 +56,7 @@ class ChessBoard:
             moving_piece.update_has_moved(True)
 
     def applyCastle(self, move, moving_piece):
-        if move == "castleR":
+        if move == "castleR": #((moving_piece.getX(), 6))
             self.board[moving_piece.getX()][6] = self.board[moving_piece.getX()][4]
             self.board[moving_piece.getX()][6].updatePosition(moving_piece.getX(),6)
             self.board[moving_piece.getX()][4] = None
