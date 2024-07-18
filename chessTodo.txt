@@ -1,9 +1,6 @@
-- pawn skip to second space out even when piece is directly in front
-- click on piece moving to go back to select piece
+- CURRENT TASK: pawn skip to second space out even when piece is directly in front
 - pawn takes in passing
 - pawn promoted at back rank
-- fix castling (I think its that castleR and castleL are strings which need to be passed as coords)
-- ^ be aware that x,6 and x,2 can be moves when not necessarily castling
 
 - move grid, pics, clicks down so that it is not packed in to top left corner and make that work
 - add visuals: title, current instruction, quit button, pieces taken list?, etc.

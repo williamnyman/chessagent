@@ -1,18 +1,14 @@
 import pygame
 import sys
 from chessGame import ChessGame
+from chessColors import white, black, blue, lightblue, lightgray
+
 
 pygame.init()
 
 # make game window and title
 gameWindow = pygame.display.set_mode((1200, 1000))
 pygame.display.set_caption("Will Nyman's Chess Game")
-
-# Define colors (maybe bring this to a different file)
-white = (255, 255, 255)
-lightgray = (211, 211, 211)
-lightblue = (173, 250, 255)
-black = (0,0,0)
 
 # Define the size of the squares
 square_size = 100
@@ -72,6 +68,7 @@ while not game1.checkVictory():
 
 
 # exit the game once !running, that condition will change when game is over
+
 pygame.quit()
 sys.exit()
 

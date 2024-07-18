@@ -1,6 +1,33 @@
 #import chessVisuals
 import pygame
+import random
 from chessPieces import Pawn, Rook, Knight, Bishop, Queen, King
+from chessColors import white, black, blue, lightblue, lightgray
+
+# Load images
+pieceImages = {
+    'P': pygame.image.load('chessImages/wpawn.png'),
+    'p': pygame.image.load('chessImages/bpawn.png'),
+    'R': pygame.image.load('chessImages/wrook.png'),
+    'r': pygame.image.load('chessImages/brook.png'),
+    'N': pygame.image.load('chessImages/wknight.png'),
+    'n': pygame.image.load('chessImages/bknight.png'),
+    'B': pygame.image.load('chessImages/wbishop.png'),
+    'b': pygame.image.load('chessImages/bbishop.png'),
+    'Q': pygame.image.load('chessImages/wqueen.png'),
+    'q': pygame.image.load('chessImages/bqueen.png'),
+    'K': pygame.image.load('chessImages/wking.png'),
+    'k': pygame.image.load('chessImages/bking.png')
+}
+
+# Define a function to draw pieces
+def draw_pieces(gameWindow, chessboard):
+    for row in range(8):
+        for col in range(8):
+            piece = chessboard.board[row][col]
+            if piece:
+                pieceCode = chessboard.board[row][col].__str__()
+                gameWindow.blit(pieceImages[pieceCode], pygame.Rect((col*100) + 5, (row*100) + 5, 100, 100))
 
 class Player:
     def __init__(self, color):
@@ -39,7 +66,7 @@ class Player:
                         pygame.event.clear()
                         return self.selectPiece(chessboard)
                     
-    def change_sqaure_color(self, gameWindow, coord, color):
+    def change_sqaure_color(self, gameWindow, coord, hue):
         if coord == "castleR":
             if self.color == "white":
                 x, y = (7, 6)
@@ -53,7 +80,7 @@ class Player:
         else:
             x, y = coord
         rect = pygame.Rect(y*100, x*100, 100, 100)
-        pygame.draw.rect(gameWindow, color, rect)
+        pygame.draw.rect(gameWindow, hue, rect)
     
     def chooseMove(self, chessboard, gameWindow):
         print("MADE IT TO start of chooseMove func")
@@ -65,12 +92,12 @@ class Player:
 
         for i in currMoves:
             print(f"Changing color of {i}")
-            self.change_sqaure_color(gameWindow, i, (173, 250, 255))
+            row, col = i
+            self.change_sqaure_color(gameWindow, i, blue)
+            rect = pygame.Rect(col*100, row*100, 100, 100)
+            pygame.draw.rect(gameWindow, black, rect, 1)
+        draw_pieces(gameWindow, chessboard)
 
-        for row in range(8):
-            for col in range(8):
-                rect = pygame.Rect(col*100, row*100, 100, 100)
-                pygame.draw.rect(gameWindow, (0,0,0), rect, 1)
         pygame.display.flip()
 
         while True:
@@ -100,18 +127,28 @@ class Player:
                         
                     #clicked on current piece should take back to piece selection
                     elif (row, col) == (currPiece.getX(), currPiece.getY()):
-                        currPiece = None
                         for i in currMoves:
+                            x, y = i
                             print(f"Changing color of {i}")
-                            self.change_sqaure_color(gameWindow, i, (173, 250, 255))
+                            if (x + y) % 2 == 0:
+                                self.change_sqaure_color(gameWindow, i, white)
+                            else:
+                                self.change_sqaure_color(gameWindow, i, lightgray)
+
+                        for i in range(8):
+                            for j in range(8):
+                                rect = pygame.Rect(i*100, j*100, 100, 100)
+                                pygame.draw.rect(gameWindow, black, rect, 1)
+                        draw_pieces(gameWindow, chessboard)
+
+
+                        pygame.display.flip()
+
+                        currPiece = None
                         return self.chooseMove(chessboard, gameWindow)
 
                     #clicked on nothing important should stay at move selection
                     print("looping again")
-                    '''else:
-                        print("looping again")
-                        pygame.event.clear()
-                        return self.selectPiece(chessboard)'''
     
     def addToCaptured(self, p):
         self.captured_pieces.append(p)
