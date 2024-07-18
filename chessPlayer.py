@@ -100,6 +100,10 @@ class Player:
                         
                     #clicked on current piece should take back to piece selection
                     elif (row, col) == (currPiece.getX(), currPiece.getY()):
+                        currPiece = None
+                        for i in currMoves:
+                            print(f"Changing color of {i}")
+                            self.change_sqaure_color(gameWindow, i, (173, 250, 255))
                         return self.chooseMove(chessboard, gameWindow)
 
                     #clicked on nothing important should stay at move selection
