@@ -44,15 +44,15 @@ class Player:
 
     def selectPiece(self, chessboard):
         while True:
-            pygame.time.wait(100)
-            print("MADE IT TO start of select piece")
+            #pygame.time.wait(100)
+            #print("MADE IT TO start of select piece")
             for event in pygame.event.get():
-                print(f"FIRST LINE IN FOR LOOP event : {event}")
+                #print(f"FIRST LINE IN FOR LOOP event : {event}")
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    print("PAST IF mouse down STATEMENT")
+                    #print("PAST IF mouse down STATEMENT")
                     pos = pygame.mouse.get_pos()
-                    col = pos[0] // 100
-                    row = pos[1] // 100
+                    col = (pos[0] // 100) # -1?
+                    row = (pos[1] // 100) # -1?
                     print(f"Clicked on column {col}, row {row}")
                     print("JUST GOT MOUSE POS")
                     #pygame.time.wait(1500)
@@ -88,11 +88,19 @@ class Player:
         currMoves = currPiece.legal_moves(chessboard)
 
         print(currMoves)
-        
 
+        if not currMoves:
+            currPiece = None
+            return self.chooseMove(chessboard, gameWindow)
+        
         for i in currMoves:
             print(f"Changing color of {i}")
-            row, col = i
+            if i == "castleR":
+                row, col = currPiece.getX(), 6
+            elif i == "castleL":
+                row, col = currPiece.getX(), 2
+            else:
+                row, col = i
             self.change_sqaure_color(gameWindow, i, blue)
             rect = pygame.Rect(col*100, row*100, 100, 100)
             pygame.draw.rect(gameWindow, black, rect, 1)
@@ -102,14 +110,14 @@ class Player:
 
         while True:
             pygame.time.wait(100)
-            print("MADE IT TO start of selecting move")
+            #print("MADE IT TO start of selecting move")
             for event in pygame.event.get():
-                print(f"FIRST LINE IN FOR LOOP event : {event}")
+                #print(f"FIRST LINE IN FOR LOOP event : {event}")
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     print("PAST IF mouse down STATEMENT")
                     pos = pygame.mouse.get_pos()
-                    col = pos[0] // 100
-                    row = pos[1] // 100
+                    col = pos[0] // 100 # -1?
+                    row = pos[1] // 100 # -1?
                     print(f"Clicked on column {col}, row {row}")
                     print("JUST GOT MOUSE POS")
                     #pygame.time.wait(1500)

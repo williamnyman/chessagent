@@ -31,8 +31,8 @@ class Pawn(Piece):
         if self.color == 'white':
             if chessboard.board[self.x-1][self.y] is None:
                 moves.append((self.x-1, self.y))
-            if self.x == 6 and chessboard.board[self.x-2][self.y] is None:
-                moves.append((self.x-2, self.y))
+                if self.x == 6 and chessboard.board[self.x-2][self.y] is None:
+                    moves.append((self.x-2, self.y))
 
             white_pawn_moves = [(-1,-1),(-1,1)]
             for add_x, add_y in white_pawn_moves:

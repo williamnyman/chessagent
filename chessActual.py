@@ -53,7 +53,7 @@ while not game1.checkVictory():
         # Draw the chessboard + pieces
         for row in range(8):
             for col in range(8):
-                rect = pygame.Rect(col*square_size, row*square_size, square_size, square_size)
+                rect = pygame.Rect((col*square_size), (row*square_size), square_size, square_size)
                 if (row + col) % 2 == 0:
                     pygame.draw.rect(gameWindow, white, rect)
                 else:

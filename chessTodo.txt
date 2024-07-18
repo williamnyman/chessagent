@@ -1,6 +1,8 @@
-- CURRENT TASK: pawn skip to second space out even when piece is directly in front
+- check :(
+- draws
 - pawn takes in passing
-- pawn promoted at back rank
+- TASK 2: pawn promoted at back rank (small images idk?)
 
-- move grid, pics, clicks down so that it is not packed in to top left corner and make that work
+- CURRENT TASK: move grid, pics, clicks down so that it is not packed in to top left corner and make that work
 - add visuals: title, current instruction, quit button, pieces taken list?, etc.
+    - change chessActual so it doenst just do one game, make running a game a function, etc...

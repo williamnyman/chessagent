@@ -35,6 +35,7 @@ class ChessBoard:
         return pieces
 
     def applyMove(self, move, moving_player, moving_piece):
+        print("start of apply move")
         if "castle" in move:
             self.applyCastle(move, moving_piece)
             return 0
@@ -51,6 +52,22 @@ class ChessBoard:
         self.board[moving_piece.getX()][moving_piece.getY()] = None
 
         moving_piece.updatePosition(x, y)
+
+        if (moving_piece.__str__() == 'P' and move[0] == 0) or (moving_piece.__str__() == 'p' and move[0] == 7):
+            promote_input = input("q/r/n/b")
+            if promote_input == 'q':
+                self.board[x][y] = Queen(moving_player.color, x, y)
+            if promote_input == 'r':
+                self.board[x][y] = Rook(moving_player.color, x, y)
+            if promote_input == 'n':
+                self.board[x][y] = Knight(moving_player.color, x, y)
+            if promote_input == 'b':
+                self.board[x][y] = Bishop(moving_player.color, x, y)
+
+                
+        '''    #self.board[moving_piece.getX()][moving_piece.getY()] = 
+        if moving_piece.__str__() == 'p' and move[0] == 7:
+            print("BPawn has made it to back rank")'''
 
         if moving_piece.__str__() == 'k' or moving_piece.__str__() == 'K' or moving_piece.__str__() == 'R' or moving_piece.__str__() == 'r':
             moving_piece.update_has_moved(True)
