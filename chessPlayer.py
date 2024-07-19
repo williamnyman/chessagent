@@ -66,7 +66,7 @@ class Player:
                         pygame.event.clear()
                         return self.selectPiece(chessboard)
                     
-    def change_sqaure_color(self, gameWindow, coord, hue):
+    def change_square_color(self, gameWindow, coord, color):
         if coord == "castleR":
             if self.color == "white":
                 x, y = (7, 6)
@@ -80,7 +80,7 @@ class Player:
         else:
             x, y = coord
         rect = pygame.Rect(y*100, x*100, 100, 100)
-        pygame.draw.rect(gameWindow, hue, rect)
+        pygame.draw.rect(gameWindow, color, rect)
     
     def chooseMove(self, chessboard, gameWindow):
         print("MADE IT TO start of chooseMove func")
@@ -101,7 +101,7 @@ class Player:
                 row, col = currPiece.getX(), 2
             else:
                 row, col = i
-            self.change_sqaure_color(gameWindow, i, blue)
+            self.change_square_color(gameWindow, i, blue)
             rect = pygame.Rect(col*100, row*100, 100, 100)
             pygame.draw.rect(gameWindow, black, rect, 1)
         draw_pieces(gameWindow, chessboard)
@@ -139,9 +139,9 @@ class Player:
                             x, y = i
                             print(f"Changing color of {i}")
                             if (x + y) % 2 == 0:
-                                self.change_sqaure_color(gameWindow, i, white)
+                                self.change_square_color(gameWindow, i, white)
                             else:
-                                self.change_sqaure_color(gameWindow, i, lightgray)
+                                self.change_square_color(gameWindow, i, lightgray)
 
                         for i in range(8):
                             for j in range(8):

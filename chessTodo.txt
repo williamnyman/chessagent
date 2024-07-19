@@ -1,8 +1,9 @@
 - check :(
 - draws
 - pawn takes in passing
-- TASK 2: pawn promoted at back rank (small images idk?)
+- CURRENT TASK : when 4 options come up, other avaliable moves remain blue - change that
+- create file for import that has dictionaries, drawpieces, any other functions that dont need to belong to a certain class (chessUtility.py)
 
-- CURRENT TASK: move grid, pics, clicks down so that it is not packed in to top left corner and make that work
+- move grid, pics, clicks down so that it is not packed in to top left corner and make that work
 - add visuals: title, current instruction, quit button, pieces taken list?, etc.
     - change chessActual so it doenst just do one game, make running a game a function, etc...
