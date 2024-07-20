@@ -31,4 +31,3 @@ while not game1.checkVictory():
 
 pygame.quit()
 sys.exit()
-

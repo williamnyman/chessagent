@@ -30,12 +30,12 @@ pieceImagesSmall = {
 square_size = 100
 
 # Define a function to draw pieces
-def draw_pieces(gameWindow, board):
+def draw_pieces(gameWindow, boardprime):
     for row in range(8):
         for col in range(8):
-            piece = board[row][col]
+            piece = boardprime[row][col]
             if piece:
-                pieceCode = board[row][col].__str__()
+                pieceCode = boardprime[row][col].__str__()
                 gameWindow.blit(pieceImages[pieceCode], pygame.Rect((col*square_size) + 5, (row*square_size) + 5, square_size, square_size))
 
 def draw_board(gameWindow, chessboard):
@@ -61,5 +61,3 @@ def draw_lines(gameWindow):
         for j in range(8):
             rect = pygame.Rect((i*square_size), (j*square_size), square_size, square_size)
             pygame.draw.rect(gameWindow, black, rect, 1)
-
-
