@@ -39,6 +39,25 @@ def draw_pieces(gameWindow, board):
                 pieceCode = board[row][col].__str__()
                 gameWindow.blit(pieceImages[pieceCode], pygame.Rect((col*square_size) + 5, (row*square_size) + 5, square_size, square_size))
 
+def draw_board(gameWindow, chessboard):
+    # Fill the background
+    gameWindow.fill(white)
+
+    # Draw the chessboard + pieces
+    for row in range(8):
+        for col in range(8):
+            rect = pygame.Rect((col*square_size), (row*square_size), square_size, square_size)
+            if (row + col) % 2 == 0:
+                pygame.draw.rect(gameWindow, white, rect)
+            else:
+                pygame.draw.rect(gameWindow, lightgray, rect)
+            pygame.draw.rect(gameWindow, black, rect, 1)
+    draw_pieces(gameWindow, chessboard)
+
+    # Update the display
+    pygame.display.flip()
+
+
 #running = True
 game1 = ChessGame()
 print("GAME 1 is chessgame")
@@ -47,7 +66,8 @@ print("Board 1 = game1.gameboard.board")
 while not game1.checkVictory():
         print("Start of while loop")
         
-        # Fill the background
+        draw_board(gameWindow, board1)
+        '''# Fill the background
         gameWindow.fill(white)
 
         # Draw the chessboard + pieces
@@ -62,7 +82,7 @@ while not game1.checkVictory():
         draw_pieces(gameWindow, board1)
 
         # Update the display
-        pygame.display.flip()
+        pygame.display.flip()'''
 
         game1.gameTurn(gameWindow)
 
