@@ -1,8 +1,6 @@
 - check :(
 - draws
 - pawn takes in passing
-- CURRENT TASK : when 4 options come up, other avaliable moves remain blue - change that
-- create file for import that has dictionaries, drawpieces, any other functions that dont need to belong to a certain class (chessUtility.py)
 
 - move grid, pics, clicks down so that it is not packed in to top left corner and make that work
 - add visuals: title, current instruction, quit button, pieces taken list?, etc.
