@@ -1,5 +1,6 @@
 #import chessVisuals
 import pygame
+import random
 from chessColors import lightgray, white
 
 from chessPieces import Pawn, Rook, Knight, Bishop, Queen, King
@@ -64,6 +65,8 @@ class ChessBoard:
             moving_piece.update_has_moved(True)
 
     def applyCastle(self, move, moving_piece):
+        print(f"Applying castle or move {move} done by player {moving_piece.color}")
+
         if move == "castleR": #((moving_piece.getX(), 6))
             self.board[moving_piece.getX()][6] = self.board[moving_piece.getX()][4]
             self.board[moving_piece.getX()][6].updatePosition(moving_piece.getX(),6)
@@ -99,8 +102,9 @@ class ChessBoard:
                 gameWindow.blit(pieceImagesSmall[i], pygame.Rect((y*100) + start[1], (x*100) + start[0], 50, 50))
 
         pygame.display.flip()
-
         promote_selection = None
+        #promote_selection = random.choice(('queen','rook','knight','bishop'))
+
         while not promote_selection:
             #pygame.time.wait(100)
             #print("MADE IT TO start of select piece")
@@ -128,6 +132,7 @@ class ChessBoard:
                     else:
                         print("looping again")
                         pygame.event.clear()
+
         if promote_selection == 'queen':
             self.board[x][y] = Queen(moving_player.color, x, y)
         if promote_selection == 'rook':

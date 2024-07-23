@@ -5,19 +5,7 @@ from chessPieces import Pawn, Rook, Knight, Bishop, Queen, King
 from chessColors import white, black, blue, lightblue, lightgray
 
 from chessUtility import pieceImages, draw_pieces
-
-
-'''# Define a function to draw pieces
-# from Player - chessboard is ChessBoard object of which the board variable is subscripted
-def draw_pieces(gameWindow, chessboard):
-    for row in range(8):
-        for col in range(8):
-            piece = chessboard.board[row][col]
-            if piece:
-                pieceCode = chessboard.board[row][col].__str__()
-                gameWindow.blit(pieceImages[pieceCode], pygame.Rect((col*100) + 5, (row*100) + 5, 100, 100))'''
-
-                
+               
 class Player:
     def __init__(self, color):
         self.color = color
@@ -30,6 +18,14 @@ class Player:
 
     def populate_pieces(self, chessboard):
         self.pieces = chessboard.retrievePieces(self.color)
+
+    def make_random_move_choice(self, chessboard):
+        potential_moves = []
+        for i in self.pieces:
+            for j in i.legal_moves(chessboard):
+                potential_moves.append((i, j))
+
+        return random.choice(potential_moves)
 
     def selectPiece(self, chessboard):
         while True:
@@ -72,6 +68,8 @@ class Player:
         pygame.draw.rect(gameWindow, color, rect)
     
     def chooseMove(self, chessboard, gameWindow):
+        #return self.make_random_move_choice(chessboard)
+
         print("MADE IT TO start of chooseMove func")
         currPiece = self.selectPiece(chessboard)
         currMoves = currPiece.legal_moves(chessboard)

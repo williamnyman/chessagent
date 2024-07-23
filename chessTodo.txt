@@ -1,6 +1,7 @@
 - check :(
 - draws
 - pawn takes in passing
+- Castling bug found by running games 1000 times: MAYBE HAS TO DO WITH PROMOTION
 
 - move grid, pics, clicks down so that it is not packed in to top left corner and make that work
 - add visuals: title, current instruction, quit button, pieces taken list?, etc.
