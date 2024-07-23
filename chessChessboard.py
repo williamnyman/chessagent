@@ -5,33 +5,7 @@ from chessColors import lightgray, white
 from chessPieces import Pawn, Rook, Knight, Bishop, Queen, King
 from chessPlayer import Player
 
-'''
-pieceImages = {
-    'P': pygame.image.load('chessImages/wpawn.png'),
-    'p': pygame.image.load('chessImages/bpawn.png'),
-    'R': pygame.image.load('chessImages/wrook.png'),
-    'r': pygame.image.load('chessImages/brook.png'),
-    'N': pygame.image.load('chessImages/wknight.png'),
-    'n': pygame.image.load('chessImages/bknight.png'),
-    'B': pygame.image.load('chessImages/wbishop.png'),
-    'b': pygame.image.load('chessImages/bbishop.png'),
-    'Q': pygame.image.load('chessImages/wqueen.png'),
-    'q': pygame.image.load('chessImages/bqueen.png'),
-    'K': pygame.image.load('chessImages/wking.png'),
-    'k': pygame.image.load('chessImages/bking.png')
-}
-
-pieceImagesSmall = {
-    'R': pygame.transform.scale(pygame.image.load('chessImages/wrook.png'), (50, 50)),
-    'r': pygame.transform.scale(pygame.image.load('chessImages/brook.png'), (50, 50)),
-    'N': pygame.transform.scale(pygame.image.load('chessImages/wknight.png'), (50, 50)),
-    'n': pygame.transform.scale(pygame.image.load('chessImages/bknight.png'), (50, 50)),
-    'B': pygame.transform.scale(pygame.image.load('chessImages/wbishop.png'), (50, 50)),
-    'b': pygame.transform.scale(pygame.image.load('chessImages/bbishop.png'), (50, 50)),
-    'Q': pygame.transform.scale(pygame.image.load('chessImages/wqueen.png'), (50, 50)),
-    'q': pygame.transform.scale(pygame.image.load('chessImages/bqueen.png'), (50, 50))
-}
-'''
+from chessUtility import pieceImages, pieceImagesSmall, draw_board, draw_pieces
 
 
 class ChessBoard:
@@ -110,6 +84,10 @@ class ChessBoard:
     def promote_pawn(self, x, y, moving_player, moving_piece, gameWindow):
         potential_pieces_w = [('R',(0, 0)), ('B', (50, 0)), ('N', (0, 50)), ('Q', (50, 50))]
         potential_pieces_b = [('r',(0, 0)), ('b', (50, 0)), ('n', (0, 50)), ('q', (50, 50))]
+
+        draw_board(gameWindow, self.board)
+        print("SELF PASS WORKED")
+
         colors = [white, lightgray]
         if moving_player.color == "white":
             moving_player.change_square_color(gameWindow, (x, y), colors[y % 2])

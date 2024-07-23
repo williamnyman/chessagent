@@ -1,6 +1,7 @@
 import pygame
 from chessColors import black, white, lightblue, lightgray, blue
 
+square_size = 100
 # Load images
 pieceImages = {
     'P': pygame.image.load('chessImages/wpawn.png'),
@@ -16,7 +17,6 @@ pieceImages = {
     'K': pygame.image.load('chessImages/wking.png'),
     'k': pygame.image.load('chessImages/bking.png')
 }
-
 pieceImagesSmall = {
     'R': pygame.transform.scale(pygame.image.load('chessImages/wrook.png'), (50, 50)),
     'r': pygame.transform.scale(pygame.image.load('chessImages/brook.png'), (50, 50)),
@@ -28,35 +28,33 @@ pieceImagesSmall = {
     'q': pygame.transform.scale(pygame.image.load('chessImages/bqueen.png'), (50, 50))
 }
 
-#NEED TO CHANGE ONE OF THESE SO THAT THEY ARE GETTING THE SAME TYPE OF PARAMETER
-#GO LOOK AT WHAT IS PASSED IN WHEN THEY ARE CALLED ACROSS ALL FILES AND FIGURE IT OUT
-
 # Define a function to draw pieces
-# from chessActual - board paramter is a grid - is subscripted
+# chessboard is ChessBoard object of which the board variable is subscripted
 def draw_pieces(gameWindow, board):
     for row in range(8):
         for col in range(8):
             piece = board[row][col]
             if piece:
                 pieceCode = board[row][col].__str__()
-                gameWindow.blit(pieceImages[pieceCode], pygame.Rect((col*square_size) + 5, (row*square_size) + 5, square_size, square_size))
+                gameWindow.blit(pieceImages[pieceCode], pygame.Rect((col*100) + 5, (row*100) + 5, 100, 100))
 
-# Define a function to draw pieces
-# from Player - chessboard is ChessBoard object of which the board variable is subscripted
-def draw_pieces(gameWindow, chessboard):
+# draw tiles + lines + pieces
+def draw_board(gameWindow, board):
     for row in range(8):
         for col in range(8):
-            piece = chessboard.board[row][col]
-            if piece:
-                pieceCode = chessboard.board[row][col].__str__()
-                gameWindow.blit(pieceImages[pieceCode], pygame.Rect((col*100) + 5, (row*100) + 5, 100, 100))
-    
+            rect = pygame.Rect((col*square_size), (row*square_size), square_size, square_size)
+            if (row + col) % 2 == 0:
+                pygame.draw.rect(gameWindow, white, rect)
+            else:
+                pygame.draw.rect(gameWindow, lightgray, rect)
+            pygame.draw.rect(gameWindow, black, rect, 1)
+    draw_pieces(gameWindow, board)
 
-def draw_board(): # DONT KNOW PARAMS YET
-    print("Draw board function!")
-
-def draw_lines(): # DONT KNOW PARAMS YET
-    print("Draw lines function!")
+def draw_lines(gameWindow):
+    for i in range(8):
+        for j in range(8):
+            rect = pygame.Rect((i*square_size), (j*square_size), square_size, square_size)
+            pygame.draw.rect(gameWindow, black, rect, 1)
 
 def draw_all(): #DONT KNOW PARAMS YET
     print("Draw all function!")

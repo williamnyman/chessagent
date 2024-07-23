@@ -4,24 +4,10 @@ import random
 from chessPieces import Pawn, Rook, Knight, Bishop, Queen, King
 from chessColors import white, black, blue, lightblue, lightgray
 
-# Load images
-pieceImages = {
-    'P': pygame.image.load('chessImages/wpawn.png'),
-    'p': pygame.image.load('chessImages/bpawn.png'),
-    'R': pygame.image.load('chessImages/wrook.png'),
-    'r': pygame.image.load('chessImages/brook.png'),
-    'N': pygame.image.load('chessImages/wknight.png'),
-    'n': pygame.image.load('chessImages/bknight.png'),
-    'B': pygame.image.load('chessImages/wbishop.png'),
-    'b': pygame.image.load('chessImages/bbishop.png'),
-    'Q': pygame.image.load('chessImages/wqueen.png'),
-    'q': pygame.image.load('chessImages/bqueen.png'),
-    'K': pygame.image.load('chessImages/wking.png'),
-    'k': pygame.image.load('chessImages/bking.png')
-}
+from chessUtility import pieceImages, draw_pieces
 
-'''
-# Define a function to draw pieces
+
+'''# Define a function to draw pieces
 # from Player - chessboard is ChessBoard object of which the board variable is subscripted
 def draw_pieces(gameWindow, chessboard):
     for row in range(8):
@@ -29,8 +15,8 @@ def draw_pieces(gameWindow, chessboard):
             piece = chessboard.board[row][col]
             if piece:
                 pieceCode = chessboard.board[row][col].__str__()
-                gameWindow.blit(pieceImages[pieceCode], pygame.Rect((col*100) + 5, (row*100) + 5, 100, 100))
-'''
+                gameWindow.blit(pieceImages[pieceCode], pygame.Rect((col*100) + 5, (row*100) + 5, 100, 100))'''
+
                 
 class Player:
     def __init__(self, color):
@@ -107,7 +93,7 @@ class Player:
             self.change_square_color(gameWindow, i, blue)
             rect = pygame.Rect(col*100, row*100, 100, 100)
             pygame.draw.rect(gameWindow, black, rect, 1)
-        draw_pieces(gameWindow, chessboard)
+        draw_pieces(gameWindow, chessboard.board)
 
         pygame.display.flip()
 
@@ -150,7 +136,7 @@ class Player:
                             for j in range(8):
                                 rect = pygame.Rect(i*100, j*100, 100, 100)
                                 pygame.draw.rect(gameWindow, black, rect, 1)
-                        draw_pieces(gameWindow, chessboard)
+                        draw_pieces(gameWindow, chessboard.board)
 
 
                         pygame.display.flip()
