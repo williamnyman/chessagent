@@ -5,6 +5,7 @@ from chessColors import lightgray, white
 from chessPieces import Pawn, Rook, Knight, Bishop, Queen, King
 from chessPlayer import Player
 
+'''
 pieceImages = {
     'P': pygame.image.load('chessImages/wpawn.png'),
     'p': pygame.image.load('chessImages/bpawn.png'),
@@ -30,7 +31,7 @@ pieceImagesSmall = {
     'Q': pygame.transform.scale(pygame.image.load('chessImages/wqueen.png'), (50, 50)),
     'q': pygame.transform.scale(pygame.image.load('chessImages/bqueen.png'), (50, 50))
 }
-
+'''
 
 
 class ChessBoard:

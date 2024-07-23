@@ -20,7 +20,9 @@ pieceImages = {
     'k': pygame.image.load('chessImages/bking.png')
 }
 
+'''
 # Define a function to draw pieces
+# from Player - chessboard is ChessBoard object of which the board variable is subscripted
 def draw_pieces(gameWindow, chessboard):
     for row in range(8):
         for col in range(8):
@@ -28,7 +30,8 @@ def draw_pieces(gameWindow, chessboard):
             if piece:
                 pieceCode = chessboard.board[row][col].__str__()
                 gameWindow.blit(pieceImages[pieceCode], pygame.Rect((col*100) + 5, (row*100) + 5, 100, 100))
-
+'''
+                
 class Player:
     def __init__(self, color):
         self.color = color

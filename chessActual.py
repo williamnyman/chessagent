@@ -2,6 +2,7 @@ import pygame
 import sys
 from chessGame import ChessGame
 from chessColors import white, black, blue, lightblue, lightgray
+from chessUtility import pieceImages, draw_pieces
 
 
 pygame.init()
@@ -31,6 +32,7 @@ pieceImages = {
 }
 
 # Define a function to draw pieces
+# from chessActual - board paramter is a grid - is subscripted
 def draw_pieces(gameWindow, board):
     for row in range(8):
         for col in range(8):
@@ -42,7 +44,7 @@ def draw_pieces(gameWindow, board):
 #running = True
 game1 = ChessGame()
 print("GAME 1 is chessgame")
-board1 = game1.gameboard.board
+#board1 = game1.gameboard.board
 print("Board 1 = game1.gameboard.board")
 while not game1.checkVictory():
         print("Start of while loop")
@@ -59,7 +61,7 @@ while not game1.checkVictory():
                 else:
                     pygame.draw.rect(gameWindow, lightgray, rect)
                 pygame.draw.rect(gameWindow, black, rect, 1)
-        draw_pieces(gameWindow, board1)
+        draw_pieces(gameWindow, game1.gameboard.board)
 
         # Update the display
         pygame.display.flip()
