@@ -18,7 +18,7 @@ square_size = 100
 #####################
 bwins = 0
 wwins = 0
-for i in range(250):
+for i in range(10):
 #####################
 
     game1 = ChessGame()

@@ -14,6 +14,7 @@ class ChessBoard:
         # Initialize an 8x8 chess board with None values
         self.board = [[None for _ in range(8)] for _ in range(8)]
         self.setup_board()
+        self.last_move = None
 
     def setup_board(self):
         # Initialize pieces on the board
@@ -41,6 +42,8 @@ class ChessBoard:
 
     def applyMove(self, move, moving_player, moving_piece, gameWindow):
         #print("start of apply move")
+        self.last_move = (moving_piece, move)
+
         if "castle" in move:
             self.applyCastle(move, moving_piece)
             return 0
@@ -104,7 +107,7 @@ class ChessBoard:
 
         pygame.display.flip()
         promote_selection = None
-        promote_selection = random.choice(('queen','rook','knight','bishop'))
+        #promote_selection = random.choice(('queen','rook','knight','bishop'))
 
         while not promote_selection:
             #pygame.time.wait(100)

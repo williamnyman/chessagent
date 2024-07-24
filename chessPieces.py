@@ -26,6 +26,14 @@ class Piece:
         self.y = new_y
 
 class Pawn(Piece):
+    def __init__(self, color, x, y):
+            super().__init__(color, x, y)
+            self.turns_moved = 0
+            self.made_2jump_lastturn = False
+
+    def increment_turns_moved(self):
+        self.turns_moved = self.turns_moved + 1
+
     def legal_moves(self, chessboard):
         moves = []
         if self.color == 'white':
@@ -39,6 +47,8 @@ class Pawn(Piece):
                 if -1 < self.x + add_x and self.x + add_x < 8 and -1 < self.y + add_y and self.y + add_y < 8:
                     if chessboard.board[self.x+add_x][self.y+add_y] and chessboard.board[self.x+add_x][self.y+add_y].color != self.color:
                         moves.append((self.x + add_x, self.y + add_y))
+
+                    
         else:
             if chessboard.board[self.x+1][self.y] is None:
                 moves.append((self.x+1, self.y))
