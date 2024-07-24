@@ -18,15 +18,15 @@ square_size = 100
 #####################
 bwins = 0
 wwins = 0
-for i in range(1000):
+for i in range(250):
 #####################
 
     game1 = ChessGame()
-    print("GAME 1 is chessgame")
+    #print("GAME 1 is chessgame")
     #board1 = game1.gameboard.board
-    print("Board 1 = game1.gameboard.board")
+    #print("Board 1 = game1.gameboard.board")
     while not game1.checkVictory():
-            print("Start of while loop")
+            #print("Start of while loop")
             
             # Fill the background
             gameWindow.fill(white)

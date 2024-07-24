@@ -42,8 +42,8 @@ class Pawn(Piece):
         else:
             if chessboard.board[self.x+1][self.y] is None:
                 moves.append((self.x+1, self.y))
-            if self.x == 1 and chessboard.board[self.x+2][self.y] is None:
-                moves.append((self.x+2, self.y))
+                if self.x == 1 and chessboard.board[self.x+2][self.y] is None:
+                    moves.append((self.x+2, self.y))
 
             black_pawn_moves = [(1,-1),(1,1)]
             for add_x, add_y in black_pawn_moves:
@@ -283,14 +283,15 @@ class King(Piece):
                 if not chessboard.board[self.x+add_x][self.y+add_y] or (chessboard.board[self.x+add_x][self.y+add_y] and chessboard.board[self.x+add_x][self.y+add_y].color != self.color):
                     moves.append((self.x+add_x, self.y+add_y))
 
-        if chessboard.board[self.x][5] == None and chessboard.board[self.x][6] == None:
-            if (chessboard.board[self.x][7].__str__() == 'R' or chessboard.board[self.x][7].__str__() == 'r') and chessboard.board[self.x][7].has_moved == False:
-                #moves.append((self.x, 6))
-                moves.append("castleR")
-        if chessboard.board[self.x][3] == None and chessboard.board[self.x][2] == None and chessboard.board[self.x][1] == None:
-            if (chessboard.board[self.x][0].__str__() == 'R' or chessboard.board[self.x][0].__str__() == 'r') and chessboard.board[self.x][0].has_moved == False:
-                #moves.append((self.x, 2))
-                moves.append("castleL")
+        if chessboard.board[self.x][4].__str__() in ('K', 'k') and chessboard.board[self.x][4].has_moved == False:
+            if chessboard.board[self.x][5] == None and chessboard.board[self.x][6] == None:
+                if (chessboard.board[self.x][7].__str__() == 'R' or chessboard.board[self.x][7].__str__() == 'r') and chessboard.board[self.x][7] and chessboard.board[self.x][7].has_moved == False:
+                    #moves.append((self.x, 6))
+                    moves.append("castleR")
+            if chessboard.board[self.x][3] == None and chessboard.board[self.x][2] == None and chessboard.board[self.x][1] == None:
+                if (chessboard.board[self.x][0].__str__() == 'R' or chessboard.board[self.x][0].__str__() == 'r') and chessboard.board[self.x][0] and chessboard.board[self.x][0].has_moved == False:
+                    #moves.append((self.x, 2))
+                    moves.append("castleL")
         return moves
 
     def __str__(self):

@@ -40,7 +40,7 @@ class ChessBoard:
         return pieces
 
     def applyMove(self, move, moving_player, moving_piece, gameWindow):
-        print("start of apply move")
+        #print("start of apply move")
         if "castle" in move:
             self.applyCastle(move, moving_piece)
             return 0
@@ -65,10 +65,11 @@ class ChessBoard:
             moving_piece.update_has_moved(True)
 
     def applyCastle(self, move, moving_piece):
-        print(f"Applying castle or move {move} done by player {moving_piece.color}")
+        #print(f"Applying castle or move {move} of piece {moving_piece.__str__()} done by player {moving_piece.color}")
 
         if move == "castleR": #((moving_piece.getX(), 6))
             self.board[moving_piece.getX()][6] = self.board[moving_piece.getX()][4]
+            print(f"about to update position of {self.board[moving_piece.getX()][6]}")
             self.board[moving_piece.getX()][6].updatePosition(moving_piece.getX(),6)
             self.board[moving_piece.getX()][4] = None
 
@@ -89,7 +90,7 @@ class ChessBoard:
         potential_pieces_b = [('r',(0, 0)), ('b', (50, 0)), ('n', (0, 50)), ('q', (50, 50))]
 
         draw_board(gameWindow, self.board)
-        print("SELF PASS WORKED")
+        #print("SELF PASS WORKED")
 
         colors = [white, lightgray]
         if moving_player.color == "white":
@@ -103,7 +104,7 @@ class ChessBoard:
 
         pygame.display.flip()
         promote_selection = None
-        #promote_selection = random.choice(('queen','rook','knight','bishop'))
+        promote_selection = random.choice(('queen','rook','knight','bishop'))
 
         while not promote_selection:
             #pygame.time.wait(100)
@@ -141,6 +142,8 @@ class ChessBoard:
             self.board[x][y] = Knight(moving_player.color, x, y)
         if promote_selection == 'bishop':
             self.board[x][y] = Bishop(moving_player.color, x, y)
+
+        #print("JUST DID A PROMOTION")
                         
 
     def boardVictory(self, playerw, playerb):
