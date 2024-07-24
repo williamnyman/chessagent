@@ -1,6 +1,9 @@
 - check :(
 - draws
 - CURRENT TASK: pawn takes in passing
+    - only pawn taking pawn
+    - enemy pawn moves two squares forward on previous turn
+    - attacking pawn attacks square enemy pawn passed over
 
 - move grid, pics, clicks down so that it is not packed in to top left corner and make that work
 - add visuals: title, current instruction, quit button, pieces taken list?, etc.
