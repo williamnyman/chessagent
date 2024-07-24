@@ -69,7 +69,7 @@ class Player:
     
     def chooseMove(self, chessboard, gameWindow):
         #return self.make_random_move_choice(chessboard)
-
+        
         print("MADE IT TO start of chooseMove func")
         currPiece = self.selectPiece(chessboard)
         currMoves = currPiece.legal_moves(chessboard)
@@ -144,6 +144,7 @@ class Player:
 
                     #clicked on nothing important should stay at move selection
                     print("looping again")
-    
+        
+                     
     def addToCaptured(self, p):
         self.captured_pieces.append(p)
