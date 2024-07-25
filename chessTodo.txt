@@ -1,9 +1,10 @@
-- check :(
+- CURRENT TASK: check :(
+    - red square around king when in check
+    - check if a copy of the board that makes no move results in a loss
+    - must make move that takes player out of check
+    - if the total legal moves while in check is None then game is won
 - draws
-- CURRENT TASK: pawn takes in passing
-    - only pawn taking pawn
-    - enemy pawn moves two squares forward on previous turn
-    - attacking pawn attacks square enemy pawn passed over
+
 
 - move grid, pics, clicks down so that it is not packed in to top left corner and make that work
 - add visuals: title, current instruction, quit button, pieces taken list?, etc.
