@@ -86,6 +86,14 @@ class Player:
                 row, col = currPiece.getX(), 6
             elif i == "castleL":
                 row, col = currPiece.getX(), 2
+            elif i == "epWL":
+                row, col = 
+            elif i == "epWR":
+                row, col =
+            elif i == "epBL":
+                row, col = 
+            elif i == "epBR":
+                row, col ==
             else:
                 row, col = i
             self.change_square_color(gameWindow, i, blue)

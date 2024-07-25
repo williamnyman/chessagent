@@ -3,7 +3,7 @@ import pygame
 import random
 from chessColors import lightgray, white
 
-from chessPieces import Pawn, Rook, Knight, Bishop, Queen, King
+from chessPieces import Piece, Pawn, Rook, Knight, Bishop, Queen, King
 from chessPlayer import Player
 
 from chessUtility import pieceImages, pieceImagesSmall, draw_board, draw_pieces
@@ -42,7 +42,9 @@ class ChessBoard:
 
     def applyMove(self, move, moving_player, moving_piece, gameWindow):
         #print("start of apply move")
-        self.last_move = (moving_piece, move)
+
+        move_initial = (moving_piece.x, moving_piece.y)
+        self.last_move = (moving_piece, move_initial, move)
 
         if "castle" in move:
             self.applyCastle(move, moving_piece)

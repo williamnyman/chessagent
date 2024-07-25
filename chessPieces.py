@@ -48,6 +48,13 @@ class Pawn(Piece):
                     if chessboard.board[self.x+add_x][self.y+add_y] and chessboard.board[self.x+add_x][self.y+add_y].color != self.color:
                         moves.append((self.x + add_x, self.y + add_y))
 
+            if chessboard.last_move:
+                if chessboard.last_move[0].__str__() == 'p':
+                    if (chessboard.last_move[1], chessboard.last_move[2]) == ((self.x-2,self.y-1),(self.x,self.y-1)):
+                        moves.append("epWL")
+                    if (chessboard.last_move[1], chessboard.last_move[2]) == ((self.x-2,self.y+1),(self.x,self.y+1)):
+                        moves.append("epWR")
+
                     
         else:
             if chessboard.board[self.x+1][self.y] is None:
@@ -60,6 +67,13 @@ class Pawn(Piece):
                 if -1 < self.x + add_x and self.x + add_x < 8 and -1 < self.y + add_y and self.y + add_y < 8:
                     if chessboard.board[self.x+add_x][self.y+add_y] and chessboard.board[self.x+add_x][self.y+add_y].color != self.color:
                         moves.append((self.x + add_x, self.y + add_y))
+
+            if chessboard.last_move:
+                if chessboard.last_move[0].__str__() == 'P':
+                    if (chessboard.last_move[1], chessboard.last_move[2]) == ((self.x+2,self.y-1),(self.x,self.y-1)):
+                        moves.append("epBL")
+                    if (chessboard.last_move[1], chessboard.last_move[2]) == ((self.x+2,self.y+1),(self.x,self.y+1)):
+                        moves.append("epBR")
         return moves
     
     def __str__(self):
