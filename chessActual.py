@@ -18,7 +18,7 @@ square_size = 100
 #####################
 bwins = 0
 wwins = 0
-for i in range(10):
+for i in range(500):
 #####################
 
     game1 = ChessGame()
@@ -44,11 +44,12 @@ for i in range(10):
           bwins = bwins + 1
 
 #####################
-    print(f"Black: {bwins} -----------------------")
-    print(f"White: {wwins} -----------------------")
+    print(game1.checkVictory().color)
 #####################
 
     # exit the game once !running, that condition will change when game is over
+print(f"White wins: {wwins}")
+print(f"Black wins: {bwins}")
 
 pygame.quit()
 sys.exit()

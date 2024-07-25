@@ -68,7 +68,7 @@ class Player:
         pygame.draw.rect(gameWindow, color, rect)
     
     def chooseMove(self, chessboard, gameWindow):
-        #return self.make_random_move_choice(chessboard)
+        return self.make_random_move_choice(chessboard)
         
         print("MADE IT TO start of chooseMove func")
         currPiece = self.selectPiece(chessboard)
@@ -87,16 +87,16 @@ class Player:
             elif i == "castleL":
                 row, col = currPiece.getX(), 2
             elif i == "epWL":
-                row, col = 
+                row, col = currPiece.x - 1, currPiece.y - 1
             elif i == "epWR":
-                row, col =
+                row, col = currPiece.x - 1, currPiece.y + 1
             elif i == "epBL":
-                row, col = 
+                row, col = currPiece.x + 1, currPiece.y - 1
             elif i == "epBR":
-                row, col ==
+                row, col = currPiece.x + 1, currPiece.y + 1
             else:
                 row, col = i
-            self.change_square_color(gameWindow, i, blue)
+            self.change_square_color(gameWindow, (row, col), blue)
             rect = pygame.Rect(col*100, row*100, 100, 100)
             pygame.draw.rect(gameWindow, black, rect, 1)
         draw_pieces(gameWindow, chessboard.board)
@@ -117,13 +117,21 @@ class Player:
                     print("JUST GOT MOUSE POS")
                     #pygame.time.wait(1500)
                     
-                    if (row, col) in currMoves or "castleR" in currMoves or "castleL" in currMoves:
+                    if (row, col) in currMoves or "castleR" in currMoves or "castleL" in currMoves or "epWL" in currMoves or "epWR" in currMoves or "epBL" in currMoves or "epBR" in currMoves:
                         if (row, col) == (currPiece.getX(), 6) and "castleR" in currMoves:
                             print(f"selected {'castleR'}")
                             return currPiece, "castleR"
                         elif (row, col) == (currPiece.getX(), 2) and "castleL" in currMoves:
                             print(f"selected {'castleL'}")
                             return currPiece, "castleL"
+                        elif (row, col) == (currPiece.x - 1, currPiece.y - 1) and "epWL" in currMoves:
+                            return currPiece, "epWL"
+                        elif (row, col) == (currPiece.x - 1, currPiece.y + 1) and "epWR" in currMoves:
+                            return currPiece, "epWR"
+                        elif (row, col) == (currPiece.x + 1, currPiece.y - 1) and "epBL" in currMoves:
+                            return currPiece, "epBL"
+                        elif (row, col) == (currPiece.x + 1, currPiece.y + 1) and "epBR" in currMoves:
+                            return currPiece, "epBR"
                         else:
                             pygame.event.clear()
                             return currPiece, (row, col)

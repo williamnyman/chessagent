@@ -41,7 +41,9 @@ class ChessBoard:
         return pieces
 
     def applyMove(self, move, moving_player, moving_piece, gameWindow):
-        #print("start of apply move")
+        if "ep" in move:
+            self.applyep(move, moving_player, moving_piece)
+            return 0
 
         move_initial = (moving_piece.x, moving_piece.y)
         self.last_move = (moving_piece, move_initial, move)
@@ -109,7 +111,7 @@ class ChessBoard:
 
         pygame.display.flip()
         promote_selection = None
-        #promote_selection = random.choice(('queen','rook','knight','bishop'))
+        promote_selection = random.choice(('queen','rook','knight','bishop'))
 
         while not promote_selection:
             #pygame.time.wait(100)
@@ -150,6 +152,30 @@ class ChessBoard:
 
         #print("JUST DID A PROMOTION")
                         
+    def applyep(self, move, moving_player, moving_piece):
+        piece_getting_taken = self.last_move[0]
+
+        if move == "epWL":
+            self.board[moving_piece.x - 1][moving_piece.y - 1] = moving_piece
+            self.board[moving_piece.x][moving_piece.y] = None
+            moving_piece.updatePosition(moving_piece.x - 1, moving_piece.y - 1)
+        elif move == "epWR":
+            self.board[moving_piece.x - 1][moving_piece.y + 1] = moving_piece
+            self.board[moving_piece.x][moving_piece.y] = None
+            moving_piece.updatePosition(moving_piece.x - 1, moving_piece.y + 1)
+        elif move == "epBL":
+            self.board[moving_piece.x + 1][moving_piece.y - 1] = moving_piece
+            self.board[moving_piece.x][moving_piece.y] = None
+            moving_piece.updatePosition(moving_piece.x + 1, moving_piece.y - 1)
+        elif move == "epBR":
+            self.board[moving_piece.x + 1][moving_piece.y + 1] = moving_piece
+            self.board[moving_piece.x][moving_piece.y] = None
+            moving_piece.updatePosition(moving_piece.x + 1, moving_piece.y + 1)
+
+        self.board[piece_getting_taken.x][piece_getting_taken.y] = None
+        
+        moving_player.addToCaptured(piece_getting_taken)
+
 
     def boardVictory(self, playerw, playerb):
         for i in playerw.captured_pieces:
