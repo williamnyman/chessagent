@@ -20,6 +20,9 @@ class ChessGame:
     def gameTurn(self, gameWindow):
 
         if self.ticker % 2 == 0:
+            print(f"White in check: {self.gameboard.checkCheck(self.playerwhite, self.playerblack)}")
+            #if self.gameboard.checkCheck(self.playerwhite, self.playerblack):
+            #    self.playerwhite.change_square_color(gameWindow, self.playerwhite.getKingLocation(), (255,0,0))
             self.playerwhite.populate_pieces(self.gameboard)
             #print("MADE IT PAST populate_pieces")
             selected_piece, chosen_move = self.playerwhite.chooseMove(self.gameboard, gameWindow)
@@ -28,6 +31,7 @@ class ChessGame:
             #print("MADE IT PAST applyMove")
 
         else:
+            print(f"Black in check: {self.gameboard.checkCheck(self.playerblack, self.playerwhite)}")
             self.playerblack.populate_pieces(self.gameboard)
             selected_piece, chosen_move = self.playerblack.chooseMove(self.gameboard, gameWindow)
             self.gameboard.applyMove(chosen_move, self.playerblack, selected_piece, gameWindow)

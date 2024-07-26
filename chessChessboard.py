@@ -1,6 +1,7 @@
 #import chessVisuals
 import pygame
 import random
+import copy
 from chessColors import lightgray, white
 
 from chessPieces import Piece, Pawn, Rook, Knight, Bishop, Queen, King
@@ -111,7 +112,7 @@ class ChessBoard:
 
         pygame.display.flip()
         promote_selection = None
-        promote_selection = random.choice(('queen','rook','knight','bishop'))
+        #promote_selection = random.choice(('queen','rook','knight','bishop'))
 
         while not promote_selection:
             #pygame.time.wait(100)
@@ -186,6 +187,27 @@ class ChessBoard:
                 return playerb
         return None
     
+    def checkCheck(self, playerTurn, playerNotTurn):
+        dummyboard = copy.deepcopy(self)
+        playerTurn.populate_pieces(dummyboard)
+        playerNotTurn.populate_pieces(dummyboard)
+        
+        for potentialKing in playerTurn.pieces:
+            print(f"For loop iteration piece str: {potentialKing.__str__()}")
+            if potentialKing.__str__() in ['K', 'k']:
+                playerTurnKing = potentialKing
+                print(f"playerTurnKing found at {playerTurnKing.x, playerTurnKing.y}")
+
+        #notTurnMoves = []
+        for notTurnPiece in playerNotTurn.pieces:
+            for notTurnMove in notTurnPiece.legal_moves(dummyboard):
+                if notTurnMove == (playerTurnKing.x, playerTurnKing.y):
+                    pygame.time.wait(3000)
+                    return True
+        
+        return False
+
+
 
     def display(self):
         # Display the board

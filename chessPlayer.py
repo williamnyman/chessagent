@@ -16,6 +16,11 @@ class Player:
         self.selectPiece()
         self.chooseMove(chessboard)
 
+    def getKingLocation(self):
+        for i in self.pieces:
+            if i.__str__() in ('K', 'k'):
+                return (i.x, i.y)
+
     def populate_pieces(self, chessboard):
         self.pieces = chessboard.retrievePieces(self.color)
 
@@ -68,7 +73,7 @@ class Player:
         pygame.draw.rect(gameWindow, color, rect)
     
     def chooseMove(self, chessboard, gameWindow):
-        return self.make_random_move_choice(chessboard)
+        #return self.make_random_move_choice(chessboard)
         
         print("MADE IT TO start of chooseMove func")
         currPiece = self.selectPiece(chessboard)
