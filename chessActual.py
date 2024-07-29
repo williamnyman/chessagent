@@ -18,7 +18,7 @@ square_size = 100
 #####################
 bwins = 0
 wwins = 0
-for i in range(1000):
+for i in range(5000):
 #####################
 
     game1 = ChessGame()
@@ -37,6 +37,7 @@ for i in range(1000):
             pygame.display.flip()
 
             game1.gameTurn(gameWindow)
+            
         
     if game1.checkVictory().color == "white":
           wwins = wwins + 1
@@ -44,7 +45,7 @@ for i in range(1000):
           bwins = bwins + 1
 
 #####################
-    print(game1.checkVictory().color)
+    print(f"{game1.checkVictory().color} wins!")
 #####################
 
     # exit the game once !running, that condition will change when game is over
