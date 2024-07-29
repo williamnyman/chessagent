@@ -71,9 +71,10 @@ class Player:
             x, y = coord
         rect = pygame.Rect(y*100, x*100, 100, 100)
         pygame.draw.rect(gameWindow, color, rect)
+
     
     def chooseMove(self, chessboard, gameWindow):
-        #return self.make_random_move_choice(chessboard)
+        return self.make_random_move_choice(chessboard)
         
         print("MADE IT TO start of chooseMove func")
         currPiece = self.selectPiece(chessboard)
