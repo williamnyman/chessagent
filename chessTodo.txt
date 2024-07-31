@@ -1,6 +1,7 @@
 - CURRENT TASK: check :(
     - must make move that takes player out of check
     - if the total legal moves while in check is None then game is won
+    - this is going poorly i have tried a bunch but not committed it cause it has sucked
 - draws
 
 
