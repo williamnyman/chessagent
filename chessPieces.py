@@ -1,6 +1,7 @@
 #import chessVisuals
 import pygame
 
+
 class Piece:
     #initialize piece and set color to passed in color (either black or white)
     def __init__(self, color, x, y):
@@ -25,6 +26,7 @@ class Piece:
         self.x = new_x
         self.y = new_y
 
+    
 
 class Pawn(Piece):
     def __init__(self, color, x, y):
@@ -75,6 +77,10 @@ class Pawn(Piece):
                         moves.append("epBL")
                     if (chessboard.last_move[1], chessboard.last_move[2]) == ((self.x+2,self.y+1),(self.x,self.y+1)):
                         moves.append("epBR")
+
+        '''for move in moves:
+            validate_move(move, self, chessboard, moving_player, notmoving_player)'''
+        
         return moves
     
     def __str__(self):

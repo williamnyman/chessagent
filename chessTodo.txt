@@ -4,6 +4,7 @@
     - this is going poorly i have tried a bunch but not committed it cause it has sucked
 - draws
 
+- ep is fucked up, can take piece by just moving to side when it is supposed to be taken by ep
 
 - move grid, pics, clicks down so that it is not packed in to top left corner and make that work
 - add visuals: title, current instruction, quit button, pieces taken list?, etc.

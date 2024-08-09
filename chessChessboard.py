@@ -142,41 +142,22 @@ class ChessBoard:
                         print("looping again")
                         pygame.event.clear()
 
-        if promote_selection == 'queen':
-            self.board[x][y] = Queen(moving_player.color, x, y)
-        if promote_selection == 'rook':
-            self.board[x][y] = Rook(moving_player.color, x, y)
-        if promote_selection == 'knight':
-            self.board[x][y] = Knight(moving_player.color, x, y)
-        if promote_selection == 'bishop':
-            self.board[x][y] = Bishop(moving_player.color, x, y)
-
+        promotion_dict = {'queen' : Queen(moving_player.color, x, y), 'rook' : Rook(moving_player.color, x, y), 'knight' : Knight(moving_player.color, x, y), 'bishop' : Bishop(moving_player.color, x, y)}
+        self.board[x][y] = promotion_dict[promote_selection]
         #print("JUST DID A PROMOTION")
                         
     def applyep(self, move, moving_player, moving_piece):
         piece_getting_taken = self.last_move[0]
 
-        if move == "epWL":
-            self.board[moving_piece.x - 1][moving_piece.y - 1] = moving_piece
-            self.board[moving_piece.x][moving_piece.y] = None
-            moving_piece.updatePosition(moving_piece.x - 1, moving_piece.y - 1)
-        elif move == "epWR":
-            self.board[moving_piece.x - 1][moving_piece.y + 1] = moving_piece
-            self.board[moving_piece.x][moving_piece.y] = None
-            moving_piece.updatePosition(moving_piece.x - 1, moving_piece.y + 1)
-        elif move == "epBL":
-            self.board[moving_piece.x + 1][moving_piece.y - 1] = moving_piece
-            self.board[moving_piece.x][moving_piece.y] = None
-            moving_piece.updatePosition(moving_piece.x + 1, moving_piece.y - 1)
-        elif move == "epBR":
-            self.board[moving_piece.x + 1][moving_piece.y + 1] = moving_piece
-            self.board[moving_piece.x][moving_piece.y] = None
-            moving_piece.updatePosition(moving_piece.x + 1, moving_piece.y + 1)
+        ep_dict = {"epWL" : (-1, -1), "epWR" : (-1, 1), "epBL" : (1, -1), "epBR" : (1, 1)}
+        addx, addy = ep_dict[move][0], ep_dict[move][1]
+
+        self.board[moving_piece.x + addx][moving_piece.y + addy] = moving_piece
+        self.board[moving_piece.x][moving_piece.y] = None
+        moving_piece.updatePosition(moving_piece.x + addx, moving_piece.y + addy)
 
         self.board[piece_getting_taken.x][piece_getting_taken.y] = None
-        
         moving_player.addToCaptured(piece_getting_taken)
-
 
     def boardVictory(self, playerw, playerb):
         for i in playerw.captured_pieces:

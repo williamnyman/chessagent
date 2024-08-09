@@ -1,5 +1,6 @@
 import pygame
 import copy
+import random
 from chessColors import black, white, lightblue, lightgray, blue
 
 square_size = 100
@@ -58,41 +59,53 @@ def draw_lines(gameWindow):
             pygame.draw.rect(gameWindow, black, rect, 1)
 
 '''
-def validate_move(move, moving_piece, chessboard, playerTurnColor, playerNotTurnColor):
+def validate_move(move, moving_piece, chessboard, moving_player, notmoving_player):
+    #things missing
+    #moving_player
+    #playerTurn and playerNotTurn for checkCheck
+    #how to create different pieces or just create piece copy because what promotion changes in to 
+    #does not determine check so it doesnt really matter, could just remove promotion stuff so piece
+    #stays the same?
+    #player_turn = moving_player
+
     dummyboard = copy.deepcopy(chessboard)
-    if "ep" in move:
+    if "ep" in move: #this could probaly just change to applyEP
         piece_getting_taken = dummyboard.last_move[0]
 
-        if move == "epWL":
-            dummyboard.board[moving_piece.x - 1][moving_piece.y - 1] = moving_piece
-            dummyboard.board[moving_piece.x][moving_piece.y] = None
-            moving_piece.updatePosition(moving_piece.x - 1, moving_piece.y - 1)
-        elif move == "epWR":
-            dummyboard.board[moving_piece.x - 1][moving_piece.y + 1] = moving_piece
-            dummyboard.board[moving_piece.x][moving_piece.y] = None
-            moving_piece.updatePosition(moving_piece.x - 1, moving_piece.y + 1)
-        elif move == "epBL":
-            dummyboard.board[moving_piece.x + 1][moving_piece.y - 1] = moving_piece
-            dummyboard.board[moving_piece.x][moving_piece.y] = None
-            moving_piece.updatePosition(moving_piece.x + 1, moving_piece.y - 1)
-        elif move == "epBR":
-            dummyboard.board[moving_piece.x + 1][moving_piece.y + 1] = moving_piece
-            dummyboard.board[moving_piece.x][moving_piece.y] = None
-            moving_piece.updatePosition(moving_piece.x + 1, moving_piece.y + 1)
+        ep_dict = {"epWL" : (-1, -1), "epWR" : (-1, 1), "epBL" : (1, -1), "epBR" : (1, 1)}
+        addx, addy = ep_dict[move][0], ep_dict[move][1]
+
+        dummyboard.board[moving_piece.x + addx][moving_piece.y + addy] = moving_piece
+        dummyboard.board[moving_piece.x][moving_piece.y] = None
+        moving_piece.updatePosition(moving_piece.x + addx, moving_piece.y + addy)
+
         dummyboard.board[piece_getting_taken.x][piece_getting_taken.y] = None
+        moving_player.addToCaptured(piece_getting_taken)
     
-        if "castle" in move:
-            dummyboard.applyCastle(move, moving_piece)
-            return 0
-        
+    elif "castle" in move:
+        dummyboard.applyCastle(move, moving_piece)
     
+    else:
+        #update moved pieces self.x and y coords
+        x, y = move
 
+        #if piece captured then add to captured pieces of moving player
+        if dummyboard.board[x][y]:
+            moving_player.addToCaptured(dummyboard.board[x][y])
+            
+        #make moved-to location new piece and moved-from location None
+        dummyboard.board[x][y] = moving_piece
+        dummyboard.board[moving_piece.getX()][moving_piece.getY()] = None
 
+        moving_piece.updatePosition(x, y)
 
-    if check after move applied to dummy board:
-        return false
+    if moving_piece.__str__() == 'k' or moving_piece.__str__() == 'K' or moving_piece.__str__() == 'R' or moving_piece.__str__() == 'r':
+        moving_piece.update_has_moved(True)
 
+    if dummyboard.checkCheck(playerTurn, playerNotTurn):
+        return False #move is not valid'''
 
+'''
 def applyMove(self, move, moving_player, moving_piece, gameWindow):
         if "ep" in move:
             self.applyep(move, moving_player, moving_piece)
