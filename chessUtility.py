@@ -58,7 +58,7 @@ def draw_lines(gameWindow):
             rect = pygame.Rect((i*square_size), (j*square_size), square_size, square_size)
             pygame.draw.rect(gameWindow, black, rect, 1)
 
-'''
+
 def validate_move(move, moving_piece, chessboard, moving_player, notmoving_player):
     #things missing
     #moving_player
@@ -103,7 +103,7 @@ def validate_move(move, moving_piece, chessboard, moving_player, notmoving_playe
         moving_piece.update_has_moved(True)
 
     if dummyboard.checkCheck(playerTurn, playerNotTurn):
-        return False #move is not valid'''
+        return False #move is not valid
 
 '''
 def applyMove(self, move, moving_player, moving_piece, gameWindow):
