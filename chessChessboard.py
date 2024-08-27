@@ -112,7 +112,7 @@ class ChessBoard:
 
         pygame.display.flip()
         promote_selection = None
-        promote_selection = random.choice(('queen','rook','knight','bishop'))
+        #promote_selection = random.choice(('queen','rook','knight','bishop'))
 
         while not promote_selection:
             #pygame.time.wait(100)

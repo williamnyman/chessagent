@@ -74,7 +74,7 @@ class Player:
 
     
     def chooseMove(self, chessboard):
-        return self.make_random_move_choice(chessboard)
+        #return self.make_random_move_choice(chessboard)
         
         print("MADE IT TO start of chooseMove func")
         currPiece = self.selectPiece(chessboard)

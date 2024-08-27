@@ -32,11 +32,8 @@ class ChessGame:
             pygame.display.flip()
 
             self.playerwhite.populate_pieces(self.gameboard)
-            #print("MADE IT PAST populate_pieces")
             selected_piece, chosen_move = self.playerwhite.chooseMove(self.gameboard)
-            #print("MADE IT PAST selecting piece and chosen move")
             self.gameboard.applyMove(chosen_move, self.playerwhite, selected_piece)
-            #print("MADE IT PAST applyMove")
 
         else:
             print(f"Black in check: {self.gameboard.checkCheck(self.playerblack, self.playerwhite)}")
