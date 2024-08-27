@@ -78,8 +78,7 @@ class Pawn(Piece):
                     if (chessboard.last_move[1], chessboard.last_move[2]) == ((self.x+2,self.y+1),(self.x,self.y+1)):
                         moves.append("epBR")
 
-        '''for move in moves:
-            validate_move(move, self, chessboard, moving_player, notmoving_player)'''
+        # validate moves
         
         return moves
     
