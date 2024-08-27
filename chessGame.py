@@ -33,7 +33,6 @@ class ChessGame:
 
             self.playerwhite.populate_pieces(self.gameboard)
             #print("MADE IT PAST populate_pieces")
-            selected_piece, chosen_move = self.playerwhite.chooseMove(self.gameboard, gameWindow)
             selected_piece, chosen_move = self.playerwhite.chooseMove(self.gameboard)
             #print("MADE IT PAST selecting piece and chosen move")
             self.gameboard.applyMove(chosen_move, self.playerwhite, selected_piece)
