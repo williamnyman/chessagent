@@ -7,7 +7,7 @@ from chessColors import lightgray, white
 from chessPieces import Piece, Pawn, Rook, Knight, Bishop, Queen, King
 from chessPlayer import Player
 
-from chessUtility import pieceImages, pieceImagesSmall, draw_board, draw_pieces
+from chessUtility import pieceImages, pieceImagesSmall, draw_board, draw_pieces, xyz
 
 
 class ChessBoard:
@@ -41,7 +41,7 @@ class ChessBoard:
                     pieces.append(piece)
         return pieces
 
-    def applyMove(self, move, moving_player, moving_piece, gameWindow):
+    def applyMove(self, move, moving_player, moving_piece):
         if "ep" in move:
             self.applyep(move, moving_player, moving_piece)
             return 0
@@ -67,7 +67,7 @@ class ChessBoard:
         moving_piece.updatePosition(x, y)
 
         if (moving_piece.__str__() == 'P' and move[0] == 0) or (moving_piece.__str__() == 'p' and move[0] == 7):
-            self.promote_pawn(x, y, moving_player, moving_piece, gameWindow) 
+            self.promote_pawn(x, y, moving_player, moving_piece) 
 
         if moving_piece.__str__() == 'k' or moving_piece.__str__() == 'K' or moving_piece.__str__() == 'R' or moving_piece.__str__() == 'r':
             moving_piece.update_has_moved(True)
@@ -93,22 +93,22 @@ class ChessBoard:
             self.board[moving_piece.getX()][3].updatePosition(moving_piece.getX(), 3)
             self.board[moving_piece.getX()][0] = None
     
-    def promote_pawn(self, x, y, moving_player, moving_piece, gameWindow):
+    def promote_pawn(self, x, y, moving_player, moving_piece):
         potential_pieces_w = [('R',(0, 0)), ('B', (50, 0)), ('N', (0, 50)), ('Q', (50, 50))]
         potential_pieces_b = [('r',(0, 0)), ('b', (50, 0)), ('n', (0, 50)), ('q', (50, 50))]
 
-        draw_board(gameWindow, self.board)
+        draw_board(self.board)
         #print("SELF PASS WORKED")
 
         colors = [white, lightgray]
         if moving_player.color == "white":
-            moving_player.change_square_color(gameWindow, (x, y), colors[y % 2])
+            moving_player.change_square_color((x, y), colors[y % 2])
             for i, start in potential_pieces_w:
-                gameWindow.blit(pieceImagesSmall[i], pygame.Rect((y*100) + start[1], (x*100) + start[0], 50, 50))
+                xyz.blit(pieceImagesSmall[i], pygame.Rect((y*100) + start[1], (x*100) + start[0], 50, 50))
         else:
-            moving_player.change_square_color(gameWindow, (x, y), colors[y % 2])
+            moving_player.change_square_color((x, y), colors[y % 2])
             for i, start in potential_pieces_b:
-                gameWindow.blit(pieceImagesSmall[i], pygame.Rect((y*100) + start[1], (x*100) + start[0], 50, 50))
+                xyz.blit(pieceImagesSmall[i], pygame.Rect((y*100) + start[1], (x*100) + start[0], 50, 50))
 
         pygame.display.flip()
         promote_selection = None

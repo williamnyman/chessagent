@@ -30,33 +30,37 @@ pieceImagesSmall = {
     'q': pygame.transform.scale(pygame.image.load('chessImages/bqueen.png'), (50, 50))
 }
 
+# Define universal gameWindow that will be used instead of gameWindow which is passed in redundantly
+xyz = pygame.display.set_mode((1200, 1000))
+pygame.display.set_caption("Will Nyman's Chess Game")
+
 # Define a function to draw pieces
 # chessboard is ChessBoard object of which the board variable is subscripted
-def draw_pieces(gameWindow, board):
+def draw_pieces(board):
     for row in range(8):
         for col in range(8):
             piece = board[row][col]
             if piece:
                 pieceCode = board[row][col].__str__()
-                gameWindow.blit(pieceImages[pieceCode], pygame.Rect((col*100) + 5, (row*100) + 5, 100, 100))
+                xyz.blit(pieceImages[pieceCode], pygame.Rect((col*100) + 5, (row*100) + 5, 100, 100))
 
 # draw tiles + lines + pieces
-def draw_board(gameWindow, board):
+def draw_board(board):
     for row in range(8):
         for col in range(8):
             rect = pygame.Rect((col*square_size), (row*square_size), square_size, square_size)
             if (row + col) % 2 == 0:
-                pygame.draw.rect(gameWindow, white, rect)
+                pygame.draw.rect(xyz, white, rect)
             else:
-                pygame.draw.rect(gameWindow, lightgray, rect)
-            pygame.draw.rect(gameWindow, black, rect, 1)
-    draw_pieces(gameWindow, board)
+                pygame.draw.rect(xyz, lightgray, rect)
+            pygame.draw.rect(xyz, black, rect, 1)
+    draw_pieces(board)
 
-def draw_lines(gameWindow):
+def draw_lines():
     for i in range(8):
         for j in range(8):
             rect = pygame.Rect((i*square_size), (j*square_size), square_size, square_size)
-            pygame.draw.rect(gameWindow, black, rect, 1)
+            pygame.draw.rect(xyz, black, rect, 1)
 
 
 def draw_all(): #DONT KNOW PARAMS YET

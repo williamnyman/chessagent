@@ -4,7 +4,7 @@ import random
 from chessPieces import Pawn, Rook, Knight, Bishop, Queen, King
 from chessColors import white, black, blue, lightblue, lightgray
 
-from chessUtility import pieceImages, draw_pieces
+from chessUtility import pieceImages, draw_pieces, xyz
                
 class Player:
     def __init__(self, color):
@@ -56,7 +56,7 @@ class Player:
                         pygame.event.clear()
                         return self.selectPiece(chessboard)
                     
-    def change_square_color(self, gameWindow, coord, color):
+    def change_square_color(self, coord, color):
         if coord == "castleR":
             if self.color == "white":
                 x, y = (7, 6)
@@ -70,10 +70,10 @@ class Player:
         else:
             x, y = coord
         rect = pygame.Rect(y*100, x*100, 100, 100)
-        pygame.draw.rect(gameWindow, color, rect)
+        pygame.draw.rect(xyz, color, rect)
 
     
-    def chooseMove(self, chessboard, gameWindow):
+    def chooseMove(self, chessboard):
         return self.make_random_move_choice(chessboard)
         
         print("MADE IT TO start of chooseMove func")
@@ -84,7 +84,7 @@ class Player:
 
         if not currMoves:
             currPiece = None
-            return self.chooseMove(chessboard, gameWindow)
+            return self.chooseMove(chessboard)
         
         for i in currMoves:
             print(f"Changing color of {i}")
@@ -102,10 +102,10 @@ class Player:
                 row, col = currPiece.x + 1, currPiece.y + 1
             else:
                 row, col = i
-            self.change_square_color(gameWindow, (row, col), blue)
+            self.change_square_color((row, col), blue)
             rect = pygame.Rect(col*100, row*100, 100, 100)
-            pygame.draw.rect(gameWindow, black, rect, 1)
-        draw_pieces(gameWindow, chessboard.board)
+            pygame.draw.rect(xyz, black, rect, 1)
+        draw_pieces(chessboard.board)
 
         pygame.display.flip()
 
@@ -148,21 +148,21 @@ class Player:
                             x, y = i
                             print(f"Changing color of {i}")
                             if (x + y) % 2 == 0:
-                                self.change_square_color(gameWindow, i, white)
+                                self.change_square_color(i, white)
                             else:
-                                self.change_square_color(gameWindow, i, lightgray)
+                                self.change_square_color(i, lightgray)
 
                         for i in range(8):
                             for j in range(8):
                                 rect = pygame.Rect(i*100, j*100, 100, 100)
-                                pygame.draw.rect(gameWindow, black, rect, 1)
-                        draw_pieces(gameWindow, chessboard.board)
+                                pygame.draw.rect(xyz, black, rect, 1)
+                        draw_pieces(chessboard.board)
 
 
                         pygame.display.flip()
 
                         currPiece = None
-                        return self.chooseMove(chessboard, gameWindow)
+                        return self.chooseMove(chessboard)
 
                     #clicked on nothing important should stay at move selection
                     print("looping again")

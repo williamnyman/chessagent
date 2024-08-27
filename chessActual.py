@@ -3,14 +3,9 @@ import sys
 from chessGame import ChessGame
 from chessColors import white, black, blue, lightblue, lightgray
 
-from chessUtility import pieceImages, draw_pieces, draw_board
-
+from chessUtility import pieceImages, draw_pieces, draw_board, xyz
 
 pygame.init()
-
-# make game window and title
-gameWindow = pygame.display.set_mode((1200, 1000))
-pygame.display.set_caption("Will Nyman's Chess Game")
 
 # Define the size of the squares
 square_size = 100
@@ -29,14 +24,14 @@ for i in range(5000):
             #print("Start of while loop")
             
             # Fill the background
-            gameWindow.fill(white)
+            xyz.fill(white)
 
-            draw_board(gameWindow, game1.gameboard.board)
+            draw_board(game1.gameboard.board)
 
             # Update the display
             pygame.display.flip()
 
-            game1.gameTurn(gameWindow)
+            game1.gameTurn()
             
         
     if game1.checkVictory().color == "white":
