@@ -72,6 +72,25 @@ class ChessBoard:
         if moving_piece.__str__() == 'k' or moving_piece.__str__() == 'K' or moving_piece.__str__() == 'R' or moving_piece.__str__() == 'r':
             moving_piece.update_has_moved(True)
 
+    def apply_temp_move(self, move, moving_player, moving_piece):
+        if "ep" in move:
+            self.applyep(move, moving_player, moving_piece)
+            return 0
+        
+        if "castle" in move:
+            self.applyCastle(move, moving_piece)
+            return 0
+        
+        x, y = move
+
+        if self.board[x][y]:
+            moving_player.addToCaptured(self.board[x][y])
+            
+        self.board[x][y] = moving_piece
+        self.board[moving_piece.getX()][moving_piece.getY()] = None
+
+        moving_piece.updatePosition(x, y)
+
     def applyCastle(self, move, moving_piece):
         #print(f"Applying castle or move {move} of piece {moving_piece.__str__()} done by player {moving_piece.color}")
 
@@ -90,7 +109,6 @@ class ChessBoard:
         potential_pieces_b = [('r',(0, 0)), ('b', (50, 0)), ('n', (0, 50)), ('q', (50, 50))]
 
         draw_board(self.board)
-        #print("SELF PASS WORKED")
 
         colors = [white, lightgray]
         if moving_player.color == "white":
@@ -107,12 +125,8 @@ class ChessBoard:
         #promote_selection = random.choice(('queen','rook','knight','bishop'))
 
         while not promote_selection:
-            #pygame.time.wait(100)
-            #print("MADE IT TO start of select piece")
             for event in pygame.event.get():
-                #print(f"FIRST LINE IN FOR LOOP event : {event}")
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    #print("PAST IF mouse down STATEMENT")
                     pos = pygame.mouse.get_pos()
                     col = pos[0] # -1?
                     row = pos[1] # -1?

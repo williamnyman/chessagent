@@ -65,3 +65,14 @@ def draw_lines():
 
 def draw_all(): #DONT KNOW PARAMS YET
     print("Draw all function!")
+
+def validate_move()
+    make a copy of the chessboard
+
+    apply the false move 
+
+    check for check
+    
+    if in check
+        
+    return false
