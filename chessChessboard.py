@@ -75,24 +75,16 @@ class ChessBoard:
     def applyCastle(self, move, moving_piece):
         #print(f"Applying castle or move {move} of piece {moving_piece.__str__()} done by player {moving_piece.color}")
 
-        if move == "castleR": #((moving_piece.getX(), 6))
-            self.board[moving_piece.getX()][6] = self.board[moving_piece.getX()][4]
-            print(f"about to update position of {self.board[moving_piece.getX()][6]}")
-            self.board[moving_piece.getX()][6].updatePosition(moving_piece.getX(),6)
-            self.board[moving_piece.getX()][4] = None
+        castleDict = {"castleR" : (6,4,5,7), "castleL" : (2,4,3,0)}
 
-            self.board[moving_piece.getX()][5] = self.board[moving_piece.getX()][7]
-            self.board[moving_piece.getX()][5].updatePosition(moving_piece.getX(), 5)
-            self.board[moving_piece.getX()][7] = None
-        else:
-            self.board[moving_piece.getX()][2] = self.board[moving_piece.getX()][4]
-            self.board[moving_piece.getX()][2].updatePosition(moving_piece.getX(), 2)
-            self.board[moving_piece.getX()][4] = None
+        self.board[moving_piece.getX()][castleDict[move][0]] = self.board[moving_piece.getX()][castleDict[move][1]]
+        self.board[moving_piece.getX()][castleDict[move][0]].updatePosition(moving_piece.getX(),castleDict[move][0])
+        self.board[moving_piece.getX()][castleDict[move][1]] = None
 
-            self.board[moving_piece.getX()][3] = self.board[moving_piece.getX()][0]
-            self.board[moving_piece.getX()][3].updatePosition(moving_piece.getX(), 3)
-            self.board[moving_piece.getX()][0] = None
-    
+        self.board[moving_piece.getX()][castleDict[move][2]] = self.board[moving_piece.getX()][castleDict[move][3]]
+        self.board[moving_piece.getX()][castleDict[move][2]].updatePosition(moving_piece.getX(), castleDict[move][2])
+        self.board[moving_piece.getX()][castleDict[move][3]] = None
+        
     def promote_pawn(self, x, y, moving_player, moving_piece):
         potential_pieces_w = [('R',(0, 0)), ('B', (50, 0)), ('N', (0, 50)), ('Q', (50, 50))]
         potential_pieces_b = [('r',(0, 0)), ('b', (50, 0)), ('n', (0, 50)), ('q', (50, 50))]
