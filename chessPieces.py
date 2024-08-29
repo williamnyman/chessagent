@@ -1,6 +1,7 @@
 #import chessVisuals
 import pygame
-
+import copy
+import chessPlayer
 
 class Piece:
     #initialize piece and set color to passed in color (either black or white)
@@ -26,7 +27,22 @@ class Piece:
         self.x = new_x
         self.y = new_y
 
-    
+    def validate_move(self, move, chessboard):
+        color = "white" if self.color == "white" else "black"
+        notcolor = "black" if self.color == "white" else "white"
+
+        copy_board = copy.deepcopy(chessboard)
+        playerTurnCopy = chessPlayer.Player(color) #import Player?
+        playerTurnCopy.populate_pieces(chessboard)
+        playerNotTurnCopy = chessPlayer.Player(notcolor)
+        playerNotTurnCopy.populate_pieces(chessboard)
+
+        copy_board.apply_temp_move(move, playerTurnCopy, self)
+
+        if copy_board.checkCheck(playerTurnCopy, playerNotTurnCopy):
+            return False
+        else:
+            return True
 
 class Pawn(Piece):
     def __init__(self, color, x, y):
@@ -79,8 +95,12 @@ class Pawn(Piece):
                         moves.append("epBR")
 
         # validate moves
-        
-        return moves
+        moves2 = []
+        for move in moves:
+            if self.validate_move(move, chessboard):
+                moves2.append(move)
+
+        return moves2
     
     def __str__(self):
         return 'P' if self.color == 'white' else 'p'
@@ -326,3 +346,4 @@ class King(Piece):
 
     def __str__(self):
         return 'K' if self.color == 'white' else 'k'
+

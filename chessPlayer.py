@@ -1,7 +1,7 @@
 #import chessVisuals
 import pygame
 import random
-from chessPieces import Pawn, Rook, Knight, Bishop, Queen, King
+#from chessPieces import Pawn, Rook, Knight, Bishop, Queen, King
 from chessColors import white, black, blue, lightblue, lightgray
 
 from chessUtility import pieceImages, draw_pieces, xyz
