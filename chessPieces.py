@@ -28,20 +28,28 @@ class Piece:
         self.y = new_y
 
     def validate_move(self, move, chessboard):
+        print(f"ATTEMPTING TO VALIDATE : {self.__str__()} move to {move}")
         color = "white" if self.color == "white" else "black"
         notcolor = "black" if self.color == "white" else "white"
 
+        copy_piece = copy.deepcopy(self)
+        print("piece copy created")
         copy_board = copy.deepcopy(chessboard)
+        print("validate board copy created")
+        copy_board.display()
+        
+
         playerTurnCopy = chessPlayer.Player(color) #import Player?
-        playerTurnCopy.populate_pieces(chessboard)
+        playerTurnCopy.populate_pieces(copy_board)
         playerNotTurnCopy = chessPlayer.Player(notcolor)
-        playerNotTurnCopy.populate_pieces(chessboard)
 
         copy_board.apply_temp_move(move, playerTurnCopy, self)
 
         if copy_board.checkCheck(playerTurnCopy, playerNotTurnCopy):
+            print(f"{self.__str__()} move to {move} NOT VALID returning False")
             return False
         else:
+            print(f"{self.__str__()} move to {move} VALID returning True")
             return True
 
 class Pawn(Piece):
