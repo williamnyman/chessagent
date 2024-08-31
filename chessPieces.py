@@ -42,8 +42,9 @@ class Piece:
         playerTurnCopy = chessPlayer.Player(color) #import Player?
         playerTurnCopy.populate_pieces(copy_board)
         playerNotTurnCopy = chessPlayer.Player(notcolor)
+        playerNotTurnCopy.populate_pieces(copy_board)
 
-        copy_board.apply_temp_move(move, playerTurnCopy, self)
+        copy_board.apply_temp_move(move, playerTurnCopy, copy_piece)
 
         if copy_board.checkCheck(playerTurnCopy, playerNotTurnCopy):
             print(f"{self.__str__()} move to {move} NOT VALID returning False")
