@@ -1,5 +1,4 @@
-- CURRENT TASK: check :)
-    - if the total legal moves while in check is None then game is won
+CURRENT TASK: if the total legal moves while in check is None then game is won
     
 - draws
 

@@ -40,7 +40,7 @@ for i in range(5000):
           bwins = bwins + 1
 
 #####################
-    print(f"{game1.checkVictory().color} wins!")
+    print(f"{game1.checkVictory().color} wins! -------------------------------")
 #####################
 
     # exit the game once !running, that condition will change when game is over

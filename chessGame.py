@@ -16,6 +16,7 @@ class ChessGame:
 
     def startGame(self):
         while not self.checkVictory():
+            print("about to do game turn")
             self.gameTurn()
         print(f"{self.checkVictory().color} player wins!")
         
@@ -53,3 +54,31 @@ class ChessGame:
 
     def checkVictory(self):
         return self.gameboard.boardVictory(self.playerwhite, self.playerblack)
+
+        if self.ticker >= 2:
+            print(f"ticker: {self.ticker}")
+            if self.ticker % 2 == 0:
+                playerTurn = self.playerwhite
+                playerNotTurn = self.playerblack
+            else:
+                playerTurn = self.playerblack
+                playerNotTurn = self.playerwhite
+
+            print(f"Player Turn = {playerTurn.color}")
+            print(f"Player Not Turn = {playerNotTurn.color}")
+
+
+            has_legal_moves = False
+            print(f"Player turn pieces = {playerTurn.pieces}")
+            for piece in playerTurn.pieces:
+                print(f"Current piece: {piece.__str__()}")
+                if piece.legal_moves_val(self.gameboard):
+                    print(f"Pieces legal moves are {piece.legal_moves_val(self.gameboard)}")
+                    has_legal_moves = True
+                    break
+
+            if not has_legal_moves:
+                return playerNotTurn
+        
+        return None
+
