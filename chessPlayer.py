@@ -78,7 +78,8 @@ class Player:
         
         print("MADE IT TO start of chooseMove func")
         currPiece = self.selectPiece(chessboard)
-        currMoves = currPiece.legal_moves(chessboard)
+        currMoves = currPiece.legal_moves_val(chessboard)
+        print("currPiece and currMoves established")
 
         print(currMoves)
 

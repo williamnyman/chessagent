@@ -14,6 +14,13 @@ class Piece:
     def legal_moves(self, board):
         raise NotImplementedError("This method should be overridden in derived classes")
     
+    def legal_moves_val(self, board):
+        legal_moves_val = []
+        for move in self.legal_moves(board):
+            if self.validate_move(move, board):
+                legal_moves_val.append(move)
+        return legal_moves_val
+
     def getX(self):
         return self.x
         
@@ -103,13 +110,7 @@ class Pawn(Piece):
                     if (chessboard.last_move[1], chessboard.last_move[2]) == ((self.x+2,self.y+1),(self.x,self.y+1)):
                         moves.append("epBR")
 
-        # validate moves
-        moves2 = []
-        for move in moves:
-            if self.validate_move(move, chessboard):
-                moves2.append(move)
-
-        return moves2
+        return moves
     
     def __str__(self):
         return 'P' if self.color == 'white' else 'p'

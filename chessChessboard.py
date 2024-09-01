@@ -187,8 +187,6 @@ class ChessBoard:
         
         return False
 
-
-
     def display(self):
         # Display the board
         for row in self.board:
