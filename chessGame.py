@@ -13,11 +13,20 @@ class ChessGame:
         self.playerwhite = Player('white')
         self.ticker = 0
         self.victor = None
+        self.victory = 0
 
     def startGame(self):
+        '''victory = False 
         while not self.checkVictory():
             #print("about to do game turn")
             self.gameTurn()
+        print(f"{self.checkVictory().color} player wins!")'''
+
+        while not self.victory:
+            #print("about to do game turn")
+            self.gameTurn()
+            if self.checkVictory():
+                self.victory = True 
         print(f"{self.checkVictory().color} player wins!")
         
     def gameTurn(self):
@@ -34,7 +43,11 @@ class ChessGame:
 
             self.playerwhite.populate_pieces(self.gameboard)
             selected_piece, chosen_move = self.playerwhite.chooseMove(self.gameboard)
-            self.gameboard.applyMove(chosen_move, self.playerwhite, selected_piece)
+            if (selected_piece , chosen_move) == (1,1):
+                self.victory = True
+            if self.gameboard.applyMove(chosen_move, self.playerwhite, selected_piece) == 1:
+                self.victory = True
+
 
         else:
             #print(f"Black in check: {self.gameboard.checkCheck(self.playerblack, self.playerwhite)}")
@@ -48,13 +61,14 @@ class ChessGame:
 
             self.playerblack.populate_pieces(self.gameboard)
             selected_piece, chosen_move = self.playerblack.chooseMove(self.gameboard)
-            self.gameboard.applyMove(chosen_move, self.playerblack, selected_piece)
+            if self.gameboard.applyMove(chosen_move, self.playerblack, selected_piece) == 1:
+                self.victory = 1
 
         self.ticker += 1
 
     def checkVictory(self):
         #return self.gameboard.boardVictory(self.playerwhite, self.playerblack)
-        pygame.time.wait(2000)
+        #pygame.time.wait(2000)
         if self.ticker >= 2:
             if self.ticker % 2 == 0:
                 playerTurn = self.playerwhite
@@ -86,7 +100,6 @@ class ChessGame:
                         break
 
                 if not has_legal_moves:
-                    pygame.time.wait(5000)
                     return playerNotTurn
         
             return None

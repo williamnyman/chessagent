@@ -30,10 +30,12 @@ class Player:
     def make_random_move_choice(self, chessboard):
         potential_moves = []
         for i in self.pieces:
-            for j in i.legal_moves(chessboard):
+            for j in i.legal_moves_val(chessboard):
                 potential_moves.append((i, j))
 
-        return random.choice(potential_moves)
+        if potential_moves:
+            return random.choice(potential_moves)
+        return 1, 1
 
     def selectPiece(self, chessboard):
         while True:
@@ -77,6 +79,7 @@ class Player:
 
     
     def chooseMove(self, chessboard):
+        #pygame.time.wait(2000)
         return self.make_random_move_choice(chessboard)
         
         print("MADE IT TO start of chooseMove func")

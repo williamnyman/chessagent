@@ -17,10 +17,15 @@ for i in range(5000):
 #####################
 
     game1 = ChessGame()
+    draw = False
     #print("GAME 1 is chessgame")
     #board1 = game1.gameboard.board
     #print("Board 1 = game1.gameboard.board")
     while not game1.checkVictory():
+            if game1.ticker > 1000:
+                draw = True
+                break
+
             #print("Start of while loop")
             
             # Fill the background
@@ -33,14 +38,19 @@ for i in range(5000):
 
             game1.gameTurn()
             
-        
-    if game1.checkVictory().color == "white":
-          wwins = wwins + 1
+       
+    if draw:
+          print("DRAW")
+
     else:
-          bwins = bwins + 1
+        if game1.checkVictory().color == "white":
+            wwins = wwins + 1
+        else:
+            bwins = bwins + 1
+        print(f"{game1.checkVictory().color} wins! -------------------------------")
+
 
 #####################
-    print(f"{game1.checkVictory().color} wins! -------------------------------")
 #####################
 
 # exit the game once !running, that condition will change when game is over

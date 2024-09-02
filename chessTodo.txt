@@ -1,4 +1,5 @@
 CURRENT TASK: if the total legal moves while in check is None then game is won
+    - must make move that takes player out of check
     
 - draws
 

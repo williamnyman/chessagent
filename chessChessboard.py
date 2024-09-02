@@ -55,8 +55,8 @@ class ChessBoard:
 
         #update moved pieces self.x and y coords
         x, y = move
-        #if self.board[x][y].__str__() in ('K', 'k'):
-            # moving player wins
+        if self.board[x][y].__str__() in ('K', 'k'):
+            return 1
             # the only way a player should be able to capture the king is if the other player was in check and had no legal moves to be made
         #if piece captured then add to captured pieces of moving player
         #if self.board[x][y]:
