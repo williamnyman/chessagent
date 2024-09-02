@@ -19,7 +19,10 @@ class Player:
     def getKingLocation(self):
         for i in self.pieces:
             if i.__str__() in ('K', 'k'):
+                #print(f"{i.__str__()} at {i.x, i.y}")
                 return (i.x, i.y)
+        
+        #print("UH OH")
 
     def populate_pieces(self, chessboard):
         self.pieces = chessboard.retrievePieces(self.color)

@@ -55,10 +55,12 @@ class ChessBoard:
 
         #update moved pieces self.x and y coords
         x, y = move
-    
+        if self.board[x][y].__str__() in ('K', 'k'):
+            pygame.time.wait(15000)
         #if piece captured then add to captured pieces of moving player
         if self.board[x][y]:
             moving_player.addToCaptured(self.board[x][y])
+
             
         #make moved-to location new piece and moved-from location None
         self.board[x][y] = moving_piece
@@ -130,8 +132,8 @@ class ChessBoard:
                     pos = pygame.mouse.get_pos()
                     col = pos[0] # -1?
                     row = pos[1] # -1?
-                    print(f"Clicked on  {col}, {row}")
-                    print("JUST GOT MOUSE POS")
+                    #print(f"Clicked on  {col}, {row}")
+                    #print("JUST GOT MOUSE POS")
                     #pygame.time.wait(1500)
 
                     if y * 100 < col and col < y * 100 + 50:
@@ -145,7 +147,7 @@ class ChessBoard:
                         elif x*100 + 50 < row and row < x*100 + 100:
                             promote_selection = "queen"
                     else:
-                        print("looping again")
+                        #print("looping again")
                         pygame.event.clear()
 
         promotion_dict = {'queen' : Queen(moving_player.color, x, y), 'rook' : Rook(moving_player.color, x, y), 'knight' : Knight(moving_player.color, x, y), 'bishop' : Bishop(moving_player.color, x, y)}
