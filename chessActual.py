@@ -43,7 +43,7 @@ for i in range(5000):
     print(f"{game1.checkVictory().color} wins! -------------------------------")
 #####################
 
-    # exit the game once !running, that condition will change when game is over
+# exit the game once !running, that condition will change when game is over
 print(f"White wins: {wwins}")
 print(f"Black wins: {bwins}")
 
