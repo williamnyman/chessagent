@@ -14,15 +14,16 @@ square_size = 100
 bwins = 0
 wwins = 0
 draws = 0
-for i in range(1000):
+for i in range(1):
 #####################
 
     game1 = ChessGame()
     draw = False
+    victory = False
     #print("GAME 1 is chessgame")
     #board1 = game1.gameboard.board
     #print("Board 1 = game1.gameboard.board")
-    while not game1.checkVictory():
+    while not victory:
             if game1.ticker > 500:
                 draw = True
                 break
@@ -38,6 +39,8 @@ for i in range(1000):
             pygame.display.flip()
 
             game1.gameTurn()
+            if game1.checkVictory():
+                 victory = True
             
        
     if draw:

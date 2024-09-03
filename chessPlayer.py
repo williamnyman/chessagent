@@ -34,8 +34,9 @@ class Player:
             print(i.__str__())
             for j in i.legal_moves_val(chessboard):
                 potential_moves.append((i, j))
+            print(f"potential moves: {potential_moves}")
 
-        return random.choice(potential_moves)
+        return random.choice(potential_moves) 
 
     def selectPiece(self, chessboard):
         while True:
