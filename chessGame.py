@@ -43,11 +43,7 @@ class ChessGame:
 
             self.playerwhite.populate_pieces(self.gameboard)
             selected_piece, chosen_move = self.playerwhite.chooseMove(self.gameboard)
-            if (selected_piece , chosen_move) == (1,1):
-                self.victory = True
-            if self.gameboard.applyMove(chosen_move, self.playerwhite, selected_piece) == 1:
-                self.victory = True
-
+            self.gameboard.applyMove(chosen_move, self.playerwhite, selected_piece)
 
         else:
             #print(f"Black in check: {self.gameboard.checkCheck(self.playerblack, self.playerwhite)}")
@@ -61,8 +57,7 @@ class ChessGame:
 
             self.playerblack.populate_pieces(self.gameboard)
             selected_piece, chosen_move = self.playerblack.chooseMove(self.gameboard)
-            if self.gameboard.applyMove(chosen_move, self.playerblack, selected_piece) == 1:
-                self.victory = 1
+            self.gameboard.applyMove(chosen_move, self.playerblack, selected_piece)
 
         self.ticker += 1
 

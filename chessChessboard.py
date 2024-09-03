@@ -46,6 +46,7 @@ class ChessBoard:
             self.applyep(move, moving_player, moving_piece)
             return 0
 
+        #print(f"moving_piece: {moving_piece}")
         move_initial = (moving_piece.x, moving_piece.y)
         self.last_move = (moving_piece, move_initial, move)
 
@@ -55,14 +56,7 @@ class ChessBoard:
 
         #update moved pieces self.x and y coords
         x, y = move
-        if self.board[x][y].__str__() in ('K', 'k'):
-            return 1
-            # the only way a player should be able to capture the king is if the other player was in check and had no legal moves to be made
-        #if piece captured then add to captured pieces of moving player
-        #if self.board[x][y]:
-            #moving_player.addToCaptured(self.board[x][y])
 
-            
         #make moved-to location new piece and moved-from location None
         self.board[x][y] = moving_piece
         self.board[moving_piece.getX()][moving_piece.getY()] = None

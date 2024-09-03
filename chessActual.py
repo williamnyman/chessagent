@@ -13,7 +13,8 @@ square_size = 100
 #####################
 bwins = 0
 wwins = 0
-for i in range(5000):
+draws = 0
+for i in range(1000):
 #####################
 
     game1 = ChessGame()
@@ -22,7 +23,7 @@ for i in range(5000):
     #board1 = game1.gameboard.board
     #print("Board 1 = game1.gameboard.board")
     while not game1.checkVictory():
-            if game1.ticker > 1000:
+            if game1.ticker > 500:
                 draw = True
                 break
 
@@ -40,6 +41,7 @@ for i in range(5000):
             
        
     if draw:
+          draws = draws + 1
           print("DRAW")
 
     else:
@@ -56,6 +58,7 @@ for i in range(5000):
 # exit the game once !running, that condition will change when game is over
 print(f"White wins: {wwins}")
 print(f"Black wins: {bwins}")
+print(f"Draws: {draws}")
 
 pygame.quit()
 sys.exit()
