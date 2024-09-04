@@ -72,21 +72,6 @@ class ChessGame:
                 playerTurn = self.playerblack
                 playerNotTurn = self.playerwhite
 
-
-            #this is supposed to be a check that if the other player is in check and I can move on to their king then i win
-            #but i somehow gotta check to see if it it applies after they make a move
-            #this obsiously results in a win because the piece that can move to the king spot is also the piece that is creating the check
-            #this is all to combat that the no moves win only occurs when it goes back to the persons turn and rather than when the moving player
-            #makes the winning move
-            '''if self.gameboard.checkCheck(playerNotTurn, playerTurn):
-                for piece in playerTurn.pieces:
-                    for move in piece.legal_moves(self.gameboard):
-                        if move == playerNotTurn.getKingLocation():
-                            return playerTurn'''
-
-            #if a player is in check and they have no moves they can make then they lose
-            #but this only occurs the next turn so a player can still capture a king
-            #could just leave the capture king thing?
             if self.gameboard.checkCheck(playerTurn, playerNotTurn):
                 has_legal_moves = False
                 for piece in playerTurn.pieces:
