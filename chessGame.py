@@ -41,7 +41,10 @@ class ChessGame:
 
             pygame.display.flip()
 
+            self.playerblack.populate_pieces(self.gameboard)
             self.playerwhite.populate_pieces(self.gameboard)
+            if self.checkVictory():
+                return True
             selected_piece, chosen_move = self.playerwhite.chooseMove(self.gameboard)
             self.gameboard.applyMove(chosen_move, self.playerwhite, selected_piece)
 
@@ -55,7 +58,10 @@ class ChessGame:
 
             pygame.display.flip()
 
+            self.playerwhite.populate_pieces(self.gameboard)
             self.playerblack.populate_pieces(self.gameboard)
+            if self.checkVictory():
+                return True
             selected_piece, chosen_move = self.playerblack.chooseMove(self.gameboard)
             self.gameboard.applyMove(chosen_move, self.playerblack, selected_piece)
 

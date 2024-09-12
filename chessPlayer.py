@@ -25,15 +25,18 @@ class Player:
         #print("UH OH")
 
     def populate_pieces(self, chessboard):
+        self.pieces = []
         self.pieces = chessboard.retrievePieces(self.color)
 
     def make_random_move_choice(self, chessboard):
         potential_moves = []
+        self.populate_pieces(chessboard)
         for i in self.pieces:
-            print(i.__str__())
             for j in i.legal_moves_val(chessboard):
                 potential_moves.append((i, j))
 
+        choice = random.choice(potential_moves)
+        print(f"{choice[0]} to {choice[1]}")
         return random.choice(potential_moves) 
 
     def selectPiece(self, chessboard):
@@ -79,7 +82,7 @@ class Player:
     
     def chooseMove(self, chessboard):
         #pygame.time.wait(2000)
-        #return self.make_random_move_choice(chessboard)
+        return self.make_random_move_choice(chessboard)
         
         print("MADE IT TO start of chooseMove func")
         currPiece = self.selectPiece(chessboard)
