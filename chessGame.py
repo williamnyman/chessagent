@@ -41,10 +41,8 @@ class ChessGame:
 
             pygame.display.flip()
 
-            self.playerblack.populate_pieces(self.gameboard)
+            
             self.playerwhite.populate_pieces(self.gameboard)
-            if self.checkVictory():
-                return True
             selected_piece, chosen_move = self.playerwhite.chooseMove(self.gameboard)
             self.gameboard.applyMove(chosen_move, self.playerwhite, selected_piece)
 
@@ -58,19 +56,20 @@ class ChessGame:
 
             pygame.display.flip()
 
-            self.playerwhite.populate_pieces(self.gameboard)
             self.playerblack.populate_pieces(self.gameboard)
-            if self.checkVictory():
-                return True
             selected_piece, chosen_move = self.playerblack.chooseMove(self.gameboard)
             self.gameboard.applyMove(chosen_move, self.playerblack, selected_piece)
 
+        if self.gameboard.reset:
+            self.ticker = self.ticker % 2
+            self.gameboard.flipReset()
+        
         self.ticker += 1
 
     def checkVictory(self):
         #return self.gameboard.boardVictory(self.playerwhite, self.playerblack)
         #pygame.time.wait(2000)
-        if self.ticker >= 2:
+        if True: #self.ticker >= 2:
             if self.ticker % 2 == 0:
                 playerTurn = self.playerwhite
                 playerNotTurn = self.playerblack
@@ -87,6 +86,17 @@ class ChessGame:
 
                 if not has_legal_moves:
                     return playerNotTurn
+                
+            if not self.gameboard.checkCheck(playerTurn, playerNotTurn):
+                has_legal_moves = False
+                for piece in playerTurn.pieces:
+                    if piece.legal_moves_val(self.gameboard):
+                        has_legal_moves = True
+                        break
+                
+                if not has_legal_moves:
+                    return "DRAW"
         
             return None
+        return None
 

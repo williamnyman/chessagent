@@ -16,6 +16,7 @@ class ChessBoard:
         self.board = [[None for _ in range(8)] for _ in range(8)]
         self.setup_board()
         self.last_move = None
+        self.reset = False
 
     def setup_board(self):
         # Initialize pieces on the board
@@ -43,6 +44,7 @@ class ChessBoard:
 
     def applyMove(self, move, moving_player, moving_piece):
         if "ep" in move:
+            self.flipReset()
             self.applyep(move, moving_player, moving_piece)
             return 0
 
@@ -56,6 +58,9 @@ class ChessBoard:
 
         #update moved pieces self.x and y coords
         x, y = move
+
+        if self.board[x][y] or moving_piece.__str__() in ('p','P'):
+            self.flipReset()
 
         #make moved-to location new piece and moved-from location None
         self.board[x][y] = moving_piece
@@ -189,3 +194,6 @@ class ChessBoard:
         for row in self.board:
             print(" ".join([str(piece) if piece else '.' for piece in row]))
         print()
+
+    def flipReset(self):
+        self.reset = not self.reset

@@ -25,19 +25,17 @@ class Player:
         #print("UH OH")
 
     def populate_pieces(self, chessboard):
-        self.pieces = []
         self.pieces = chessboard.retrievePieces(self.color)
+
 
     def make_random_move_choice(self, chessboard):
         potential_moves = []
-        self.populate_pieces(chessboard)
+        
+        # Collect all legal moves
         for i in self.pieces:
             for j in i.legal_moves_val(chessboard):
                 potential_moves.append((i, j))
-
-        choice = random.choice(potential_moves)
-        print(f"{choice[0]} to {choice[1]}")
-        return random.choice(potential_moves) 
+        return random.choice(potential_moves)
 
     def selectPiece(self, chessboard):
         while True:
@@ -53,13 +51,16 @@ class Player:
                     print(f"Clicked on column {col}, row {row}")
                     print("JUST GOT MOUSE POS")
                     #pygame.time.wait(1500)
+
+                    for i in self.pieces:
+                        print(f"{i.__str__()} at {i.x}, {i.y}")
                     
                     if chessboard.board[row][col] in self.pieces:
                         print(f"selected {chessboard.board[row][col]}")
                         pygame.event.clear()
                         return chessboard.board[row][col]
                     else:
-                        print("looping again")
+                        print("looping again piece")
                         pygame.event.clear()
                         return self.selectPiece(chessboard)
                     
