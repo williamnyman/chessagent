@@ -64,6 +64,8 @@ class ChessGame:
             self.ticker = self.ticker % 2
             self.gameboard.flipReset()
         
+        print(self.ticker)
+
         self.ticker += 1
 
     def checkVictory(self):

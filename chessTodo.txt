@@ -1,13 +1,10 @@
-CURRENT TASK: if the total legal moves while in check is None then game is won
-    - must make move that takes player out of check
-    
-- draws
-
 - ep is fucked up, can take piece by just moving to side when it is supposed to be taken by ep
-- int is not iterable when checking "ep" in move
+- (int is not iterable when checking "ep" in move) <- i think this is no longer an issue because everything is fixed
 
 - move grid, pics, clicks down so that it is not packed in to top left corner and make that work
 - add visuals: title, current instruction, quit button, pieces taken list?, etc.
     - change chessActual so it doenst just do one game, make running a game a function, etc...
 
+- go through and comment and clean up (list will come)
+- maybe look at some optimization
 
