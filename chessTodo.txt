@@ -2,7 +2,7 @@
 - (int is not iterable when checking "ep" in move) <- i think this is no longer an issue because everything is fixed
 
 - move grid, pics, clicks down so that it is not packed in to top left corner and make that work
-- add visuals: title, current instruction, quit button, pieces taken list?, etc.
+- add visuals: title, current instruction, quit button, etc.
     - change chessActual so it doenst just do one game, make running a game a function, etc...
 
 - go through and comment and clean up (list will come)
